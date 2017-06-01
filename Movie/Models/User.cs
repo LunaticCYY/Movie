@@ -22,15 +22,15 @@ namespace Movie.Models
         public string Email { get; set; }
         public int Privilege { get; set; }
     }
-    public class OracleDbContext : DbContext
+    public class UserDbContext : DbContext
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("SCOTT");
         }
         public DbSet<User> User { get; set; }
-        //public DbSet<Video> Video { get; set; }
-        //public DbSet<History> History { get; set; }
-        //public DbSet<Comment> Comment { get; set; }
+        /*public DbSet<Video> Video { get; set; }
+        public DbSet<History> History { get; set; }
+        public DbSet<Comment> Comment { get; set; }*/
     }
 }

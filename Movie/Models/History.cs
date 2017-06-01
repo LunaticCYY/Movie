@@ -20,4 +20,12 @@ namespace Movie.Models
         [Required]
         public string HistoryTime { get; set; }
     }
+    public class HistoryDbContext : DbContext
+    {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("SCOTT");
+        }
+        public DbSet<History> History { get; set; }
+    }
 }

@@ -22,4 +22,12 @@ namespace Movie.Models
         [Required]
         public string CommentTime { get; set; }
     }
+    public class CommentDbContext : DbContext
+    {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("SCOTT");
+        }
+        public DbSet<Comment> Comment { get; set; }
+    }
 }

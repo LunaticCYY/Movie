@@ -1,0 +1,42 @@
+﻿@model Movie.Models.History
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>History</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Uid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Uid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HistoryTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HistoryTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Hid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

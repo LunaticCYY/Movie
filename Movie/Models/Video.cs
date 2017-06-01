@@ -29,4 +29,12 @@ namespace Movie.Models
         [StringLength(200)]
         public string Vinfo { get; set; }
     }
+    public class VideoDbContext : DbContext
+    {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("SCOTT");
+        }
+        public DbSet<Video> Video { get; set; }
+    }
 }

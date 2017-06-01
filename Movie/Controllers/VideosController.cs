@@ -10,107 +10,107 @@ using Movie.Models;
 
 namespace Movie.Controllers
 {
-    public class UsersController : Controller
+    public class VideosController : Controller
     {
-        private UserDbContext db = new UserDbContext();
+        private VideoDbContext db = new VideoDbContext();
 
-        // GET: Users
+        // GET: Videos
         public ActionResult Index()
         {
-            return View(db.User.ToList());
+            return View(db.Video.ToList());
         }
 
-        // GET: Users/Details/5
+        // GET: Videos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
-            if (user == null)
+            Video video = db.Video.Find(id);
+            if (video == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(video);
         }
 
-        // GET: Users/Create
+        // GET: Videos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Videos/Create
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Uid,NickName,Password,Email,Privilege")] User user)
+        public ActionResult Create([Bind(Include = "Vid,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,Uid,Vinfo")] Video video)
         {
             if (ModelState.IsValid)
             {
-                db.User.Add(user);
+                db.Video.Add(video);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            return View(video);
         }
 
-        // GET: Users/Edit/5
+        // GET: Videos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
-            if (user == null)
+            Video video = db.Video.Find(id);
+            if (video == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(video);
         }
 
-        // POST: Users/Edit/5
+        // POST: Videos/Edit/5
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Uid,NickName,Password,Email,Privilege")] User user)
+        public ActionResult Edit([Bind(Include = "Vid,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,Uid,Vinfo")] Video video)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(video).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(video);
         }
 
-        // GET: Users/Delete/5
+        // GET: Videos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
-            if (user == null)
+            Video video = db.Video.Find(id);
+            if (video == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(video);
         }
 
-        // POST: Users/Delete/5
+        // POST: Videos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.User.Find(id);
-            db.User.Remove(user);
+            Video video = db.Video.Find(id);
+            db.Video.Remove(video);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

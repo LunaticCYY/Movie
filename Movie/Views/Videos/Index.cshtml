@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Movie.Models.Video>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vurl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Thumbnail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ViewedNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vtype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vinfo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vurl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Thumbnail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ViewedNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UploadTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vtype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vinfo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Vid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Vid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Vid })
+        </td>
+    </tr>
+}
+
+</table>
