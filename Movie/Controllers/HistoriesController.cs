@@ -12,12 +12,12 @@ namespace Movie.Controllers
 {
     public class HistoriesController : Controller
     {
-        private HistoryDbContext db = new HistoryDbContext();
+        private MovieContext db = new MovieContext();
 
         // GET: Histories
         public ActionResult Index()
         {
-            return View(db.History.ToList());
+            return View(db.Histories.ToList());
         }
 
         // GET: Histories/Details/5
@@ -27,7 +27,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            History history = db.History.Find(id);
+            History history = db.Histories.Find(id);
             if (history == null)
             {
                 return HttpNotFound();
@@ -46,11 +46,11 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Hid,Uid,Vid,HistoryTime")] History history)
+        public ActionResult Create([Bind(Include = "HistoryId,UserId,Vid,HistoryTime")] History history)
         {
             if (ModelState.IsValid)
             {
-                db.History.Add(history);
+                db.Histories.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            History history = db.History.Find(id);
+            History history = db.Histories.Find(id);
             if (history == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Hid,Uid,Vid,HistoryTime")] History history)
+        public ActionResult Edit([Bind(Include = "HistoryId,UserId,Vid,HistoryTime")] History history)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            History history = db.History.Find(id);
+            History history = db.Histories.Find(id);
             if (history == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            History history = db.History.Find(id);
-            db.History.Remove(history);
+            History history = db.Histories.Find(id);
+            db.Histories.Remove(history);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

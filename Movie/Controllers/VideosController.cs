@@ -12,12 +12,12 @@ namespace Movie.Controllers
 {
     public class VideosController : Controller
     {
-        private VideoDbContext db = new VideoDbContext();
+        private MovieContext db = new MovieContext();
 
         // GET: Videos
         public ActionResult Index()
         {
-            return View(db.Video.ToList());
+            return View(db.Videos.ToList());
         }
 
         // GET: Videos/Details/5
@@ -27,7 +27,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Video video = db.Video.Find(id);
+            Video video = db.Videos.Find(id);
             if (video == null)
             {
                 return HttpNotFound();
@@ -46,11 +46,11 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Vid,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,Uid,Vinfo")] Video video)
+        public ActionResult Create([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
             if (ModelState.IsValid)
             {
-                db.Video.Add(video);
+                db.Videos.Add(video);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Video video = db.Video.Find(id);
+            Video video = db.Videos.Find(id);
             if (video == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Vid,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,Uid,Vinfo")] Video video)
+        public ActionResult Edit([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Video video = db.Video.Find(id);
+            Video video = db.Videos.Find(id);
             if (video == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Video video = db.Video.Find(id);
-            db.Video.Remove(video);
+            Video video = db.Videos.Find(id);
+            db.Videos.Remove(video);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

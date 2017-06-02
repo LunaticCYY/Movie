@@ -12,12 +12,12 @@ namespace Movie.Controllers
 {
     public class CommentsController : Controller
     {
-        private CommentDbContext db = new CommentDbContext();
+        private MovieContext db = new MovieContext();
 
         // GET: Comments
         public ActionResult Index()
         {
-            return View(db.Comment.ToList());
+            return View(db.Comments.ToList());
         }
 
         // GET: Comments/Details/5
@@ -27,7 +27,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comment.Find(id);
+            Comment comment = db.Comments.Find(id);
             if (comment == null)
             {
                 return HttpNotFound();
@@ -46,11 +46,11 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Cid,Uid,Vid,Content,CommentTime")] Comment comment)
+        public ActionResult Create([Bind(Include = "CommentId,UserId,VideoId,Content,CommentTime")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                db.Comment.Add(comment);
+                db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comment.Find(id);
+            Comment comment = db.Comments.Find(id);
             if (comment == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Cid,Uid,Vid,Content,CommentTime")] Comment comment)
+        public ActionResult Edit([Bind(Include = "CommentId,UserId,VideoId,Content,CommentTime")] Comment comment)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Comment comment = db.Comment.Find(id);
+            Comment comment = db.Comments.Find(id);
             if (comment == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Comment comment = db.Comment.Find(id);
-            db.Comment.Remove(comment);
+            Comment comment = db.Comments.Find(id);
+            db.Comments.Remove(comment);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

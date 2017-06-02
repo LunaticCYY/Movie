@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -9,14 +10,16 @@ namespace Movie.Models
 {
     public class Video
     {
-        [Key]
-        public int Vid { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int VideoId { get; set; }
         [Required]
-        [StringLength(30)]
+        [StringLength(50)]
         public string Vname { get; set; }
         [Required]
+        [StringLength(100)]
         public string Vurl { get; set; }
         [Required]
+        [StringLength(100)]
         public string Thumbnail { get; set; }
         public int ViewedNum { get; set; }
         [DataType(DataType.Date)]
@@ -24,17 +27,10 @@ namespace Movie.Models
         [Required]
         public string UploadTime { get; set; }
         [Required]
+        [StringLength(50)]
         public string Vtype { get; set; }
-        public int Uid { get; set; }
+        public int UserId { get; set; }
         [StringLength(200)]
         public string Vinfo { get; set; }
-    }
-    public class VideoDbContext : DbContext
-    {
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.HasDefaultSchema("SCOTT");
-        }
-        public DbSet<Video> Video { get; set; }
     }
 }

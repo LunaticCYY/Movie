@@ -30,7 +30,7 @@
             @Html.DisplayNameFor(model => model.Vtype)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Uid)
+            @Html.DisplayNameFor(model => model.UserId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Vinfo)
@@ -59,15 +59,15 @@
             @Html.DisplayFor(modelItem => item.Vtype)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Uid)
+            @Html.DisplayFor(modelItem => item.UserId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Vinfo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Vid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Vid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Vid })
+            @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VideoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
         </td>
     </tr>
 }

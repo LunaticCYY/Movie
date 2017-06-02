@@ -12,12 +12,12 @@ namespace Movie.Controllers
 {
     public class UsersController : Controller
     {
-        private UserDbContext db = new UserDbContext();
+        private MovieContext db = new MovieContext();
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.User.ToList());
+            return View(db.Users.ToList());
         }
 
         // GET: Users/Details/5
@@ -27,7 +27,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -46,11 +46,20 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Uid,NickName,Password,Email,Privilege")] User user)
+        public ActionResult Create([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.User.Add(user);
+                var MaxId = db.Users.Select(p => p.UserId).Max();
+                if(MaxId!=0)
+                {
+                    user.UserId = MaxId + 1;
+                }
+                else
+                {
+                    user.UserId = 1;
+                }
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +74,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -78,7 +87,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Uid,NickName,Password,Email,Privilege")] User user)
+        public ActionResult Edit([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +105,7 @@ namespace Movie.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -109,8 +118,8 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.User.Find(id);
-            db.User.Remove(user);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
