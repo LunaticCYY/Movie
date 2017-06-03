@@ -32,5 +32,7 @@ namespace Movie.Models
         public int UserId { get; set; }
         [StringLength(200)]
         public string Vinfo { get; set; }
+
+        public string pic_url { get; set; }
     }
 }

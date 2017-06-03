@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -35,6 +36,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Vinfo)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.pic_url)
+        </th>
         <th></th>
     </tr>
 
@@ -63,6 +67,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Vinfo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pic_url)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) |

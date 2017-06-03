@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Web;
 
 namespace Movie.Models
@@ -22,7 +23,7 @@ namespace Movie.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("SCOTT");
-            modelBuilder.Entity<User>().Property(t => t.UserId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            modelBuilder.Entity<User>().Property(t => t.UserId) .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Video>().Property(t => t.VideoId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<History>().Property(t => t.HistoryId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Comment>().Property(t => t.CommentId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -35,5 +36,7 @@ namespace Movie.Models
         public System.Data.Entity.DbSet<Movie.Models.History> Histories { get; set; }
 
         public System.Data.Entity.DbSet<Movie.Models.Comment> Comments { get; set; }
+
+     
     }
 }

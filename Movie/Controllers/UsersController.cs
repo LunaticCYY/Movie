@@ -15,7 +15,7 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Users
-        public ActionResult Index()
+        public ActionResult List()
         {
             return View(db.Users.ToList());
         }
