@@ -50,6 +50,8 @@ namespace Movie.Controllers
         {
             if (ModelState.IsValid)
             {
+                var MaxId = db.Histories.Any() ? db.Histories.Max(p => p.HistoryId) : 0;
+                history.HistoryId = MaxId + 1;
                 db.Histories.Add(history);
                 db.SaveChanges();
                 return RedirectToAction("Index");

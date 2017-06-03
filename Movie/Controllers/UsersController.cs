@@ -50,6 +50,9 @@ namespace Movie.Controllers
         {
             if (ModelState.IsValid)
             {
+                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
+                user.UserId = MaxId + 1;
+                ModelState.AddModelError("", user.UserId.ToString());
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");

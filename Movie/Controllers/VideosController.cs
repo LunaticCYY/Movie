@@ -50,6 +50,8 @@ namespace Movie.Controllers
         {
             if (ModelState.IsValid)
             {
+                var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
+                video.VideoId = MaxId + 1;
                 db.Videos.Add(video);
                 db.SaveChanges();
                 return RedirectToAction("Index");

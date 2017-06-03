@@ -98,7 +98,7 @@ namespace Movie.Controllers
             var user = db.Users.Where(c => c.Email == model.Email).Where(c => c.Password == model.Password).FirstOrDefault();
             if (user != null)
             {
-                if(user.Privilege!=1)
+                if (user.Privilege != 1)
                 {
                     ModelState.AddModelError("", "抱歉，该用户没有权限");
                 }
@@ -111,7 +111,7 @@ namespace Movie.Controllers
             {
                 ModelState.AddModelError("", "用户名或密码错误");
             }
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
             //return View(model);
         }
         public ActionResult Register()
@@ -125,16 +125,8 @@ namespace Movie.Controllers
             if (ModelState.IsValid)
             {
                 var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
-                if (MaxId == 0)
-                {
-                    user.UserId = 1;
-                    user.Privilege = 1;
-                }
-                else
-                {
-                    user.UserId = MaxId + 1;
-                    user.Privilege = 1;
-                }
+                user.UserId = MaxId + 1;
+                user.Privilege = 1;
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Login", "Account");

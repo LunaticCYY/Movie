@@ -50,6 +50,8 @@ namespace Movie.Controllers
         {
             if (ModelState.IsValid)
             {
+                var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
+                comment.CommentId = MaxId + 1;
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
