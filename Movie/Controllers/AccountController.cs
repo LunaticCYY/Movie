@@ -124,7 +124,7 @@ namespace Movie.Controllers
         {
             if (ModelState.IsValid)
             {
-                var MaxId = db.Users.Select(p => p.UserId).Max();
+                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
                 if (MaxId == 0)
                 {
                     user.UserId = 1;

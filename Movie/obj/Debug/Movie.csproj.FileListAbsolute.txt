@@ -120,10 +120,4 @@ d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.X
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Xml.XmlDocument.dll
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Xml.XPath.dll
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Xml.XPath.XDocument.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.InitialCreate.resources
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.csproj.GenerateResource.Cache
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.movie.resources
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.movie1.resources
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.movie2.resources
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.movie3.resources
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.csprojResolveAssemblyReference.cache

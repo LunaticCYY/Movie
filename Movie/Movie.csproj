@@ -166,27 +166,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706021753005_InitialCreate.cs" />
-    <Compile Include="Migrations\201706021753005_InitialCreate.Designer.cs">
-      <DependentUpon>201706021753005_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706021757169_movie.cs" />
-    <Compile Include="Migrations\201706021757169_movie.Designer.cs">
-      <DependentUpon>201706021757169_movie.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706021803256_movie1.cs" />
-    <Compile Include="Migrations\201706021803256_movie1.Designer.cs">
-      <DependentUpon>201706021803256_movie1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706021808038_movie2.cs" />
-    <Compile Include="Migrations\201706021808038_movie2.Designer.cs">
-      <DependentUpon>201706021808038_movie2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706021811351_movie3.cs" />
-    <Compile Include="Migrations\201706021811351_movie3.Designer.cs">
-      <DependentUpon>201706021811351_movie3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\MovieContext.cs" />
@@ -233,6 +212,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
@@ -243,18 +224,16 @@
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Videos\Edit.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
-    <Content Include="Views\Comments\Create.cshtml" />
-    <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
-    <Content Include="Views\Comments\Edit.cshtml" />
-    <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\Histories\Create.cshtml" />
     <Content Include="Views\Histories\Delete.cshtml" />
     <Content Include="Views\Histories\Details.cshtml" />
     <Content Include="Views\Histories\Edit.cshtml" />
     <Content Include="Views\Histories\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -294,27 +273,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Main\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706021753005_InitialCreate.resx">
-      <DependentUpon>201706021753005_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021757169_movie.resx">
-      <DependentUpon>201706021757169_movie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021803256_movie1.resx">
-      <DependentUpon>201706021803256_movie1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021808038_movie2.resx">
-      <DependentUpon>201706021808038_movie2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706021811351_movie3.resx">
-      <DependentUpon>201706021811351_movie3.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
