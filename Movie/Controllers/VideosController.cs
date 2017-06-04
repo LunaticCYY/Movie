@@ -52,6 +52,8 @@ namespace Movie.Controllers
             {
                 var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
                 video.VideoId = MaxId + 1;
+                video.ViewedNum = 0;
+                video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
                 db.Videos.Add(video);
                 db.SaveChanges();
                 return RedirectToAction("Index");

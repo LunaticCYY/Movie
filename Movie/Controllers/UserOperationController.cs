@@ -24,15 +24,15 @@ namespace Movie.Controllers
 
         public ActionResult Detail(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             var vi = db.Videos.Find(id);
-            if (vi == null)
-            {
-                return HttpNotFound();
-            }
+            //if (vi == null)
+            //{
+            //    return HttpNotFound();
+            //}
             return View(vi);
         }
 

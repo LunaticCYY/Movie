@@ -1,7 +1,30 @@
 ﻿@model IEnumerable<Movie.Models.User>
 
 @{
-    ViewBag.Title = "Index";
+    if (Request.Cookies[2] != null)
+    {
+        HttpCookie hc = Request.Cookies[2];
+        ViewBag.Title = "欢迎"+hc.Name;
+    }
+    else
+    {
+        ViewBag.Title = 100;
+    }
+    for (int i = 0; i < Request.Cookies.Count; i++)
+    {
+        Response.Write("Cookie[" + i + "]的Name为：" + Request.Cookies[i].Name + "<br/>");
+        if (Request.Cookies[i].HasKeys)
+        {
+            for (int j = 0; j < Request.Cookies[i].Values.Count; j++)
+            {
+                Response.Write("Cookie[" + i + "][" + j + "]的Name为：" + Request.Cookies[i].Values.AllKeys[j] + "<br/>");
+                Response.Write("Cookie[" + i + "][" + j + "]的Value为：" + Request.Cookies[i].Values[j] + "<br/>");
+                //Request.Cookies[i].Expires = DateTime.Now.AddDays(-1D);
+                //Response.AppendCookie(Request.Cookies[i]);
+            }
+        }
+
+    }
 }
 @{ 
     Layout = "~/Views/Shared/_User.cshtml";
@@ -23,10 +46,10 @@
                 @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })     
             </div>
             <div class="item">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail")
+                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
             </div>
             <div class="item">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail")
+                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
             </div>
         </div>
         <!-- 轮播（Carousel）导航 -->
@@ -46,7 +69,7 @@
     <div class="row">
         <div class="col-lg-4">
             <a href="#">
-                <img class="img-circle" src="img/ (14).jpg" alt="Generic placeholder image" width="140" height="140">
+                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                 <h2>Heading</h2>
                 <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
             </a>
@@ -54,7 +77,7 @@
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <a href="#">
-                <img class="img-circle" src="img/ (14).jpg" alt="Generic placeholder image" width="140" height="140">
+                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                 <h2>Heading</h2>
                 <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
             </a>
@@ -62,7 +85,7 @@
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <a href="#">
-                <img class="img-circle" src="img/ (14).jpg" alt="Generic placeholder image" width="140" height="140">
+                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                 <h2>Heading</h2>
                 <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
             </a>
@@ -78,19 +101,19 @@
         <div class="col-md-7" style="padding-left: 0px;">
             <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>1</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>2</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>3</h4>
                     <p></p>
                 </a>
@@ -98,19 +121,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>4</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>5</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>6</h4>
                     <p></p>
                 </a>
@@ -118,19 +141,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%;float: left;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>7</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>8</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>9</h4>
                     <p></p>
                 </a>
@@ -152,19 +175,19 @@
         <div class="col-md-7 col-md-push-5" style="padding-right: 0px;">
             <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>1</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>2</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>3</h4>
                     <p></p>
                 </a>
@@ -172,19 +195,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>4</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>5</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>6</h4>
                     <p></p>
                 </a>
@@ -192,19 +215,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%;float: right;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>7</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>8</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>9</h4>
                     <p></p>
                 </a>
@@ -226,19 +249,19 @@
         <div class="col-md-7" style="padding-left: 0px;">
             <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>1</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>2</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>3</h4>
                     <p></p>
                 </a>
@@ -246,19 +269,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>4</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>5</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>6</h4>
                     <p></p>
                 </a>
@@ -266,19 +289,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%;float: left;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>7</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>8</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>9</h4>
                     <p></p>
                 </a>
@@ -300,19 +323,19 @@
         <div class="col-md-7 col-md-push-5" style="padding-right: 0px;">
             <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>1</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>2</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>3</h4>
                     <p></p>
                 </a>
@@ -320,19 +343,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>4</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>5</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>6</h4>
                     <p></p>
                 </a>
@@ -340,19 +363,19 @@
 
             <div class="col-lg-6" style="width: 33%; height: 33%;float: right;">
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>7</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>8</h4>
                     <p></p>
                 </a>
 
                 <a href="#">
-                    <img src="img/ (1).jpeg" style="width: 100%; height: 100%;" class="img-rounded">
+                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
                     <h4>9</h4>
                     <p></p>
                 </a>

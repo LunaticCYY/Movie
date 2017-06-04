@@ -18,6 +18,7 @@ namespace Movie.Controllers
 
         public ActionResult Login()
         {
+
             return View();
         }
         [HttpPost]
@@ -27,12 +28,19 @@ namespace Movie.Controllers
             var user = db.Users.Where(c => c.Email == model.Email).Where(c => c.Password == model.Password).FirstOrDefault();
             if (user != null)
             {
-                if(user.Privilege!=1)
+                
+                //HttpCookie mycoo = new HttpCookie("uid");
+                //mycoo.Path = "/UserOperation";
+                //mycoo.Value= user.UserId.ToString();
+                //mycoo.Expires = DateTime.Now.AddMinutes(1);
+                //Response.Cookies.Add(mycoo);
+                if (user.Privilege != 1)
                 {
-                    return RedirectToAction("Index","UserOperation");
+                    return RedirectToAction("Index", "UserOperation");
                 }
                 else
                 {
+
                     return RedirectToAction("List", "Users");
                 }
             }
@@ -40,7 +48,7 @@ namespace Movie.Controllers
             {
                 ModelState.AddModelError("", "用户名或密码错误");
             }
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
             //return View(model);
         }
         public ActionResult Register()
