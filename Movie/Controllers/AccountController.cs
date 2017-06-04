@@ -28,12 +28,12 @@ namespace Movie.Controllers
             var user = db.Users.Where(c => c.Email == model.Email).Where(c => c.Password == model.Password).FirstOrDefault();
             if (user != null)
             {
-                
-                //HttpCookie mycoo = new HttpCookie("uid");
-                //mycoo.Path = "/UserOperation";
-                //mycoo.Value= user.UserId.ToString();
-                //mycoo.Expires = DateTime.Now.AddMinutes(1);
-                //Response.Cookies.Add(mycoo);
+
+                HttpCookie mycoo = new HttpCookie("uid");
+                mycoo.Path = "/UserOperation";
+                mycoo.Value = user.UserId.ToString();
+                mycoo.Expires = DateTime.Now.AddMinutes(1);
+                Response.Cookies.Add(mycoo);
                 if (user.Privilege != 1)
                 {
                     return RedirectToAction("Index", "UserOperation");

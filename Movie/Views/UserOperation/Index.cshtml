@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Movie.Models.User>
 
 @{
-    if (Request.Cookies[2] != null)
+    if (Request.Cookies["uid"] != null)
     {
-        HttpCookie hc = Request.Cookies[2];
-        ViewBag.Title = "欢迎"+hc.Name;
+        HttpCookie hc = Request.Cookies["uid"];
+        ViewBag.Title = "欢迎"+hc.Value;
     }
     else
     {
