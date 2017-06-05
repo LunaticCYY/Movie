@@ -9,12 +9,22 @@ using System.Web;
 
 namespace Movie.Models
 {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    public class UniqueAttribute : ValidationAttribute
+    {
+    private static  MovieContext db = new MovieContext();
+        public override Boolean IsValid(Object value)
+        {
+            return !db.Users.Any(c => c.Email.Contains(value.ToString()));
+        }
+    }
     public class User
     {
+
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserId { get; set; }
         [Required]
-        [StringLength(16,MinimumLength = 3)]
+        [StringLength(16, MinimumLength = 3)]
         public string NickName { get; set; }
         [Required]
         [StringLength(16, MinimumLength = 6)]
@@ -22,6 +32,7 @@ namespace Movie.Models
         [Required]
         [StringLength(50)]
         [RegularExpression(@"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$")]
+        [Unique]
         public string Email { get; set; }
         [Required]
         public int Privilege { get; set; }

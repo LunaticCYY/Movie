@@ -49,17 +49,17 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
-            if (ModelState.IsValid)
-            {
-                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
-                user.UserId = MaxId + 1;
-                ModelState.AddModelError("", user.UserId.ToString());
-                user.Privilege = 0;
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("List");
-            }
-
+                if (ModelState.IsValid)
+                {
+                    var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
+                    user.UserId = MaxId + 1;
+                    ModelState.AddModelError("", user.UserId.ToString());
+                    user.Privilege = 0;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("List");
+                }
+            ModelState.AddModelError("", "邮箱已注册");
             return View(user);
         }
 
@@ -89,7 +89,7 @@ namespace Movie.Controllers
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             return View(user);
         }
@@ -106,7 +106,7 @@ namespace Movie.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View();
         }
 
         // POST: Users/Delete/5
@@ -117,16 +117,16 @@ namespace Movie.Controllers
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

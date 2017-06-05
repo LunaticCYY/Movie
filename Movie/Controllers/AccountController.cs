@@ -43,7 +43,7 @@ namespace Movie.Controllers
             {
                 ModelState.AddModelError("", "用户名或密码错误");
             }
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login");
             //return View(model);
         }
         public ActionResult Register()
@@ -54,7 +54,7 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
             {
                 var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
                 user.UserId = MaxId + 1;
@@ -63,6 +63,7 @@ namespace Movie.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Login", "Account");
             }
+            ModelState.AddModelError("", "邮箱已注册");
             return View(user);
         }
     }
