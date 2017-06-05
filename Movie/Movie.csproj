@@ -168,11 +168,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706051107035_InitialCreate.cs" />
+    <Compile Include="Migrations\201706051107035_InitialCreate.Designer.cs">
+      <DependentUpon>201706051107035_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\MovieContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Video.cs" />
+    <Compile Include="Models\VideoDetail.cs" />
     <Compile Include="MyHelpler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -260,10 +266,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706051107035_InitialCreate.resx">
+      <DependentUpon>201706051107035_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
