@@ -23,6 +23,7 @@ namespace Movie.Controllers
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -53,9 +54,10 @@ namespace Movie.Controllers
                 var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
                 user.UserId = MaxId + 1;
                 ModelState.AddModelError("", user.UserId.ToString());
+                user.Privilege = 0;
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
 
             return View(user);

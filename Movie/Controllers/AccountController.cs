@@ -28,12 +28,7 @@ namespace Movie.Controllers
             var user = db.Users.Where(c => c.Email == model.Email).Where(c => c.Password == model.Password).FirstOrDefault();
             if (user != null)
             {
-
-                HttpCookie mycoo = new HttpCookie("uid");
-                mycoo.Path = "/UserOperation";
-                mycoo.Value = user.UserId.ToString();
-                mycoo.Expires = DateTime.Now.AddMinutes(1);
-                Response.Cookies.Add(mycoo);
+                Response.Cookies.Add(Cookies.create_cookies(model));
                 if (user.Privilege != 1)
                 {
                     return RedirectToAction("Index", "UserOperation");
@@ -63,7 +58,7 @@ namespace Movie.Controllers
             {
                 var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
                 user.UserId = MaxId + 1;
-                user.Privilege = 1;
+                user.Privilege = 0;
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Login", "Account");
