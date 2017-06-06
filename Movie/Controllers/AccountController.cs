@@ -28,7 +28,7 @@ namespace Movie.Controllers
             var user = db.Users.Where(c => c.Email == model.Email).Where(c => c.Password == model.Password).FirstOrDefault();
             if (user != null)
             {
-                Response.Cookies.Add(Cookies.create_cookies(model));
+                Response.Cookies.Add(Cookies.create_cookies(user));
                 if (user.Privilege != 1)
                 {
                     return RedirectToAction("Index", "UserOperation");

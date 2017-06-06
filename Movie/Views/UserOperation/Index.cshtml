@@ -3,8 +3,7 @@
 @{
     if (Request.Cookies["uid"] != null)
     {
-        HttpCookie hc = Request.Cookies["uid"];
-        ViewBag.Title = "欢迎"+hc.Value;
+        ViewBag.Title = "欢迎"+ Request.Cookies["uid"].Value;
     }
     else
     {
@@ -12,18 +11,7 @@
     }
     for (int i = 0; i < Request.Cookies.Count; i++)
     {
-        Response.Write("Cookie[" + i + "]的Name为：" + Request.Cookies[i].Name + "<br/>");
-        if (Request.Cookies[i].HasKeys)
-        {
-            for (int j = 0; j < Request.Cookies[i].Values.Count; j++)
-            {
-                Response.Write("Cookie[" + i + "][" + j + "]的Name为：" + Request.Cookies[i].Values.AllKeys[j] + "<br/>");
-                Response.Write("Cookie[" + i + "][" + j + "]的Value为：" + Request.Cookies[i].Values[j] + "<br/>");
-                //Request.Cookies[i].Expires = DateTime.Now.AddDays(-1D);
-                //Response.AppendCookie(Request.Cookies[i]);
-            }
-        }
-
+        Response.Write("Cookie[" + i + "]的Name为：" + Request.Cookies[i].Value + "<br/>");
     }
 }
 @{ 
