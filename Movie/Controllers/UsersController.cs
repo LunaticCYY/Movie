@@ -59,7 +59,7 @@ namespace Movie.Controllers
                     db.SaveChanges();
                     return RedirectToAction("List");
                 }
-            ModelState.AddModelError("", "邮箱已注册");
+            
             return View(user);
         }
 

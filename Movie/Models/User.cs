@@ -32,7 +32,7 @@ namespace Movie.Models
         [Required]
         [StringLength(50)]
         [RegularExpression(@"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$")]
-        [Unique]
+        [Unique(ErrorMessage="邮箱已经被注册")]
         public string Email { get; set; }
         [Required]
         public int Privilege { get; set; }
