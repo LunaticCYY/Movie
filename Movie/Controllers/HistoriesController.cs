@@ -15,12 +15,14 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Histories
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Histories.ToList());
         }
 
         // GET: Histories/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace Movie.Controllers
         }
 
         // GET: Histories/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "HistoryId,UserId,Vid,HistoryTime")] History history)
         {
             if (ModelState.IsValid)
@@ -61,6 +65,7 @@ namespace Movie.Controllers
         }
 
         // GET: Histories/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -80,6 +85,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "HistoryId,UserId,Vid,HistoryTime")] History history)
         {
             if (ModelState.IsValid)
@@ -92,6 +98,7 @@ namespace Movie.Controllers
         }
 
         // GET: Histories/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,6 +116,7 @@ namespace Movie.Controllers
         // POST: Histories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             History history = db.Histories.Find(id);
@@ -116,7 +124,7 @@ namespace Movie.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -15,12 +15,14 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Users
+        [Authorize]
         public ActionResult List()
         {
             return View(db.Users.ToList());
         }
 
         // GET: Users/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
 
@@ -37,6 +39,7 @@ namespace Movie.Controllers
         }
 
         // GET: Users/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -47,23 +50,25 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
-                if (ModelState.IsValid)
-                {
-                    var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
-                    user.UserId = MaxId + 1;
-                    ModelState.AddModelError("", user.UserId.ToString());
-                    user.Privilege = 0;
-                    db.Users.Add(user);
-                    db.SaveChanges();
-                    return RedirectToAction("List");
-                }
-            
+            if (ModelState.IsValid)
+            {
+                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
+                user.UserId = MaxId + 1;
+                ModelState.AddModelError("", user.UserId.ToString());
+                user.Privilege = 0;
+                db.Users.Add(user);
+                db.SaveChanges();
+                return RedirectToAction("List");
+            }
+
             return View(user);
         }
 
         // GET: Users/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +87,7 @@ namespace Movie.Controllers
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
@@ -95,6 +101,7 @@ namespace Movie.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,6 +118,7 @@ namespace Movie.Controllers
 
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -120,13 +128,13 @@ namespace Movie.Controllers
             return RedirectToAction("List");
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

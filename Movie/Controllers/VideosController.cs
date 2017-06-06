@@ -15,12 +15,14 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Videos
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Videos.ToList());
         }
 
         // GET: Videos/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace Movie.Controllers
         }
 
         // GET: Videos/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -48,6 +51,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo,pic_url")] Video video)
         {
             if (ModelState.IsValid)
@@ -65,6 +69,7 @@ namespace Movie.Controllers
         }
 
         // GET: Videos/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -84,6 +89,7 @@ namespace Movie.Controllers
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo,pic_url")] Video video)
         {
             if (ModelState.IsValid)
@@ -96,6 +102,7 @@ namespace Movie.Controllers
         }
 
         // GET: Videos/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,6 +120,7 @@ namespace Movie.Controllers
         // POST: Videos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Video video = db.Videos.Find(id);
@@ -120,7 +128,7 @@ namespace Movie.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

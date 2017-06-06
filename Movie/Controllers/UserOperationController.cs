@@ -15,13 +15,13 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
 
-
+        [Authorize]
         // GET: UserOperation
         public ActionResult Index()
         {
             return View();
         }
-
+        [Authorize]
         public ActionResult Detail(int? id)
         {
             var vi = db.Videos.Find(id);
@@ -62,6 +62,7 @@ namespace Movie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Detail(VideoDetail Detail)
         {
             if (ModelState.IsValid)
