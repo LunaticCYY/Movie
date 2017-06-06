@@ -13,7 +13,7 @@ namespace Movie.Controllers
     public class UserOperationController : Controller
     {
         private MovieContext db = new MovieContext();
-
+        static private int vid;
 
 
         // GET: UserOperation
@@ -25,23 +25,39 @@ namespace Movie.Controllers
         public ActionResult Detail(int? id)
         {
             var vi = db.Videos.Find(id);
+            vid = vi.VideoId;
             VideoDetail detail = new VideoDetail();
             if (Request.Cookies["uid"] != null)
             {
                 //从cookie中获取当前用户uid
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
-                //创建播放历史记录
-                History history = new History();
-                var MaxId = db.Histories.Any() ? db.Histories.Max(p => p.HistoryId) : 0;
-                history.HistoryId = MaxId + 1;
-                history.UserId = uid;
-                history.Vid = vi.VideoId;
-                history.HistoryTime = DateTime.Now.ToString();
-                db.Histories.Add(history);
-                if (db.SaveChanges() != 1)
+                //从历史记录里查询是否有该用户
+                var history = db.Histories.Where(c => c.Vid == vi.VideoId).Where(c => c.UserId == uid).FirstOrDefault();
+                if (history!=null)
                 {
-                    ModelState.AddModelError("", "服务器错误");
+                    //如果有，则更新历史记录的时间
+                    history.HistoryTime = DateTime.Now.ToString();
+                    db.Entry(history).State = EntityState.Modified;
+                    if (db.SaveChanges() != 1)
+                    {
+                        ModelState.AddModelError("", "服务器错误");
+                    }
+                }
+                else
+                {
+                    //如果没有，则增加历史纪录
+                    History addHistory = new History();
+                    var MaxId = db.Histories.Any() ? db.Histories.Max(p => p.HistoryId) : 0;
+                    addHistory.HistoryId = MaxId + 1;
+                    addHistory.UserId = uid;
+                    addHistory.Vid = vi.VideoId;
+                    addHistory.HistoryTime = DateTime.Now.ToString();
+                    db.Histories.Add(addHistory);
+                    if (db.SaveChanges() != 1)
+                    {
+                        ModelState.AddModelError("", "服务器错误");
+                    }
                 }
                 //将当前视频的播放量加一
                 vi.ViewedNum = vi.ViewedNum + 1;
@@ -62,21 +78,28 @@ namespace Movie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Detail(VideoDetail Detail)
+        public ActionResult Detail(VideoDetail model)
         {
-            if (ModelState.IsValid)
+            Comment comment = new Comment();
+            var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
+            comment.CommentId = MaxId + 1;
+            if (Request.Cookies["uid"] != null)
             {
-                Comment comment = new Comment();
-                var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
-                comment.CommentId = MaxId + 1;
-                comment.UserId = Detail.UserId;
-                comment.VideoId = Detail.VideoId;
-                comment.Content = Detail.Content;
-                comment.CommentTime = DateTime.Now.ToString();
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return View();
+                //从cookie中获取当前用户uid
+                HttpCookie hc = Request.Cookies["uid"];
+                int uid = int.Parse(hc.Value);
+                comment.UserId = uid;
             }
+            else
+            {
+                comment.UserId = 0;
+            }
+            //comment.UserId = model.UserId;
+            comment.VideoId = vid;
+            comment.Content = model.Content;
+            comment.CommentTime = DateTime.Now.ToString();
+            db.Comments.Add(comment);
+            db.SaveChanges();
             return View();
         }
     }

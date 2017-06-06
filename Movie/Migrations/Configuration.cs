@@ -1,16 +1,16 @@
 namespace Movie.Migrations
 {
+    using Movie.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Movie.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Movie.Models.MovieContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "Movie.Models.MovieContext";
         }
 
@@ -24,9 +24,9 @@ namespace Movie.Migrations
                 Thumbnail = "img/1.jpg",
                 ViewedNum = 0,
                 UploadTime = "2017-6-5",
-                Vtype="Commedy",
-                UserId=1,
-                Vinfo="this is a test"
+                Vtype = "Commedy",
+                UserId = 1,
+                Vinfo = "this is a test"
             });
         }
     }

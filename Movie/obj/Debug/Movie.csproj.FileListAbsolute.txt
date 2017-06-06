@@ -418,7 +418,7 @@ C:\Users\tyy_m\Desktop\Movie\Movie\Movie\bin\zh-Hans\System.Web.WebPages.Razor.r
 C:\Users\tyy_m\Desktop\Movie\Movie\Movie\obj\Debug\Movie.csprojResolveAssemblyReference.cache
 C:\Users\tyy_m\Desktop\Movie\Movie\Movie\obj\Debug\Movie.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\Movie\obj\Debug\Movie.pdb
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.InitialCreate.resources
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.csproj.GenerateResource.Cache
 C:\Users\tyy_m\Desktop\Movie\Movie\obj\Debug\Movie.Migrations.InitialCreate.resources
 C:\Users\tyy_m\Desktop\Movie\Movie\obj\Debug\Movie.csproj.GenerateResource.Cache
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.InitialCreate.resources
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.csproj.GenerateResource.Cache
