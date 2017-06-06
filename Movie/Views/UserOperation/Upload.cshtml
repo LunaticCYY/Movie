@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Upload", "UserOperation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <h4>Select a file:</h4>
+        <input name="files" id="files" type="file" />
+        <label id="lbError">@ViewBag.ErrorMessage</label>
+        <input type="submit" name="submit" value="Upload" />
+    </div>
+}

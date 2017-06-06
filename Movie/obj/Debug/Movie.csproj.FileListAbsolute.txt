@@ -310,7 +310,6 @@ C:\Users\tyy_m\Desktop\Movie\Movie\bin\zh-Hans\System.Web.Razor.resources.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\bin\zh-Hans\System.Web.WebPages.resources.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\bin\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
-C:\Users\tyy_m\Desktop\Movie\Movie\obj\Debug\Movie.csprojResolveAssemblyReference.cache
 C:\Users\tyy_m\Desktop\Movie\Movie\obj\Debug\Movie.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\obj\Debug\Movie.pdb
 C:\Users\tyy_m\Desktop\Movie\Movie\Movie\bin\ApplicationInsights.config

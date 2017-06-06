@@ -263,6 +263,8 @@
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Videos\Edit.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\UserOperation\Upload.cshtml" />
+    <Content Include="Views\UserOperation\UploadResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

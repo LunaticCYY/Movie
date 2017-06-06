@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
+using System.IO;
 
 namespace Movie.Controllers
 {
@@ -98,6 +99,35 @@ namespace Movie.Controllers
             comment.CommentTime = DateTime.Now.ToString();
             db.Comments.Add(comment);
             db.SaveChanges();
+            return View();
+        }
+
+        public ActionResult Upload()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)
+        {
+            if (files == null || files.Count() == 0 || files.ToList()[0] == null)
+            {
+                ViewBag.ErrorMessage = "Please select a file!!";
+                return View();
+            }
+            string filePath = string.Empty;
+            Guid gid = Guid.NewGuid();
+            foreach (HttpPostedFileBase file in files)
+            {
+                filePath = Path.Combine(HttpContext.Server.MapPath("~/Image"), gid.ToString() + Path.GetExtension(file.FileName));
+                file.SaveAs(filePath);
+            }
+            return RedirectToAction("UploadResult", new { filePath = filePath });
+        }
+        public ActionResult UploadResult(string filePath)
+        {
+            ViewBag.FilePath = filePath;
             return View();
         }
     }
