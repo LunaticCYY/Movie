@@ -9,10 +9,10 @@
     {
         ViewBag.Title = 100;
     }
-    for (int i = 0; i < Request.Cookies.Count; i++)
+    /*for (int i = 0; i < Request.Cookies.Count; i++)
     {
         Response.Write("Cookie[" + i + "]的Name为：" + Request.Cookies[i].Value + "<br/>");
-    }
+    }*/
 }
 @{ 
     Layout = "~/Views/Shared/_User.cshtml";
@@ -21,7 +21,7 @@
 
 <div class="container marketing" align="center">
 
-    <div id="myCarousel" class="carousel slide" style="margin-top: 52px;">
+    <div id="myCarousel" class="carousel slide">
         <!-- 轮播（Carousel）指标 -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -31,13 +31,13 @@
         <!-- 轮播（Carousel）项目 -->
         <div class="carousel-inner">
             <div class="item active">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })     
+                @Html.ActionLinkWithImage(Url.Content("~/Image/2.jpg"), "Detail","UserOperation",new { id = 1 })     
             </div>
             <div class="item">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
+                @Html.ActionLinkWithImage(Url.Content("~/Image/2.jpg"), "Detail","UserOperation",new { id = 1 })
             </div>
             <div class="item">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
+                @Html.ActionLinkWithImage(Url.Content("~/Image/2.jpg"), "Detail","UserOperation",new { id = 1 })
             </div>
         </div>
         <!-- 轮播（Carousel）导航 -->
@@ -149,7 +149,7 @@
         </div>
         <div class="col-md-5">
             <a href="#">
-                <img class="featurette-image img-responsive center-block" src="img/ (12).jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
+                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
                 <h2>10</h2>
                 <p></p>
             </a>
@@ -223,7 +223,7 @@
         </div>
         <div class="col-md-5 col-md-pull-7">
             <a href="#">
-                <img class="featurette-image img-responsive center-block" src="img/ (12).jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
+                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
                 <h2>10</h2>
                 <p></p>
             </a>
@@ -297,7 +297,7 @@
         </div>
         <div class="col-md-5">
             <a href="#">
-                <img class="featurette-image img-responsive center-block" src="img/ (12).jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
+                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
                 <h2>10</h2>
                 <p></p>
             </a>
@@ -371,19 +371,10 @@
         </div>
         <div class="col-md-5 col-md-pull-7">
             <a href="#">
-                <img class="featurette-image img-responsive center-block" src="img/ (12).jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
+                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
                 <h2>10</h2>
                 <p></p>
             </a>
         </div>
     </div>
-
-    <!-- /END THE FEATURETTES -->
-    <hr class="featurette-divider">
-
-    <!-- FOOTER -->
-    <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017 Movie, 第一小组. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-    </footer>
 </div><!-- /.container -->

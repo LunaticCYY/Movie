@@ -7,12 +7,12 @@ namespace Movie.Models
 {
     public class VideoDetail
     {
-        public int VideoId { get; set; }
-        public string Vname { get; set; }
-        public int ViewedNum { get; set; }
-        public int CommentNum { get; set; }
-        public int UserId { get; set; }
-        public string Content { get; set; }
-        public string CommentTime { get; set; }
+        public int VideoId { get; set; }//视频编号
+        public string Vname { get; set; }//视频名称
+        public int ViewedNum { get; set; }//播放次数
+        public int CommentNum { get; set; }//评论个数
+        public int UserId { get; set; }//用户编号
+        public string Content { get; set; }//评论内容
+        public string CommentTime { get; set; }//评论时间
     }
 }

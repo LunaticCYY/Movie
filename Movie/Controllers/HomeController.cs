@@ -8,11 +8,13 @@ namespace Movie.Controllers
 {
     public class HomeController : Controller
     {
+        // 首页
         public ActionResult Index()
         {
             return View();
         }
 
+        // 关于
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -20,6 +22,7 @@ namespace Movie.Controllers
             return View();
         }
 
+        //联系
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

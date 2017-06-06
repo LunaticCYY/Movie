@@ -15,7 +15,7 @@ namespace Movie.Controllers
     {
         private MovieContext db = new MovieContext();
         static private int vid;
-        // GET: UserOperation
+
         public ActionResult Index()
         {
             return View();
@@ -32,7 +32,7 @@ namespace Movie.Controllers
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
                 //从历史记录里查询是否有该用户
-                var history = db.Histories.Where(c => c.Vid == vi.VideoId).Where(c => c.UserId == uid).FirstOrDefault();
+                var history = db.Histories.Where(c => c.VideoId == vi.VideoId).Where(c => c.UserId == uid).FirstOrDefault();
                 if (history != null)
                 {
                     //如果有，则更新历史记录的时间
@@ -50,7 +50,7 @@ namespace Movie.Controllers
                     var MaxId = db.Histories.Any() ? db.Histories.Max(p => p.HistoryId) : 0;
                     addHistory.HistoryId = MaxId + 1;
                     addHistory.UserId = uid;
-                    addHistory.Vid = vi.VideoId;
+                    addHistory.VideoId = vi.VideoId;
                     addHistory.HistoryTime = DateTime.Now.ToString();
                     db.Histories.Add(addHistory);
                     if (db.SaveChanges() != 1)
@@ -93,7 +93,6 @@ namespace Movie.Controllers
             {
                 comment.UserId = 0;
             }
-            //comment.UserId = model.UserId;
             comment.VideoId = vid;
             comment.Content = model.Content;
             comment.CommentTime = DateTime.Now.ToString();
@@ -106,7 +105,6 @@ namespace Movie.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)

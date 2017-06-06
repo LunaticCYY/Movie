@@ -20,21 +20,19 @@ namespace Movie.Models
     }
     public class User
     {
-
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int UserId { get; set; }
+        public int UserId { get; set; }//用户编号
         [Required]
         [StringLength(16, MinimumLength = 3)]
-        public string NickName { get; set; }
+        public string NickName { get; set; }//用户昵称
         [Required]
         [StringLength(16, MinimumLength = 6)]
-        public string Password { get; set; }
+        public string Password { get; set; }//用户密码
         [Required]
         [StringLength(50)]
         [RegularExpression(@"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$")]
         [Unique(ErrorMessage="邮箱已经被注册")]
-        public string Email { get; set; }
+        public string Email { get; set; }//用户邮箱
         [Required]
-        public int Privilege { get; set; }
+        public int Privilege { get; set; }//用户权限
     }
 }

@@ -12,17 +12,16 @@ namespace Movie.Controllers
 {
     public class VideosController : Controller
     {
+        // 数据库连接
         private MovieContext db = new MovieContext();
 
-        // GET: Videos
-
+        // 视频首页
         public ActionResult Index()
         {
             return View(db.Videos.ToList());
         }
 
-        // GET: Videos/Details/5
-
+        // 视频具体信息
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,34 +36,23 @@ namespace Movie.Controllers
             return View(video);
         }
 
-        // GET: Videos/Create
-
         public ActionResult Create()
         {
             return View();
         }
-
-
-
-        // POST: Videos/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
+        
+        // 创建视频Action
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public ActionResult Create([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo,pic_url")] Video video)
+        public ActionResult Create([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
-
-                var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
-                video.VideoId = MaxId + 1;
-                video.ViewedNum = 0;
-                video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
-                db.Videos.Add(video);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            
-
-           // return View(video);
+            var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
+            video.VideoId = MaxId + 1;
+            video.ViewedNum = 0;
+            video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
+            db.Videos.Add(video);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Videos/Edit/5
@@ -83,13 +71,11 @@ namespace Movie.Controllers
             return View(video);
         }
 
-        // POST: Videos/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
+        // 编辑视频信息Action
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Edit([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo,pic_url")] Video video)
+        public ActionResult Edit([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
             if (ModelState.IsValid)
             {
@@ -116,10 +102,9 @@ namespace Movie.Controllers
             return View(video);
         }
 
-        // POST: Videos/Delete/5
+        // 删除视频信息Action
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-
         public ActionResult DeleteConfirmed(int id)
         {
             Video video = db.Videos.Find(id);

@@ -29,13 +29,13 @@ namespace Movie.Models
             modelBuilder.Entity<Comment>().Property(t => t.CommentId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
 
-        public System.Data.Entity.DbSet<Movie.Models.User> Users { get; set; }
+        public System.Data.Entity.DbSet<Movie.Models.User> Users { get; set; }//Users表
 
-        public System.Data.Entity.DbSet<Movie.Models.Video> Videos { get; set; }
+        public System.Data.Entity.DbSet<Movie.Models.Video> Videos { get; set; }//Videos表
 
-        public System.Data.Entity.DbSet<Movie.Models.History> Histories { get; set; }
+        public System.Data.Entity.DbSet<Movie.Models.History> Histories { get; set; }//Histories表
 
-        public System.Data.Entity.DbSet<Movie.Models.Comment> Comments { get; set; }
+        public System.Data.Entity.DbSet<Movie.Models.Comment> Comments { get; set; }//Comments表
 
      
     }
