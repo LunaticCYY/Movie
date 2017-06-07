@@ -157,8 +157,50 @@ namespace Movie.Controllers
                 return Content("上传异常 ！", "text/plain");
             }
         }
+        public ActionResult UserMessage()
+        {
+            if (Request.Cookies["uid"] != null)
+            {
+                HttpCookie hc = Request.Cookies["uid"];
+                int uid = int.Parse(hc.Value);
+                var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
+                return View(user);
+            }
+            return View();
+        }
 
+        public ActionResult UploadRecord()
+        {
+            if (Request.Cookies["uid"] != null)
+            {
+                HttpCookie hc = Request.Cookies["uid"];
+                int uid = int.Parse(hc.Value);
+                var video = db.Videos.Where(c => c.UserId == uid);
+                return View(video);
+            }
+            return View();
+        }
 
-
+        public ActionResult ViewRecord()
+        {
+            if (Request.Cookies["uid"] != null)
+            {
+                HttpCookie hc = Request.Cookies["uid"];
+                int uid = int.Parse(hc.Value);
+                var history = db.Histories.Where(c => c.UserId == uid);
+                List<HistoryDetail> historyDetail = new List<HistoryDetail>();
+                foreach (var item in history)
+                {
+                    HistoryDetail detail = new HistoryDetail();
+                    var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
+                    detail.VideoId = item.VideoId;
+                    detail.Vname = video.Vname;
+                    detail.HistoryTime = item.HistoryTime;
+                    historyDetail.Add(detail);
+                }
+                return View(historyDetail);
+            }
+            return View();
+        }
     }
 }

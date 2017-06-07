@@ -29,7 +29,16 @@
 
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("历史", "History", "UserOperation")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("查看个人信息", "UserMessage", "UserOperation")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("查看上传记录", "UploadRecord", "UserOperation")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("查看播放记录", "ViewRecord", "UserOperation")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("投稿", "Upload", "UserOperation")</li>
                 </ul>
             </div>

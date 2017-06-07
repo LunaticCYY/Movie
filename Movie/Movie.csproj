@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\History.cs" />
+    <Compile Include="Models\HistoryDetail.cs" />
     <Compile Include="Models\MovieContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Video.cs" />
@@ -234,7 +235,6 @@
     <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\UserOperation\Index.cshtml" />
     <Content Include="Views\Shared\_User.cshtml" />
-    <Content Include="Views\UserOperation\History.cshtml" />
     <Content Include="Views\UserOperation\Detail.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
@@ -260,6 +260,9 @@
     <Content Include="Views\Videos\Index.cshtml" />
     <Content Include="Views\Videos\Search.cshtml" />
     <Content Include="Views\UserOperation\Upload.cshtml" />
+    <Content Include="Views\UserOperation\UploadRecord.cshtml" />
+    <Content Include="Views\UserOperation\UserMessage.cshtml" />
+    <Content Include="Views\UserOperation\ViewRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
