@@ -77,6 +77,7 @@ namespace Movie.Controllers
             var CommentQuery = db.Comments.Where(c => c.VideoId == vi.VideoId);
             int CommentCount = CommentQuery.Count();
             detail.CommentNum = CommentCount;
+            detail.Vurl = vi.Vurl;
             return View(detail);
         }
 

@@ -19,7 +19,7 @@ namespace Movie
                 // 设置cookie的值
                 mycoo.Value = user.UserId.ToString();
                 // 设置cookie的存在时间
-                mycoo.Expires = DateTime.Now.AddMinutes(1);
+                mycoo.Expires = DateTime.Now.AddMinutes(5);
                 return mycoo;
             }
             // 如果用户的权限值不为0，即管理员
@@ -29,7 +29,7 @@ namespace Movie
                 // 设置cookie的有效路径为全局
                 mycoo.Path = "/";
                 mycoo.Value = user.UserId.ToString();
-                mycoo.Expires = DateTime.Now.AddMinutes(1);
+                mycoo.Expires = DateTime.Now.AddMinutes(5);
                 return mycoo;
             }
             

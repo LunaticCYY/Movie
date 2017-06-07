@@ -14,5 +14,7 @@ namespace Movie.Models
         public int UserId { get; set; }//用户编号
         public string Content { get; set; }//评论内容
         public string CommentTime { get; set; }//评论时间
+
+        public string Vurl { get; set; }//电影存放地址
     }
 }
