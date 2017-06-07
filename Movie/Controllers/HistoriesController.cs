@@ -16,9 +16,20 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // Index.cshtml返回所有历史记录
-        public ActionResult Index()
+        public ActionResult Index(string UserId, string VideoId)
         {
-            return View(db.Histories.ToList());
+            var history = from m in db.Histories select m;
+            if (!String.IsNullOrEmpty(UserId))
+            {
+                int uid = int.Parse(UserId);
+                history = history.Where(s => s.UserId == uid);
+            }
+            if (!String.IsNullOrEmpty(VideoId))
+            {
+                int vid = int.Parse(VideoId);
+                history = history.Where(s => s.VideoId == vid);
+            }
+            return View(history);
         }
 
         // Detail.cshtml 获取某个HistoryId显示某个历史记录的详细信息

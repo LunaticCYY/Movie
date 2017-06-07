@@ -8,6 +8,15 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm("List", "Users", FormMethod.Get))
+    {
+    <p>
+        昵称: @Html.TextBox("NickName")
+        &nbsp;&nbsp;
+        邮箱: @Html.TextBox("Email")
+        <input type="submit" value="Filter" />
+    </p>
+    }
 </p>
 <table class="table">
     <tr>

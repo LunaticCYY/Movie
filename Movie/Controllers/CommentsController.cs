@@ -16,11 +16,20 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // Index.cshtml返回所有评论
-        public ActionResult Index()
+        public ActionResult Index(string UserId, string VideoId)
         {
-
-             return View(db.Comments.ToList());
-
+            var comments = from m in db.Comments select m;
+            if (!String.IsNullOrEmpty(UserId))
+            {
+                int uid = int.Parse(UserId);
+                comments = comments.Where(s => s.UserId == uid);
+            }
+            if (!String.IsNullOrEmpty(VideoId))
+            {
+                int vid = int.Parse(VideoId);
+                comments = comments.Where(s => s.VideoId == vid);
+            }
+            return View(comments);
         }
 
         // Detail.cshtml 获取某个CommentId显示某个评论的详细信息

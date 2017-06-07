@@ -16,9 +16,18 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // List.cshtml 显示用户表的所有内容
-        public ActionResult List()
+        public ActionResult List(string NickName, string Email)
         {
-            return View(db.Users.ToList());
+            var users = from m in db.Users select m;
+            if (!String.IsNullOrEmpty(NickName))
+            {
+                users = users.Where(s => s.NickName.Contains(NickName));
+            }
+            if (!string.IsNullOrEmpty(Email))
+            {
+                users = users.Where(s => s.Email.Contains(Email));
+            }
+            return View(users);
         }
 
         // Detail.cshtml 获取某个UserId显示某个用户的详细信息

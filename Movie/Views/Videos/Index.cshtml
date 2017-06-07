@@ -9,6 +9,14 @@
 
 <p>
     @Html.ActionLink("Upload", "Upload")
+    @using (Html.BeginForm("Index", "Videos", FormMethod.Get))
+    {
+    <p>
+        Type: @Html.DropDownList("Vtype", "All")
+        Title: @Html.TextBox("Vname")
+        <input type="submit" value="Filter" />
+    </p>
+    }
 </p>
 <table class="table">
     <tr>

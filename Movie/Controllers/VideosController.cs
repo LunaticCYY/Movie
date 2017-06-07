@@ -17,9 +17,22 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // 视频首页
-        public ActionResult Index()
+        public ActionResult Index(string Vtype, string Vname)
         {
-            return View(db.Videos.ToList());
+            var TypeList = new List<string>();
+            var TypeQuery = from d in db.Videos orderby d.Vtype select d.Vtype;
+            TypeList.AddRange(TypeQuery.Distinct());
+            ViewBag.Vtype = new SelectList(TypeList);
+            var videos = from m in db.Videos select m;
+            if (!String.IsNullOrEmpty(Vname))
+            {
+                videos = videos.Where(s => s.Vname.Contains(Vname));
+            }
+            if (!String.IsNullOrEmpty(Vtype))
+            {
+                videos = videos.Where(s => s.Vtype == Vtype);
+            }
+            return View(videos);
         }
 
         // 视频具体信息

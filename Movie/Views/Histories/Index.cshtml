@@ -5,6 +5,17 @@
 }
 
 <h2>Index</h2>
+<p>
+    @using (Html.BeginForm("Index", "Histories", FormMethod.Get))
+    {
+    <p>
+        用户编号: @Html.TextBox("UserId")
+        &nbsp;&nbsp;
+        视频编号: @Html.TextBox("VideoId")
+        <input type="submit" value="Filter" />
+    </p>
+    }
+</p>
 
 
 <table class="table">
