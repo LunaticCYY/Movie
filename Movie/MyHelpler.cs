@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 namespace System.Web.Mvc
 {
+    // 构造图片链接
     public static class MyHelpler
     {
         public static MvcHtmlString ActionLinkWithImage(this HtmlHelper html, string imgSrc, string actionName)
