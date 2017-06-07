@@ -1,15 +1,85 @@
 ﻿
 @{
     ViewBag.Title = "Upload";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_User.cshtml";
 }
+
+@model Movie.Models.Video
+
 
 @using (Html.BeginForm("Upload", "UserOperation", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div>
-        <h4>Select a file:</h4>
-        <input name="files" id="files" type="file" />
-        <label id="lbError">@ViewBag.ErrorMessage</label>
-        <input type="submit" name="submit" value="Upload" />
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Video</h4>
+        <hr />
+
+        <div class="form-group">
+            请先填写要上传电影的基本信息
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Vurl)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Vurl, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Vurl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Vurl, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @Html.HiddenFor(model => model.Thumbnail)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Thumbnail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Thumbnail, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vtype, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vtype, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vtype, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.UserId)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vinfo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vinfo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vinfo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <span>上传视频的图片</span>
+        <input type="file" name="file2" />
+        <span>上传视频</span>
+        <input type="file" name="file1" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="ButtonUpload" value="Upload" class="btn btn-default" />
+            </div>
+        </div>
     </div>
 }
+
+
+

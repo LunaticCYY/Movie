@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Upload", "Upload")
 </p>
 <table class="table">
     <tr>
@@ -66,7 +66,6 @@
             @Html.DisplayFor(modelItem => item.Vinfo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.VideoId }) |
             @Html.ActionLink("Details", "Details", new { id=item.VideoId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
         </td>

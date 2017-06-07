@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
+using System.IO;
 
 namespace Movie.Controllers
 {
@@ -36,7 +37,7 @@ namespace Movie.Controllers
             return View(video);
         }
 
-        public ActionResult Create()
+        public ActionResult Upload()
         {
             return View();
         }
@@ -44,54 +45,55 @@ namespace Movie.Controllers
         // 创建视频Action
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
+        public ActionResult Upload(HttpPostedFileBase file2,HttpPostedFileBase file1,[Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
+            if(file1==null)
+            {
+                return Content("没有文件！", "text/plain");
+            }
+            if(file2==null)
+            {
+                return Content("没有图片！", "text/plain");
+            }
+            var picname = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file2.FileName));
+            var filename = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file1.FileName));
             // 在用电影表取得电影表中最大的电影编号
             var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
             // 将取得最大电影编号加一赋值给将要创建的电影
             video.VideoId = MaxId + 1;
             // 电影默认观看数为0
             video.ViewedNum = 0;
+
+            // 电影的封面
+            video.Thumbnail = "123";
+            // 用户ID
+            //video.UserId = int.Parse(Request.Cookies["uid"].Value);
+            video.UserId = 1;
             // 电影上传时间
             video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
-            // 将这个对象插入数据库
-            db.Videos.Add(video);
-            // 数据库保存
-            db.SaveChanges();
-            // 跳转到主页
-            return RedirectToAction("Index");
-        }
-
-        // GET: Videos/Edit/5
-
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Video video = db.Videos.Find(id);
-            if (video == null)
-            {
-                return HttpNotFound();
-            }
-            return View(video);
-        }
-
-        // 编辑视频信息Action
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public ActionResult Edit([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(video).State = EntityState.Modified;
+                file1.SaveAs(filename);
+                file2.SaveAs(picname);
+                // 电影存储地址;//得到全部model信息
+                video.Thumbnail = "~/Image/" + Path.GetFileName(file2.FileName);
+                video.Vurl = "~/Image/" + Path.GetFileName(file1.FileName);
+                //return Content("上传成功！", "text/plain");
+                // 将这个对象插入数据库
+                db.Videos.Add(video);
+                // 数据库保存
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
-            return View(video);
+            catch
+            {
+                return Content("上传异常 ！", "text/plain");
+            }
+           
+           
         }
+
+
 
         // GET: Videos/Delete/5
 
@@ -114,10 +116,30 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Video video = db.Videos.Find(id);
-            db.Videos.Remove(video);
+            Video vi = db.Videos.Find(id);
+            Comment com = db.Comments.Where(c=>c.VideoId==vi.VideoId).FirstOrDefault();
+            History his = db.Histories.Where(c => c.VideoId == vi.VideoId).FirstOrDefault();
+            var videofile = Request.MapPath(vi.Vurl);
+            var pic = Request.MapPath(vi.Thumbnail);
+            System.IO.File.Delete(videofile);
+            System.IO.File.Delete(pic);
+            if(his!=null)
+            db.Histories.Remove(his);
+            if(com!=null)
+            db.Comments.Remove(com);
+            db.Videos.Remove(vi);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult Search(string searchString)
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

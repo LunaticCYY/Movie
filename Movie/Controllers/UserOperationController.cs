@@ -111,35 +111,53 @@ namespace Movie.Controllers
             return View();
         }
 
+        // 创建视频Action
         [HttpPost]
-        // 上传文件（电影，图片）
-        public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)
+        [ValidateAntiForgeryToken]
+        public ActionResult Upload(HttpPostedFileBase file2, HttpPostedFileBase file1, [Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
-            // 判断文件是否为空
-            if (files == null || files.Count() == 0 || files.ToList()[0] == null)
+            if (file1 == null)
             {
-                // 如果为空，则返回错误信息
-                ViewBag.ErrorMessage = "Please select a file!!";
-                // 返回当前视图
-                return View();
+                return Content("没有文件！", "text/plain");
             }
-            string filePath = string.Empty;
-            Guid gid = Guid.NewGuid();
-            // 遍历文件对象
-            foreach (HttpPostedFileBase file in files)
+            if (file2 == null)
             {
-                // 设置文件写的路径和文件名
-                filePath = Path.Combine(HttpContext.Server.MapPath("~/Image"), gid.ToString() + Path.GetExtension(file.FileName));
-                // 文件写入
-                file.SaveAs(filePath);
+                return Content("没有图片！", "text/plain");
             }
-            // 重定向到上传完成界面
-            return RedirectToAction("UploadResult", new { filePath = filePath });
+            var picname = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file2.FileName));
+            var filename = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file1.FileName));
+            // 在用电影表取得电影表中最大的电影编号
+            var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
+            // 将取得最大电影编号加一赋值给将要创建的电影
+            video.VideoId = MaxId + 1;
+            // 电影默认观看数为0
+            video.ViewedNum = 0;
+            // 用户ID
+            //video.UserId = int.Parse(Request.Cookies["uid"].Value);
+            video.UserId = 1;
+            // 电影上传时间
+            video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
+            try
+            {
+                file1.SaveAs(filename);
+                file2.SaveAs(picname);
+                // 电影存储地址;//得到全部model信息
+                video.Thumbnail = "~/Image/" + Path.GetFileName(file2.FileName);
+                video.Vurl = "~/Image/" + Path.GetFileName(file1.FileName);
+                //return Content("上传成功！", "text/plain");
+                // 将这个对象插入数据库
+                db.Videos.Add(video);
+                // 数据库保存
+                db.SaveChanges();
+                return RedirectToAction("index");
+            }
+            catch
+            {
+                return Content("上传异常 ！", "text/plain");
+            }
         }
-        public ActionResult UploadResult(string filePath)
-        {
-            ViewBag.FilePath = filePath;
-            return View();
-        }
+
+
+
     }
 }
