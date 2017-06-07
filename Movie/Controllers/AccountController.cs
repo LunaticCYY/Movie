@@ -63,18 +63,22 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(User user)
         {
-            // 获取当前用户表内最大编号，如果用户表为空MaxId则为0
-            var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
-            // 当前用户的编号自加一
-            user.UserId = MaxId + 1;
-            // 当前用户默认权限为0
-            user.Privilege = 0;
-            // 用户表内加入加入该用户
-            db.Users.Add(user);
-            // 数据库保存
-            db.SaveChanges();
-            // 跳转登录页面
-            return RedirectToAction("Login", "Account");
+            if (ModelState.IsValid)
+            {
+                // 获取当前用户表内最大编号，如果用户表为空MaxId则为0
+                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
+                // 当前用户的编号自加一
+                user.UserId = MaxId + 1;
+                // 当前用户默认权限为0
+                user.Privilege = 0;
+                // 用户表内加入加入该用户
+                db.Users.Add(user);
+                // 数据库保存
+                db.SaveChanges();
+                // 跳转登录页面
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
         }
     }
 }

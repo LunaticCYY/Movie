@@ -13,16 +13,21 @@ namespace Movie.Controllers
 {
     public class UserOperationController : Controller
     {
+        // 数据库连接
         private MovieContext db = new MovieContext();
+        // 定义一个全局变量存放电影ID
         static private int vid;
 
+        // 返回用户主页
         public ActionResult Index()
         {
             return View();
         }
 
+        // 用户点击主页中一个电影后返回电影信息
         public ActionResult Detail(int? id)
         {
+            // 从数据库电影表中查找用户点击电影的对象
             var vi = db.Videos.Find(id);
             vid = vi.VideoId;
             VideoDetail detail = new VideoDetail();
@@ -107,20 +112,28 @@ namespace Movie.Controllers
         }
 
         [HttpPost]
+        // 上传文件（电影，图片）
         public ActionResult Upload(IEnumerable<HttpPostedFileBase> files)
         {
+            // 判断文件是否为空
             if (files == null || files.Count() == 0 || files.ToList()[0] == null)
             {
+                // 如果为空，则返回错误信息
                 ViewBag.ErrorMessage = "Please select a file!!";
+                // 返回当前视图
                 return View();
             }
             string filePath = string.Empty;
             Guid gid = Guid.NewGuid();
+            // 遍历文件对象
             foreach (HttpPostedFileBase file in files)
             {
+                // 设置文件写的路径和文件名
                 filePath = Path.Combine(HttpContext.Server.MapPath("~/Image"), gid.ToString() + Path.GetExtension(file.FileName));
+                // 文件写入
                 file.SaveAs(filePath);
             }
+            // 重定向到上传完成界面
             return RedirectToAction("UploadResult", new { filePath = filePath });
         }
         public ActionResult UploadResult(string filePath)

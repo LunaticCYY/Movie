@@ -46,12 +46,19 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
+            // 在用电影表取得电影表中最大的电影编号
             var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
+            // 将取得最大电影编号加一赋值给将要创建的电影
             video.VideoId = MaxId + 1;
+            // 电影默认观看数为0
             video.ViewedNum = 0;
+            // 电影上传时间
             video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
+            // 将这个对象插入数据库
             db.Videos.Add(video);
+            // 数据库保存
             db.SaveChanges();
+            // 跳转到主页
             return RedirectToAction("Index");
         }
 

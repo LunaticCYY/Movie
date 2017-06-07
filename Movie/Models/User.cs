@@ -12,12 +12,13 @@ namespace Movie.Models
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class UniqueAttribute : ValidationAttribute
     {
-    private static  MovieContext db = new MovieContext();
+        private static MovieContext db = new MovieContext();
         public override Boolean IsValid(Object value)
         {
             return !db.Users.Any(c => c.Email.Contains(value.ToString()));
         }
     }
+
     public class User
     {
         public int UserId { get; set; }//用户编号
@@ -28,9 +29,10 @@ namespace Movie.Models
         [StringLength(16, MinimumLength = 6)]
         public string Password { get; set; }//用户密码
         [Required]
+        [Unique]
         [StringLength(50)]
         [RegularExpression(@"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$")]
-        [Unique(ErrorMessage="邮箱已经被注册")]
+
         public string Email { get; set; }//用户邮箱
         [Required]
         public int Privilege { get; set; }//用户权限

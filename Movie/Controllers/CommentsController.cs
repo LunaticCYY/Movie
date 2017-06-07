@@ -18,7 +18,9 @@ namespace Movie.Controllers
         // Index.cshtml返回所有评论
         public ActionResult Index()
         {
-            return View(db.Comments.ToList());
+
+             return View(db.Comments.ToList());
+
         }
 
         // Detail.cshtml 获取某个CommentId显示某个评论的详细信息
