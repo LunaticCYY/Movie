@@ -258,7 +258,6 @@
     <Content Include="Views\Videos\Delete.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Videos\Index.cshtml" />
-    <Content Include="Views\Videos\Search.cshtml" />
     <Content Include="Views\UserOperation\Upload.cshtml" />
     <Content Include="Views\UserOperation\UploadRecord.cshtml" />
     <Content Include="Views\UserOperation\UserMessage.cshtml" />

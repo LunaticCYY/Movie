@@ -145,16 +145,6 @@ namespace Movie.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Search()
-        {
-            return View();
-        }
-
-        public ActionResult Search(string searchString)
-        {
-            return View();
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
