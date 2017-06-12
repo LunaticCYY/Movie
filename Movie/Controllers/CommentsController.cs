@@ -139,7 +139,7 @@ namespace Movie.Controllers
         {
             // 通过Delete.cshtml页面传来的id来查询评论表
             Comment comment = db.Comments.Find(id);
-            History his = db.Histories.Where(c => c.UserId == comment.UserId).FirstOrDefault();
+            History his = db.Histories.Where(c => c.HistoryTime == comment.CommentTime).FirstOrDefault();
             // 评论表里面删除该评论
             if(his!=null)
             db.Histories.Remove(his);

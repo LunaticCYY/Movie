@@ -119,8 +119,7 @@ namespace Movie.Controllers
             db.SaveChanges();
             // 跳转List页
                 return RedirectToAction("List");
-            // 不合法返回原来的页面
-            return View(user);
+
 
         }
 
@@ -146,6 +145,18 @@ namespace Movie.Controllers
         {
             // 在用户表中查询该用户
             User user = db.Users.Find(id);
+            var his = db.Histories.Where(c => c.UserId == user.UserId);
+            var com = db.Comments.Where(c => c.UserId == user.UserId);
+            var fav = db.Favorites.Where(c => c.UserId == user.UserId);
+            if (his != null)
+                foreach(var a in his)
+                db.Histories.Remove(a);
+            if (com != null)
+                foreach (var a in com)
+                    db.Comments.Remove(a);
+            if (fav != null)
+                foreach (var a in fav)
+                    db.Favorites.Remove(a);
             // 删除该用户
             db.Users.Remove(user);
             // 数据库保存

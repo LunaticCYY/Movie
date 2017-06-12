@@ -158,7 +158,7 @@ namespace Movie.Controllers
                 return Content("没有图片！", "text/plain");
             }
             var picname = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file2.FileName));
-            var filename = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file1.FileName));
+            var filename = Path.Combine(Request.MapPath("~/Video"), Path.GetFileName(file1.FileName));
             // 在用电影表取得电影表中最大的电影编号
             var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
             // 将取得最大电影编号加一赋值给将要创建的电影
@@ -176,7 +176,7 @@ namespace Movie.Controllers
                 file2.SaveAs(picname);
                 // 电影存储地址;//得到全部model信息
                 video.Thumbnail = "~/Image/" + Path.GetFileName(file2.FileName);
-                video.Vurl = "~/Image/" + Path.GetFileName(file1.FileName);
+                video.Vurl = "~/Video/" + Path.GetFileName(file1.FileName);
                 //return Content("上传成功！", "text/plain");
                 // 将这个对象插入数据库
                 db.Videos.Add(video);
