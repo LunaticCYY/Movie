@@ -175,6 +175,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentDetail.cs" />
     <Compile Include="Models\Favorite.cs" />
     <Compile Include="Models\FavoriteDetail.cs" />
     <Compile Include="Models\History.cs" />
@@ -277,6 +278,7 @@
     <Content Include="Views\UserOperation\UserFavorite.cshtml" />
     <Content Include="Views\UserOperation\Detail.cshtml" />
     <Content Include="Views\UserOperation\AddFavorite.cshtml" />
+    <Content Include="Views\UserOperation\UserComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

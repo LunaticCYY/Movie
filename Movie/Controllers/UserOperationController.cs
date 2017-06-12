@@ -107,7 +107,7 @@ namespace Movie.Controllers
             }
         }
 
-        //[HttpPost]
+        [HttpPost]
         public ActionResult AddFavorite()
         {
             if(Request.Cookies["uid"]!=null)
@@ -257,6 +257,27 @@ namespace Movie.Controllers
             return View();
         }
 
-        //public 
+        public ActionResult UserComment()
+        {
+            if (Request.Cookies["uid"] != null)
+            {
+                HttpCookie hc = Request.Cookies["uid"];
+                int uid = int.Parse(hc.Value);
+                var comment = db.Comments.Where(c => c.UserId == uid);
+                List<CommentDetail> commentDetail = new List<CommentDetail>();
+                foreach (var item in comment)
+                {
+                    CommentDetail detail = new CommentDetail();
+                    var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
+                    detail.VideoId = item.VideoId;
+                    detail.Vname = video.Vname;
+                    detail.Content = item.Content;
+                    detail.CommentTime = item.CommentTime;
+                    commentDetail.Add(detail);
+                }
+                return View(commentDetail);
+            }
+            return View();
+        }
     }
 }
