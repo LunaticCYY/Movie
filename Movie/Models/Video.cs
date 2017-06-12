@@ -31,5 +31,7 @@ namespace Movie.Models
         public int UserId { get; set; }//上传视频用户编号
         [StringLength(200)]
         public string Vinfo { get; set; }//视频简介
+
+        public double VideoScore;
     }
 }

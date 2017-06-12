@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace Movie.Controllers
 {
@@ -99,20 +100,28 @@ namespace Movie.Controllers
         // 编辑用户Action
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
+        
+        public ActionResult Edit(User user)
         {
             // 判断user类是否合法
-            if (ModelState.IsValid)
+            var users = new User
             {
-                // 修改user类
-                db.Entry(user).State = EntityState.Modified;
-                // 保存数据库
-                db.SaveChanges();
-                // 跳转List页
+                UserId = user.UserId,
+                NickName = user.NickName,
+                Password = user.Password,
+                Email = user.Email,
+                Privilege = user.Privilege
+            };
+            User u = db.Users.Find(user.UserId);
+            db.Users.Remove(u);
+            db.SaveChanges();
+            db.Users.Add(users);
+            db.SaveChanges();
+            // 跳转List页
                 return RedirectToAction("List");
-            }
             // 不合法返回原来的页面
             return View(user);
+
         }
 
         // GET: Users/Delete/5

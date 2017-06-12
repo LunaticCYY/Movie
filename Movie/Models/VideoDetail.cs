@@ -15,6 +15,9 @@ namespace Movie.Models
         public string Content { get; set; }//评论内容
         public string CommentTime { get; set; }//评论时间
 
+        public string Thumbnail { get; set; }//电影缩略图地址
         public string Vurl { get; set; }//电影存放地址
+
+        public double VideoScore { get; set; }//电影评分
     }
 }

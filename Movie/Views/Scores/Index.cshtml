@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Movie.Models.Score>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScoreTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mark)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoreTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mark)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ScoreId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ScoreId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ScoreId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

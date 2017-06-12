@@ -1,0 +1,58 @@
+﻿@model Movie.Models.Score
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Score</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UserId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ScoreTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ScoreTime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.VideoId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VideoId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.mark)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.mark)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ScoreId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

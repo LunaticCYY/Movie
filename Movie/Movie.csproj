@@ -162,6 +162,7 @@
     <Compile Include="Controllers\FavoritesController.cs" />
     <Compile Include="Controllers\HistoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ScoresController.cs" />
     <Compile Include="Controllers\UserOperationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
@@ -169,11 +170,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706120059348_InitialCreate.cs" />
-    <Compile Include="Migrations\201706120059348_InitialCreate.Designer.cs">
-      <DependentUpon>201706120059348_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentDetail.cs" />
     <Compile Include="Models\Favorite.cs" />
@@ -181,6 +177,8 @@
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\HistoryDetail.cs" />
     <Compile Include="Models\MovieContext.cs" />
+    <Compile Include="Models\Score.cs" />
+    <Compile Include="Models\ScoreDetail.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Models\VideoDetail.cs" />
@@ -279,17 +277,18 @@
     <Content Include="Views\UserOperation\Detail.cshtml" />
     <Content Include="Views\UserOperation\AddFavorite.cshtml" />
     <Content Include="Views\UserOperation\UserComment.cshtml" />
+    <Content Include="Views\Scores\Create.cshtml" />
+    <Content Include="Views\Scores\Delete.cshtml" />
+    <Content Include="Views\Scores\Details.cshtml" />
+    <Content Include="Views\Scores\Edit.cshtml" />
+    <Content Include="Views\Scores\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706120059348_InitialCreate.resx">
-      <DependentUpon>201706120059348_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
