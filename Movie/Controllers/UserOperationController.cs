@@ -94,17 +94,49 @@ namespace Movie.Controllers
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
                 comment.UserId = uid;
+                comment.VideoId = vid;
+                comment.Content = model.Content;
+                comment.CommentTime = DateTime.Now.ToString();
+                db.Comments.Add(comment);
+                db.SaveChanges();
+                return Detail(vid);
             }
             else
             {
-                comment.UserId = 0;
+                return RedirectToAction("Login", "Account");
             }
-            comment.VideoId = vid;
-            comment.Content = model.Content;
-            comment.CommentTime = DateTime.Now.ToString();
-            db.Comments.Add(comment);
-            db.SaveChanges();
-            return View();
+        }
+
+        //[HttpPost]
+        public ActionResult AddFavorite()
+        {
+            if(Request.Cookies["uid"]!=null)
+            {
+                HttpCookie hc = Request.Cookies["uid"];
+                int uid = int.Parse(hc.Value);
+                var favorite = db.Favorites.Where(c => c.VideoId == vid).Where(c => c.UserId == uid).FirstOrDefault();
+                if(favorite!=null)
+                {
+                    ModelState.AddModelError("", "您已收藏该视频");
+                    return Detail(vid);
+                }
+                else
+                {
+                    Favorite userFavorite = new Favorite();
+                    var MaxId = db.Favorites.Any() ? db.Favorites.Max(p => p.FavoriteId) : 0;
+                    userFavorite.FavoriteId = MaxId + 1;
+                    userFavorite.UserId = uid;
+                    userFavorite.VideoId = vid;
+                    userFavorite.FavoriteTime = DateTime.Now.ToString();
+                    db.Favorites.Add(userFavorite);
+                    db.SaveChanges();
+                    return Detail(vid);
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login","Account");
+            }
         }
 
         public ActionResult Upload()
@@ -202,5 +234,29 @@ namespace Movie.Controllers
             }
             return View();
         }
+
+        public ActionResult UserFavorite()
+        {
+            if(Request.Cookies["uid"]!=null)
+            {
+                HttpCookie hc = Request.Cookies["uid"];
+                int uid = int.Parse(hc.Value);
+                var favorite = db.Favorites.Where(c => c.UserId == uid);
+                List<FavoriteDetail> favoriteDetail = new List<FavoriteDetail>();
+                foreach (var item in favorite)
+                {
+                    FavoriteDetail detail = new FavoriteDetail();
+                    var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
+                    detail.VideoId = item.VideoId;
+                    detail.Vname = video.Vname;
+                    detail.FavoriteTime = item.FavoriteTime;
+                    favoriteDetail.Add(detail);
+                }
+                return View(favoriteDetail);
+            }
+            return View();
+        }
+
+        //public 
     }
 }

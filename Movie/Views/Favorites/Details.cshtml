@@ -1,0 +1,43 @@
+﻿@model Movie.Models.Favorite
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Favorite</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VideoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VideoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FavoriteTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FavoriteTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FavoriteId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

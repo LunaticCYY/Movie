@@ -1,12 +1,11 @@
-﻿@model IEnumerable<Movie.Models.HistoryDetail>
+﻿@model IEnumerable<Movie.Models.FavoriteDetail>
 @{
     Layout = "~/Views/Shared/_User.cshtml";
 }
 @{
-    ViewBag.Title = "查看观看记录";
+    ViewBag.Title = "用户收藏查看";
 }
-
-<h2>查看观看记录</h2>
+<h2>收藏</h2>
 <table class="table">
     <tr>
         <th>
@@ -16,7 +15,7 @@
             @Html.DisplayNameFor(model => model.Vname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HistoryTime)
+            @Html.DisplayNameFor(model => model.FavoriteTime)
         </th>
         <th></th>
     </tr>
@@ -31,16 +30,9 @@
                 @Html.DisplayFor(modelItem => item.Vname)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HistoryTime)
+                @Html.DisplayFor(modelItem => item.FavoriteTime)
             </td>
-            @*<td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.HistoryId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.HistoryId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.HistoryId })
-            </td>*@
         </tr>
     }
 
 </table>
-
-

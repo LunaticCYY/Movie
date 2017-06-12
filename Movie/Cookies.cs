@@ -11,7 +11,7 @@ namespace Movie
         public static HttpCookie create_cookies(User user)
         {
             // 如果用户的权限值为0，即普通用户
-            if (user.Privilege == 0)
+            if (user.Privilege != 3)
             {
                 HttpCookie mycoo = new HttpCookie("uid");
                 // 设置cookie的有效路径为用户操作目录

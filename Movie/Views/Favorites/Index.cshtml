@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Movie.Models.Favorite>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    @using (Html.BeginForm("Index", "Histories", FormMethod.Get))
+    {
+    <p>
+        用户编号: @Html.TextBox("UserId")
+        &nbsp;&nbsp;
+        视频编号: @Html.TextBox("VideoId")
+        <input type="submit" value="Filter" />
+    </p>
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VideoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FavoriteTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VideoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FavoriteTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FavoriteId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FavoriteId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FavoriteId })
+        </td>
+    </tr>
+}
+
+</table>

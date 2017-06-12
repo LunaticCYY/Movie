@@ -418,3 +418,5 @@ C:\Users\tyy_m\Desktop\Movie\Movie\Movie\obj\Debug\Movie.csprojResolveAssemblyRe
 C:\Users\tyy_m\Desktop\Movie\Movie\Movie\obj\Debug\Movie.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\Movie\obj\Debug\Movie.pdb
 C:\Users\tyy_m\Desktop\Movie\Movie\obj\Debug\Movie.csprojResolveAssemblyReference.cache
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.Migrations.InitialCreate.resources
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.csproj.GenerateResource.Cache

@@ -27,6 +27,7 @@ namespace Movie.Models
             modelBuilder.Entity<Video>().Property(t => t.VideoId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<History>().Property(t => t.HistoryId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Comment>().Property(t => t.CommentId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            modelBuilder.Entity<Favorite>().Property(t => t.FavoriteId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
 
         public System.Data.Entity.DbSet<Movie.Models.User> Users { get; set; }//Users表
@@ -37,6 +38,6 @@ namespace Movie.Models
 
         public System.Data.Entity.DbSet<Movie.Models.Comment> Comments { get; set; }//Comments表
 
-     
+        public System.Data.Entity.DbSet<Movie.Models.Favorite> Favorites { get; set; }//Favorite表
     }
 }

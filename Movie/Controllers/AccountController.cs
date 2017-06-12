@@ -34,7 +34,7 @@ namespace Movie.Controllers
             {
                 // 如果存在该用户且密码正确，则将该用户加入cookie
                 Response.Cookies.Add(Cookies.create_cookies(user));
-                if (user.Privilege != 1)
+                if (user.Privilege != 3)
                 {
                     // 如果该用户不是管理员，跳转普通用户页面
                     return RedirectToAction("Index", "UserOperation");
@@ -51,7 +51,7 @@ namespace Movie.Controllers
                 ModelState.AddModelError("", "用户名或密码错误");
             }
             // 返回登录页面重新登录
-            return RedirectToAction("Login");
+            return View();
         }
         public ActionResult Register()
         {
