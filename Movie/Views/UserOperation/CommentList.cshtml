@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Movie.Models.CommentDetail>
+@{
+    //Layout = "~/Views/Shared/_User.cshtml";
+    Layout = null;
+}
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NickName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentTime)
+            </td>
+        </tr>
+    }
+</table>
+
+

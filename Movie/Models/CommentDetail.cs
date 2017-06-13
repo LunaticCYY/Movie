@@ -9,6 +9,7 @@ namespace Movie.Models
     {
         public int VideoId { get; set; }
         public string Vname { get; set; }
+        public string NickName { get; set; }
         public string Content { get; set; }
         public string CommentTime { get; set; }
     }

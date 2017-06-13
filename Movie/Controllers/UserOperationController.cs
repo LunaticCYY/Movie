@@ -263,6 +263,7 @@ namespace Movie.Controllers
             {
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
+                var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
                 var comment = db.Comments.Where(c => c.UserId == uid);
                 List<CommentDetail> commentDetail = new List<CommentDetail>();
                 foreach (var item in comment)
@@ -271,6 +272,7 @@ namespace Movie.Controllers
                     var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
                     detail.VideoId = item.VideoId;
                     detail.Vname = video.Vname;
+                    detail.NickName = user.NickName;
                     detail.Content = item.Content;
                     detail.CommentTime = item.CommentTime;
                     commentDetail.Add(detail);
@@ -278,6 +280,25 @@ namespace Movie.Controllers
                 return View(commentDetail);
             }
             return View();
+        }
+
+        public ActionResult CommentList()
+        {
+            var comment = db.Comments.Where(c => c.VideoId == vid);
+            var video = db.Videos.Where(c => c.VideoId == vid).FirstOrDefault();
+            List<CommentDetail> commentDetail = new List<CommentDetail>();
+            foreach(var item in comment)
+            {
+                CommentDetail detail = new CommentDetail();
+                detail.VideoId = item.VideoId;
+                detail.Vname = video.Vname;
+                var user = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
+                detail.NickName = user.NickName;
+                detail.Content = item.Content;
+                detail.CommentTime = item.CommentTime;
+                commentDetail.Add(detail);
+            }
+            return View(commentDetail);
         }
     }
 }
