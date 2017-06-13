@@ -140,6 +140,13 @@ namespace Movie.Controllers
             History history = db.Histories.Find(id);
             // 历史表里面删除该历史记录
             db.Histories.Remove(history);
+            var comment = db.Comments.Where(c => c.UserId == history.UserId).Where(c => c.VideoId == history.VideoId);
+            foreach(var item in comment)
+            {
+                db.Comments.Remove(item);
+            }
+            var favorite = db.Favorites.Where(c => c.UserId == history.UserId).Where(c => c.VideoId == history.VideoId).FirstOrDefault();
+            db.Favorites.Remove(favorite);
             // 数据表保存
             db.SaveChanges();
             // 跳转历史表首页

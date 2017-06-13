@@ -23,7 +23,8 @@ namespace Movie.Controllers
         [CheckLogin]
         public ActionResult Index()
         {
-            return View();
+            var videos = db.Videos.OrderByDescending(c=>c.ViewedNum).Take(10);
+            return View(videos);
         }
 
         // 用户点击主页中一个电影后返回电影信息
@@ -95,17 +96,27 @@ namespace Movie.Controllers
                 //从cookie中获取当前用户uid
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
-                comment.UserId = uid;
-                comment.VideoId = vid;
-                comment.Content = model.Content;
-                comment.CommentTime = DateTime.Now.ToString();
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return Detail(vid);
+                var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
+                if (user.Privilege == 0)
+                {
+                    return Content("<script>alert('很抱歉，您没有权限评论');history.go(-1);</script>");
+                }
+                else
+                {
+                    comment.UserId = uid;
+                    comment.VideoId = vid;
+                    comment.Content = model.Content;
+                    comment.CommentTime = DateTime.Now.ToString();
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+                    Response.Write("<script>alert('评论成功');</script>");
+                    return Detail(vid);
+                }
             }
             else
             {
-                return RedirectToAction("Login", "Account");
+                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                //return RedirectToAction("Login", "Account");
             }
         }
 
@@ -119,8 +130,7 @@ namespace Movie.Controllers
                 var favorite = db.Favorites.Where(c => c.VideoId == vid).Where(c => c.UserId == uid).FirstOrDefault();
                 if(favorite!=null)
                 {
-                    ModelState.AddModelError("", "您已收藏该视频");
-                    return Detail(vid);
+                    return Content("<script>alert('您已经收藏了该视频');history.go(-1);</script>");
                 }
                 else
                 {
@@ -132,12 +142,14 @@ namespace Movie.Controllers
                     userFavorite.FavoriteTime = DateTime.Now.ToString();
                     db.Favorites.Add(userFavorite);
                     db.SaveChanges();
-                    return Detail(vid);
+                    return Content("<script>alert('收藏成功');history.go(-1);</script>");
+                    //return Detail(vid);
                 }
             }
             else
             {
-                return RedirectToAction("Login","Account");
+                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                //return RedirectToAction("Login","Account");
             }
         }
 

@@ -10,26 +10,35 @@ namespace Movie.Models
 {
     public class Video
     {
+        [Display(Name = "视频编号")]
         public int VideoId { get; set; }//视频编号
         [Required]
+        [Display(Name = "视频名称")]
         [StringLength(50)]
         public string Vname { get; set; }//视频名称
         [Required]
+        [Display(Name = "视频存放地址")]
         [StringLength(100)]
         public string Vurl { get; set; }//视频存放地址
         [Required]
+        [Display(Name = "视频缩略图地址")]
         [StringLength(100)]
         public string Thumbnail { get; set; }//视频缩略图地址
-        public int ViewedNum { get; set; }
+        [Display(Name = "播放人数")]
+        public int ViewedNum { get; set; }//播放数
         [DataType(DataType.Date)]
+        [Display(Name = "视频上传日期")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required]
         public string UploadTime { get; set; }//视频上传日期
         [Required]
+        [Display(Name = "视频类型")]
         [StringLength(50)]
         public string Vtype { get; set; }//视频类型
+        [Display(Name = "上传视频用户编号")]
         public int UserId { get; set; }//上传视频用户编号
-        [StringLength(200)]
+        [Display(Name = "视频简介")]
+        [StringLength(1000)]
         public string Vinfo { get; set; }//视频简介
 
         public double VideoScore;

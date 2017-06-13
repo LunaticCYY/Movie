@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Movie.Models.Score>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.VideoId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.mark)
+                @Html.DisplayNameFor(model => model.Mark)
             </th>
             <th></th>
         </tr>
@@ -44,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.VideoId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.mark)
+                @Html.DisplayFor(modelItem => item.Mark)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.ScoreId }) |

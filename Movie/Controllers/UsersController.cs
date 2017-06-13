@@ -72,7 +72,7 @@ namespace Movie.Controllers
                 // 将取得最大用户编号加一赋值给将要创建的用户
                 user.UserId = MaxId + 1;
                 // 默认用户权限为0
-                user.Privilege = 0;
+                user.Privilege = 1;
                 // 用户表中插入该用户
                 db.Users.Add(user);
                 // 数据库保存

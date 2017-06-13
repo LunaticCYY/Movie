@@ -1,7 +1,8 @@
 ﻿@model Movie.Models.Score
 
 @{
-    Layout = null;
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -47,10 +48,10 @@
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.mark, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.mark, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.mark, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
                 </div>
             </div>
     

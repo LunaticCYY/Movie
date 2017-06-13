@@ -6,7 +6,7 @@
     ViewBag.Title = "查看上传记录";
 }
 <h2>查看上传记录</h2>
-<table class="table">
+<table class="table" style="table-layout:fixed">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Vname)
@@ -59,7 +59,7 @@
             @*<td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>*@
-            <td>
+            <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                 @Html.DisplayFor(modelItem => item.Vinfo)
             </td>
             @*<td>

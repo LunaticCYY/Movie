@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Movie.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ namespace Movie.Controllers
     public class HomeController : Controller
     {
         // 首页
+        //[CheckLogin]
         public ActionResult Index()
         {
             return View();

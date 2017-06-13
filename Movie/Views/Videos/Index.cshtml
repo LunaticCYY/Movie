@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
+<p>>视频>首页</p>
 <p>
     @Html.ActionLink("Upload", "Upload")
     @using (Html.BeginForm("Index", "Videos", FormMethod.Get))
@@ -14,11 +13,11 @@
     <p>
         Type: @Html.DropDownList("Vtype", "All")
         Title: @Html.TextBox("Vname")
-        <input type="submit" value="Filter" />
+        <input type="submit" class="btn btn-default" value="搜索" />
     </p>
     }
 </p>
-<table class="table">
+<table style="table-layout:fixed" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Vname)
@@ -70,7 +69,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.UserId)
         </td>
-        <td>
+        <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
             @Html.DisplayFor(modelItem => item.Vinfo)
         </td>
         <td>

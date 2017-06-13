@@ -70,7 +70,7 @@ namespace Movie.Controllers
                 // 当前用户的编号自加一
                 user.UserId = MaxId + 1;
                 // 当前用户默认权限为0
-                user.Privilege = 0;
+                user.Privilege = 1;
                 // 用户表内加入加入该用户
                 db.Users.Add(user);
                 // 数据库保存

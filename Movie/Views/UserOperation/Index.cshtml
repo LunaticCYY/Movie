@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Movie.Models.User>
+﻿@model IEnumerable<Movie.Models.Video>
 
 @{
     // 检查Cookies是否存在
@@ -8,7 +8,7 @@
     }
     else
     {
-        ViewBag.Title = 100;
+        ViewBag.Title = "游客";
     }
     /*for (int i = 0; i < Request.Cookies.Count; i++)
     {
@@ -21,7 +21,6 @@
 
 
 <div class="container marketing" align="center">
-
     <div id="myCarousel" class="carousel slide">
         <!-- 轮播（Carousel）指标 -->
         <ol class="carousel-indicators">
@@ -31,14 +30,20 @@
         </ol>
         <!-- 轮播（Carousel）项目 -->
         <div class="carousel-inner">
-            <div class="item active" style="height:50%">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/2.jpg"), "Detail","UserOperation",new { id = 2 })     
+            <div class="item active">
+                <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(0).VideoId })">
+                    <img src="@Url.Content(Model.ElementAt(0).Thumbnail)" style="width: 100%; height: 400px" alt="First slide">
+                </a>  
             </div>
             <div class="item">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/2.jpg"), "Detail","UserOperation",new { id = 1 })
+                <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(1).VideoId })">
+                    <img src="@Url.Content(Model.ElementAt(1).Thumbnail)" style="width: 100%; height: 400px" alt="First slide">
+                </a>
             </div>
             <div class="item">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/2.jpg"), "Detail","UserOperation",new { id = 1 })
+                <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(2).VideoId })">
+                    <img src="@Url.Content(Model.ElementAt(2).Thumbnail)" style="width: 100%; height: 400px" alt="First slide">
+                </a>
             </div>
         </div>
         <!-- 轮播（Carousel）导航 -->
@@ -57,26 +62,26 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-4">
-            <a href="#">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+            <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(3).VideoId })">
+                <img src="@Url.Content(Model.ElementAt(3).Thumbnail)" style="width: 236px; height: 322px">
+                <h2>@Html.DisplayFor(Model=>Model.ElementAt(3).Vname)</h2>
+                <p>@*@Html.DisplayFor(Model => Model.ElementAt(3).Vinfo)*@</p>
             </a>
             <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-            <a href="#">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+            <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(4).VideoId })">
+                <img src="@Url.Content(Model.ElementAt(4).Thumbnail)" style="width: 236px; height: 322px">
+                <h2>@Html.DisplayFor(Model => Model.ElementAt(4).Vname)</h2>
+                @*<p>@Html.DisplayFor(Model => Model.ElementAt(4).Vinfo)</p>*@
             </a>
             <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-            <a href="#">
-                @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+            <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(5).VideoId })">
+                <img src="@Url.Content(Model.ElementAt(5).Thumbnail)" style="width: 236px; height: 322px">
+                <h2>@Html.DisplayFor(Model => Model.ElementAt(5).Vname)</h2>
+                @*<p>@Html.DisplayFor(Model => Model.ElementAt(5).Vinfo)</p>*@
             </a>
             <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
@@ -84,297 +89,65 @@
 
     <br />
     <!-- START THE FEATURETTES -->
-    <h1 align="left">喜剧</h1>
+    @*<h1 align="left">喜剧</h1>*@
     <hr class="featurette-divider">
     <div class="row featurette">
         <div class="col-md-7" style="padding-left: 0px;">
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>1</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>2</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>3</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>4</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>5</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>6</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%;float: left;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>7</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>8</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>9</h4>
-                    <p></p>
-                </a>
-            </div>
+            <h2>@Html.DisplayFor(Model => Model.ElementAt(6).Vname)</h2>
+            <p class="lead">@Html.DisplayFor(Model => Model.ElementAt(6).Vinfo)</p>
         </div>
         <div class="col-md-5">
-            <a href="#">
-                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
-                <h2>10</h2>
-                <p></p>
+            <h2></h2>
+            <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(6).VideoId })">
+                <img class="featurette-image img-responsive center-block" src="@Url.Content(Model.ElementAt(6).Thumbnail)" style="width: 500px; height: 281px;">
             </a>
         </div>
     </div>
 
-    <h1 align="right">剧情</h1>
+    @*<h1 align="right">剧情</h1>*@
     <hr class="featurette-divider">
 
     <div class="row featurette">
         <div class="col-md-7 col-md-push-5" style="padding-right: 0px;">
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>1</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>2</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>3</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>4</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>5</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>6</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%;float: right;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>7</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>8</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>9</h4>
-                    <p></p>
-                </a>
-            </div>
+            <h2>@Html.DisplayFor(Model => Model.ElementAt(7).Vname)</h2>
+            <p class="lead">@Html.DisplayFor(Model => Model.ElementAt(7).Vinfo)</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-            <a href="#">
-                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
-                <h2>10</h2>
-                <p></p>
+            <h2></h2>
+            <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(7).VideoId })">
+                <img class="featurette-image img-responsive center-block" src="@Url.Content(Model.ElementAt(7).Thumbnail)" style="width: 500px; height: 281px;">
             </a>
         </div>
     </div>
 
-    <h1 align="left">动作</h1>
+    @*<h1 align="left">动作</h1>*@
     <hr class="featurette-divider">
 
     <div class="row featurette">
         <div class="col-md-7" style="padding-left: 0px;">
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>1</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>2</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>3</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: left;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>4</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>5</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>6</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%;float: left;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>7</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>8</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>9</h4>
-                    <p></p>
-                </a>
-            </div>
+            <h2>@Html.DisplayFor(Model => Model.ElementAt(8).Vname)</h2>
+            <p class="lead">@Html.DisplayFor(Model => Model.ElementAt(8).Vinfo)</p>
         </div>
         <div class="col-md-5">
-            <a href="#">
-                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
-                <h2>10</h2>
-                <p></p>
+            <h2></h2>
+            <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(8).VideoId })">
+                <img class="featurette-image img-responsive center-block" src="@Url.Content(Model.ElementAt(8).Thumbnail)" style="width: 500px; height: 281px;">
             </a>
         </div>
     </div>
 
-    <h1 align="right">爱情</h1>
+    @*<h1 align="right">爱情</h1>*@
     <hr class="featurette-divider">
 
     <div class="row featurette">
         <div class="col-md-7 col-md-push-5" style="padding-right: 0px;">
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>1</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>2</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>3</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%; float: right;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>4</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>5</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>6</h4>
-                    <p></p>
-                </a>
-            </div>
-
-            <div class="col-lg-6" style="width: 33%; height: 33%;float: right;">
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>7</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>8</h4>
-                    <p></p>
-                </a>
-
-                <a href="#">
-                   @Html.ActionLinkWithImage(Url.Content("~/Image/1.jpg"), "Detail","UserOperation",new { id = 1 })
-                    <h4>9</h4>
-                    <p></p>
-                </a>
-            </div>
+            <h2>@Html.DisplayFor(Model => Model.ElementAt(9).Vname)</h2>
+            <p class="lead">@Html.DisplayFor(Model => Model.ElementAt(9).Vinfo)</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-            <a href="#">
-                <img class="featurette-image img-responsive center-block" src="~/Image/2.jpg" style="width: 500px; height: 281px;" alt="Generic placeholder image">
-                <h2>10</h2>
-                <p></p>
+            <h2></h2>
+            <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(9).VideoId })">
+                <img class="featurette-image img-responsive center-block" src="@Url.Content(Model.ElementAt(9).Thumbnail)" style="width: 500px; height: 281px;">
             </a>
         </div>
     </div>

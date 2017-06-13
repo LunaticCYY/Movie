@@ -171,9 +171,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706120857210_InitialCreate.cs" />
-    <Compile Include="Migrations\201706120857210_InitialCreate.Designer.cs">
-      <DependentUpon>201706120857210_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201706131604265_InitialCreate.cs" />
+    <Compile Include="Migrations\201706131604265_InitialCreate.Designer.cs">
+      <DependentUpon>201706131604265_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -215,7 +215,20 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Image\1.jpg" />
+    <Content Include="Image\10.jpg" />
+    <Content Include="Image\11.jpg" />
+    <Content Include="Image\12.jpg" />
+    <Content Include="Image\13.jpg" />
+    <Content Include="Image\14.jpg" />
+    <Content Include="Image\15.jpg" />
     <Content Include="Image\2.jpg" />
+    <Content Include="Image\3.jpg" />
+    <Content Include="Image\4.jpg" />
+    <Content Include="Image\5.jpg" />
+    <Content Include="Image\6.jpg" />
+    <Content Include="Image\7.jpg" />
+    <Content Include="Image\8.jpg" />
+    <Content Include="Image\9.jpg" />
     <Content Include="Scripts\bootstrap-markdown.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -233,6 +246,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Video\1.mp4" />
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -293,14 +307,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Video\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706120857210_InitialCreate.resx">
-      <DependentUpon>201706120857210_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706131604265_InitialCreate.resx">
+      <DependentUpon>201706131604265_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
