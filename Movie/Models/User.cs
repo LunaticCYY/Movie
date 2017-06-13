@@ -15,7 +15,9 @@ namespace Movie.Models
         private static MovieContext db = new MovieContext();
         public override Boolean IsValid(Object value)
         {
+            if(value!=null)
             return !db.Users.Any(c => c.Email.Contains(value.ToString()));
+            return true;
         }
     }
 

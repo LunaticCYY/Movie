@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
 using System.Data.Entity.Infrastructure;
+using Movie.App_Start;
 
 namespace Movie.Controllers
 {
+    [CheckLogin]
     public class UsersController : Controller
     {
         // 数据库连接
@@ -104,15 +106,16 @@ namespace Movie.Controllers
         public ActionResult Edit(User user)
         {
             // 判断user类是否合法
+            
+            User u = db.Users.Find(user.UserId);
             var users = new User
             {
-                UserId = user.UserId,
-                NickName = user.NickName,
-                Password = user.Password,
-                Email = user.Email,
+                UserId = u.UserId,
+                NickName = u.NickName,
+                Password = u.Password,
+                Email = u.Email,
                 Privilege = user.Privilege
             };
-            User u = db.Users.Find(user.UserId);
             db.Users.Remove(u);
             db.SaveChanges();
             db.Users.Add(users);

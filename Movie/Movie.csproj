@@ -155,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CheckLogin.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -278,7 +279,6 @@
     <Content Include="Views\Favorites\Create.cshtml" />
     <Content Include="Views\Favorites\Delete.cshtml" />
     <Content Include="Views\Favorites\Details.cshtml" />
-    <Content Include="Views\Favorites\Edit.cshtml" />
     <Content Include="Views\Favorites\Index.cshtml" />
     <Content Include="Views\UserOperation\UserFavorite.cshtml" />
     <Content Include="Views\UserOperation\Detail.cshtml" />

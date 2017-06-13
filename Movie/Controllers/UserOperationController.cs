@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
 using System.IO;
+using Movie.App_Start;
 
 namespace Movie.Controllers
 {
@@ -19,6 +20,7 @@ namespace Movie.Controllers
         static private int vid;
 
         // 返回用户主页
+        [CheckLogin]
         public ActionResult Index()
         {
             return View();
