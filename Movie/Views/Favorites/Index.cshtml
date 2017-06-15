@@ -1,14 +1,23 @@
 ﻿@model IEnumerable<Movie.Models.Total>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "收藏管理主页";
 }
 
-<h2>Index</h2>
+<h2>收藏管理主页</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
 </p>
+@using (Html.BeginForm("Index", "Favorites", FormMethod.Get))
+{
+    <p>
+        用户编号: @Html.TextBox("UserId")
+        &nbsp;&nbsp;
+        视频编号: @Html.TextBox("VideoId")
+        <input type="submit" class="btn btn-default" value="搜索" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -47,9 +56,9 @@
             @Html.DisplayFor(modelItem => item.favorite.FavoriteTime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.favorite.FavoriteId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.favorite.FavoriteId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.favorite.FavoriteId })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.favorite.FavoriteId }) |*@
+            @Html.ActionLink("收藏详情", "Details", new { id=item.favorite.FavoriteId }) |
+            @Html.ActionLink("删除收藏", "Delete", new { id=item.favorite.FavoriteId })
         </td>
     </tr>
 }

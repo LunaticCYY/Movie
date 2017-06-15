@@ -30,7 +30,9 @@
                 @Html.DisplayFor(modelItem => item.video.VideoId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.video.Vname)
+                <a href="@Url.Action("Detail","UserOperation",new { id = item.video.VideoId })">
+                    @Html.DisplayFor(modelItem => item.video.Vname)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem=>item.comment.Content)

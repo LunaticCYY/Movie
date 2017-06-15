@@ -6,9 +6,9 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>确定删除此用户？</h3>
 <div>
-    <h4>User</h4>
+    <h4>用户管理</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -49,8 +49,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回用户管理首页", "Index")
         </div>
     }
 </div>

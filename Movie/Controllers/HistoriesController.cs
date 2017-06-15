@@ -15,9 +15,19 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Histories
-        public ActionResult Index()
+        public ActionResult Index(string UserId, string VideoId)
         {
             var history = from m in db.Histories select m;
+            if (!String.IsNullOrEmpty(UserId))
+            {
+                int uid = int.Parse(UserId);
+                history = history.Where(s => s.UserId == uid);
+            }
+            if (!String.IsNullOrEmpty(VideoId))
+            {
+                int vid = int.Parse(VideoId);
+                history = history.Where(s => s.VideoId == vid);
+            }
             List<Total> total = new List<Total>();
             foreach(var item in history)
             {
@@ -54,8 +64,6 @@ namespace Movie.Controllers
         }
 
         // POST: Histories/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "HistoryId,UserId,VideoId,HistoryTime")] History history)
@@ -90,8 +98,6 @@ namespace Movie.Controllers
         }
 
         // POST: Histories/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "HistoryId,UserId,VideoId,HistoryTime")] History history)
@@ -125,9 +131,20 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // 通过Delete.cshtml页面传来的id来查询历史表
             History history = db.Histories.Find(id);
+            // 历史表里面删除该历史记录
             db.Histories.Remove(history);
+            var comment = db.Comments.Where(c => c.UserId == history.UserId).Where(c => c.VideoId == history.VideoId);
+            foreach (var item in comment)
+            {
+                db.Comments.Remove(item);
+            }
+            var favorite = db.Favorites.Where(c => c.UserId == history.UserId).Where(c => c.VideoId == history.VideoId).FirstOrDefault();
+            db.Favorites.Remove(favorite);
+            // 数据表保存
             db.SaveChanges();
+            // 跳转历史表首页
             return RedirectToAction("Index");
         }
 

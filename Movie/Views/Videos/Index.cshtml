@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Movie.Models.Total>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "视频管理首页";
 }
 
 <h2>Index</h2>
@@ -9,6 +9,14 @@
 <p>
     @Html.ActionLink("上传视频", "Upload")
 </p>
+@using (Html.BeginForm("Index", "Videos", FormMethod.Get))
+{
+    <p>
+        用户编号: @Html.TextBox("UserId")
+        电影名: @Html.TextBox("Vname")
+        <input type="submit" class="btn btn-default" value="搜索" />
+    </p>
+}
 <table class="table" style="table-layout:fixed">
     <tr>
         <th>
@@ -71,9 +79,8 @@
             @Html.DisplayFor(modelItem => item.video.Vinfo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.video.VideoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.video.VideoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.video.VideoId })
+            @Html.ActionLink("视频详情", "Details", new { id=item.video.VideoId }) |
+            @Html.ActionLink("删除视频", "Delete", new { id=item.video.VideoId })
         </td>
     </tr>
 }

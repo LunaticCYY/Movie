@@ -330,5 +330,27 @@ namespace Movie.Controllers
             }
             return RedirectToAction("Login", "Account");
         }
+
+        public ActionResult SearchResult()
+        {
+            return View();
+        }
+
+        // 创建视频Action
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SearchResult(Video video)
+        {
+            var videoSearch = db.Videos.Where(c => c.Vname.Contains(video.Vname));
+            if(videoSearch!=null)
+            {
+                return View(videoSearch);
+            }
+            else
+            {
+                ModelState.AddModelError("", "搜索为空");
+                return View();
+            }
+        }
     }
 }

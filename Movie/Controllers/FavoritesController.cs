@@ -15,9 +15,19 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Favorites
-        public ActionResult Index()
+        public ActionResult Index(string UserId, string VideoId)
         {
             var favorite = from m in db.Favorites select m;
+            if (!String.IsNullOrEmpty(UserId))
+            {
+                int uid = int.Parse(UserId);
+                favorite = favorite.Where(s => s.UserId == uid);
+            }
+            if (!String.IsNullOrEmpty(VideoId))
+            {
+                int vid = int.Parse(VideoId);
+                favorite = favorite.Where(s => s.VideoId == vid);
+            }
             List<Total> total = new List<Total>();
             foreach (var item in favorite)
             {
@@ -54,8 +64,6 @@ namespace Movie.Controllers
         }
 
         // POST: Favorites/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FavoriteId,UserId,VideoId,FavoriteTime")] Favorite favorite)
@@ -90,8 +98,6 @@ namespace Movie.Controllers
         }
 
         // POST: Favorites/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "FavoriteId,UserId,VideoId,FavoriteTime")] Favorite favorite)

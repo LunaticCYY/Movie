@@ -1,13 +1,13 @@
 ﻿@model Movie.Models.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "用户详情";
 }
 
-<h2>Details</h2>
+<h2>用户详情</h2>
 
 <div>
-    <h4>User</h4>
+    <h4>用户管理</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -23,7 +23,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Password)
+            @*@Html.DisplayFor(model => model.Password)*@
+            ****************
         </dd>
 
         <dt>
@@ -45,6 +46,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("编辑此用户", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("返回用户管理首页", "Index")
 </p>

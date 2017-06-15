@@ -15,9 +15,18 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Users
-        public ActionResult Index()
+        public ActionResult Index(string NickName, string Email)
         {
-            return View(db.Users.ToList());
+            var users = from m in db.Users select m;
+            if (!String.IsNullOrEmpty(NickName))
+            {
+                users = users.Where(s => s.NickName.Contains(NickName));
+            }
+            if (!string.IsNullOrEmpty(Email))
+            {
+                users = users.Where(s => s.Email.Contains(Email));
+            }
+            return View(users);
         }
 
         // GET: Users/Details/5
@@ -42,8 +51,6 @@ namespace Movie.Controllers
         }
 
         // POST: Users/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
@@ -78,8 +85,6 @@ namespace Movie.Controllers
         }
 
         // POST: Users/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
@@ -113,9 +118,45 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // 在用户表中查询该用户
             User user = db.Users.Find(id);
+            var vid = db.Videos.Where(c => c.UserId == user.UserId);
+            var his = db.Histories.Where(c => c.UserId == user.UserId);
+            var com = db.Comments.Where(c => c.UserId == user.UserId);
+            var fav = db.Favorites.Where(c => c.UserId == user.UserId);
+            if(vid != null)
+            {
+                foreach(var a in vid)
+                {
+                    db.Videos.Remove(a);
+                }
+            }
+            if (his != null)
+            {
+                foreach (var a in his)
+                {
+                    db.Histories.Remove(a);
+                }
+            }  
+            if (com != null)
+            {
+                foreach (var a in com)
+                {
+                    db.Comments.Remove(a);
+                }
+            }    
+            if (fav != null)
+            {
+                foreach (var a in fav)
+                {
+                    db.Favorites.Remove(a);
+                }
+            }  
+            // 删除该用户
             db.Users.Remove(user);
+            // 数据库保存
             db.SaveChanges();
+            // 跳转List页
             return RedirectToAction("Index");
         }
 

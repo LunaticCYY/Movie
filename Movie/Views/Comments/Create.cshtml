@@ -1,10 +1,10 @@
 ﻿@model Movie.Models.Comment
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "创建评论";
 }
 
-<h2>Create</h2>
+<h2>创建评论管理</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Comment</h4>
+        <h4>评论管理</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -56,7 +56,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回评论管理首页", "Index")
 </div>
 
 @section Scripts {

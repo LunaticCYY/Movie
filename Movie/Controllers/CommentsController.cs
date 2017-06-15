@@ -15,9 +15,19 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Comments
-        public ActionResult Index()
+        public ActionResult Index(string UserId, string VideoId)
         {
             var comment = from m in db.Comments select m;
+            if (!String.IsNullOrEmpty(UserId))
+            {
+                int uid = int.Parse(UserId);
+                comment = comment.Where(s => s.UserId == uid);
+            }
+            if (!String.IsNullOrEmpty(VideoId))
+            {
+                int vid = int.Parse(VideoId);
+                comment = comment.Where(s => s.VideoId == vid);
+            }
             List<Total> total = new List<Total>();
             foreach (var item in comment)
             {
@@ -54,8 +64,6 @@ namespace Movie.Controllers
         }
 
         // POST: Comments/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CommentId,UserId,VideoId,Content,CommentTime")] Comment comment)
@@ -90,8 +98,6 @@ namespace Movie.Controllers
         }
 
         // POST: Comments/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CommentId,UserId,VideoId,Content,CommentTime")] Comment comment)

@@ -16,9 +16,18 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Videos
-        public ActionResult Index()
+        public ActionResult Index(string UserId,string Vname)
         {
             var video = from m in db.Videos select m;
+            if (!String.IsNullOrEmpty(Vname))
+            {
+                video = video.Where(s => s.Vname.Contains(Vname));
+            }
+            if (!String.IsNullOrEmpty(UserId))
+            {
+                int uid = int.Parse(UserId);
+                video = video.Where(s => s.UserId == uid);
+            }
             List<Total> total = new List<Total>();
             foreach (var item in video)
             {
@@ -119,8 +128,28 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Video video = db.Videos.Find(id);
-            db.Videos.Remove(video);
+            Video vi = db.Videos.Find(id);
+            var com = db.Comments.Where(c => c.VideoId == vi.VideoId);
+            var his = db.Histories.Where(c => c.VideoId == vi.VideoId);
+            var videofile = Request.MapPath(vi.Vurl);
+            var pic = Request.MapPath(vi.Thumbnail);
+            System.IO.File.Delete(videofile);
+            System.IO.File.Delete(pic);
+            if (his != null)
+            {
+                foreach (var a in his)
+                {
+                    db.Histories.Remove(a);
+                }   
+            }     
+            if (com != null)
+            {
+                foreach (var a in com)
+                {
+                    db.Comments.Remove(a);
+                }
+            }     
+            db.Videos.Remove(vi);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
