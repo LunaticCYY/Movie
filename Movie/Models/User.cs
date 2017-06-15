@@ -34,7 +34,7 @@ namespace Movie.Models
         [StringLength(16, MinimumLength = 6)]
         public string Password { get; set; }//用户密码
         [Required]
-        [Unique]
+        //[Unique]
         [Display(Name = "用户邮箱")]
         [StringLength(50)]
         [RegularExpression(@"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$")]

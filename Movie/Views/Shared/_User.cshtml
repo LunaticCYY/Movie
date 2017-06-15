@@ -30,13 +30,13 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">功能列表<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("查看个人信息", "UserMessage", "UserOperation")</li>
                             <li role="separator" class="divider"></li>
                             <li>@Html.ActionLink("查看上传记录", "UploadRecord", "UserOperation")</li>
-                            <li role="separator" class="divider"></li>
-                            <li>@Html.ActionLink("查看播放记录", "ViewRecord", "UserOperation")</li>
+                            @*<li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("查看播放记录", "ViewRecord", "UserOperation")</li>*@
                             <li role="separator" class="divider"></li>
                             <li>@Html.ActionLink("查看评论记录", "UserComment", "UserOperation")</li>
                             <li role="separator" class="divider"></li>
@@ -44,6 +44,7 @@
                         </ul>
                     </li>
                     <li>@Html.ActionLink("投稿", "Upload", "UserOperation")</li>
+                    <li>@Html.ActionLink("注销","Loginout", "UserOperation")</li>
                 </ul>
             </div>
         </div>
@@ -57,7 +58,7 @@
         <!-- FOOTER -->
         <footer class="bottom">
             <p class="pull-right"><a href="#">Back to top</a></p>
-            <p style="text-align:center">&copy; 2017 Movie, 第一小组. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+            <p style="text-align:center">&copy; 2017 Movie, 第一小组.</p>
         </footer>
     </div>
 

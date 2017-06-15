@@ -69,6 +69,7 @@ namespace Movie.Controllers
                 var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
                 // 当前用户的编号自加一
                 user.UserId = MaxId + 1;
+
                 // 当前用户默认权限为0
                 user.Privilege = 1;
                 // 用户表内加入加入该用户

@@ -163,17 +163,12 @@
     <Compile Include="Controllers\FavoritesController.cs" />
     <Compile Include="Controllers\HistoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ScoresController.cs" />
     <Compile Include="Controllers\UserOperationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Cookies.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706131604265_InitialCreate.cs" />
-    <Compile Include="Migrations\201706131604265_InitialCreate.Designer.cs">
-      <DependentUpon>201706131604265_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -183,8 +178,6 @@
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\HistoryDetail.cs" />
     <Compile Include="Models\MovieContext.cs" />
-    <Compile Include="Models\Score.cs" />
-    <Compile Include="Models\ScoreDetail.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Models\VideoDetail.cs" />
@@ -247,7 +240,6 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Video\1.mp4" />
-    <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
@@ -263,7 +255,6 @@
     <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
     <Content Include="Views\UserOperation\Index.cshtml" />
-    <Content Include="Views\Shared\_User.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
@@ -277,8 +268,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -298,23 +287,18 @@
     <Content Include="Views\UserOperation\Detail.cshtml" />
     <Content Include="Views\UserOperation\AddFavorite.cshtml" />
     <Content Include="Views\UserOperation\UserComment.cshtml" />
-    <Content Include="Views\Scores\Create.cshtml" />
-    <Content Include="Views\Scores\Delete.cshtml" />
-    <Content Include="Views\Scores\Details.cshtml" />
-    <Content Include="Views\Scores\Edit.cshtml" />
-    <Content Include="Views\Scores\Index.cshtml" />
     <Content Include="Views\UserOperation\CommentList.cshtml" />
+    <Content Include="Views\UserOperation\Loginout.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Shared\_User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706131604265_InitialCreate.resx">
-      <DependentUpon>201706131604265_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

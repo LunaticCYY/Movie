@@ -12,7 +12,7 @@ using Movie.App_Start;
 
 namespace Movie.Controllers
 {
-    [CheckLogin]
+    //[CheckLogin]
     public class UsersController : Controller
     {
         // 数据库连接

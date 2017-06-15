@@ -180,10 +180,10 @@ namespace Movie.Controllers
             // 电影默认观看数为0
             video.ViewedNum = 0;
             // 用户ID
-            //video.UserId = int.Parse(Request.Cookies["uid"].Value);
-            video.UserId = 1;
+            video.UserId = int.Parse(Request.Cookies["uid"].Value);
+
             // 电影上传时间
-            video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
+            video.UploadTime = DateTime.Now.ToString();
             try
             {
                 file1.SaveAs(filename);
@@ -313,6 +313,15 @@ namespace Movie.Controllers
                 commentDetail.Add(detail);
             }
             return View(commentDetail);
+        }
+
+        public ActionResult Loginout()
+        {
+            if(Request.Cookies["uid"]!=null)
+            {
+                Response.Cookies.Remove("uid");
+            }
+            return RedirectToAction("Login","Account");
         }
     }
 }

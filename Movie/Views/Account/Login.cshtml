@@ -6,7 +6,7 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<h2>登录</h2>
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
@@ -38,7 +38,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
+                <input type="submit" value="登录" class="btn btn-default" />
+                @Html.ActionLink("注册", "Register", "Account")
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>评论列表</h2>
 <p>
     @using (Html.BeginForm("Index", "Comments", FormMethod.Get))
     {
@@ -51,8 +51,8 @@
                 @Html.DisplayFor(modelItem => item.CommentTime)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.CommentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CommentId })
+                @Html.ActionLink("评论详情", "Details", new { id = item.CommentId }) |
+                @Html.ActionLink("删除评论", "Delete", new { id = item.CommentId })
             </td>
         </tr>
     }

@@ -76,14 +76,12 @@ namespace Movie.Controllers
             video.VideoId = MaxId + 1;
             // 电影默认观看数为0
             video.ViewedNum = 0;
-
             // 电影的封面
             video.Thumbnail = "123";
             // 用户ID
-            //video.UserId = int.Parse(Request.Cookies["uid"].Value);
-            video.UserId = 1;
+            video.UserId = int.Parse(Request.Cookies["uid"].Value);
             // 电影上传时间
-            video.UploadTime = DateTime.Now.ToString("0:yyyy-MM-dd");
+            video.UploadTime = DateTime.Now.ToString();
             try
             {
                 file1.SaveAs(filename);
@@ -132,15 +130,10 @@ namespace Movie.Controllers
             Video vi = db.Videos.Find(id);
             var com = db.Comments.Where(c=>c.VideoId==vi.VideoId);
             var his = db.Histories.Where(c => c.VideoId == vi.VideoId);
-            var score = from m in db.Scores select m;
-            score = score.Where(c => c.VideoId == id);
             var videofile = Request.MapPath(vi.Vurl);
             var pic = Request.MapPath(vi.Thumbnail);
             System.IO.File.Delete(videofile);
             System.IO.File.Delete(pic);
-            if(score!=null)
-                foreach(var a in score)
-            db.Scores.Remove(a);
             if(his!=null)
                 foreach(var a in his)
             db.Histories.Remove(a);

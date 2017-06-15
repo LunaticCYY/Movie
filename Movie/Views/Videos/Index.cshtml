@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>>视频>首页</p>
+
 <p>
-    @Html.ActionLink("Upload", "Upload")
+    @Html.ActionLink("上传", "Upload")
     @using (Html.BeginForm("Index", "Videos", FormMethod.Get))
     {
     <p>
-        Type: @Html.DropDownList("Vtype", "All")
-        Title: @Html.TextBox("Vname")
+        类型: @Html.DropDownList("Vtype", "...")
+        电影名: @Html.TextBox("Vname")
         <input type="submit" class="btn btn-default" value="搜索" />
     </p>
     }

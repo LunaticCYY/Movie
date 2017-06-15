@@ -41,6 +41,5 @@ namespace Movie.Models
         [StringLength(1000)]
         public string Vinfo { get; set; }//视频简介
 
-        public double VideoScore;
     }
 }
