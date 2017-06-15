@@ -1,15 +1,15 @@
-﻿@model Movie.Models.VideoDetail
+﻿@model Movie.Models.Total
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_User.cshtml";
 }
-<div class="container" style="width: 60%;" align="center">
-    <h3 align="left">>>@Html.DisplayFor(Model => Model.Vname)</h3>
+<div class="container" style="width: 80%;" align="center">
+    <h3 align="left">>>@Html.DisplayFor(Model => Model.video.Vname)</h3>
     <div class="row">
         <div class="col-sm-12 col-md-12">
             <div class="thumbnail">
                 <video width="100%" controls >
-                    <source src="@Url.Content(Model.Vurl)" type="video/mp4">
+                    <source src="@Url.Content(Model.video.Vurl)" type="video/mp4">
                 </video>
                 <div class="caption">
                     <p align="left">
@@ -20,7 +20,7 @@
                     </p>
 
                     <p align="left">
-                        <span><span class="glyphicon glyphicon-expand">@Html.DisplayFor(Model => Model.ViewedNum)</span></span>
+                        <span><span class="glyphicon glyphicon-expand">@Html.DisplayFor(Model => Model.video.ViewedNum)</span></span>
                         <span style="float:right"><span class="glyphicon glyphicon-check">@Html.DisplayFor(Model => Model.CommentNum)</span></span>
                     </p>         
                 </div>
@@ -31,30 +31,10 @@
             @using (Html.BeginForm("Detail","UserOperation",FormMethod.Post, new {style= "padding-left: 15px; padding-right: 15px;width:100%;" }))
             {
                 @Html.AntiForgeryToken()
-                @*<div class="form-group">
-                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                    </div>
-                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })*@
-                <textarea name="Content" data-provide="markdown" rows="10"></textarea>
+                @Html.TextAreaFor(model => model.comment.Content, new { htmlAttributes = new { rows=10 } })
                 <button type="submit" class="btn btn-default" style="float: left;">Submit</button>
             }
     </div>
-    @*<div class="media">
-        <a class="media-left" href="#">
-            <img src="" alt="...">
-        </a>
-        <div class="media-body" style="width:100%">
-            <h4 class="media-heading"></h4>
-            <p>
-                <span style="float: left;">Content</span>
-                <span style="float: right;">2017/5/29 23:12</span>
-            </p>
-        </div>
-    </div>*@
-    @{ Html.RenderAction("返回评论列表","CommentList","UserOperation");}
+    @{ Html.RenderAction("CommentList","UserOperation");}
 </div>
 

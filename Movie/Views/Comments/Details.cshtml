@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>评论详情</h2>
+<h2>Details</h2>
 
 <div>
     <h4>Comment</h4>
@@ -45,5 +45,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("返回评论列表", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CommentId }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

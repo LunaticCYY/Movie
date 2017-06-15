@@ -33,9 +33,8 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    @*<li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>*@
-                    <li>@Html.ActionLink("用户管理", "List", "Users")</li>
-                    
+                    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                    <li>@Html.ActionLink("用户管理", "Index", "Users")</li>
                 </ul>
                 <ul class="nav nav-sidebar">
                     <li>@Html.ActionLink("视频管理", "Index", "Videos")</li>
@@ -43,9 +42,9 @@
                 <ul class="nav nav-sidebar">
                     <li>@Html.ActionLink("评论管理", "Index", "Comments")</li>
                 </ul>
-                @*<ul class="nav nav-sidebar">
+                <ul class="nav nav-sidebar">
                     <li>@Html.ActionLink("观看历史管理", "Index", "Histories")</li>
-                </ul>*@
+                </ul>
                 <ul class="nav nav-sidebar">
                     <li>@Html.ActionLink("收藏管理", "Index", "Favorites")</li>
                 </ul>

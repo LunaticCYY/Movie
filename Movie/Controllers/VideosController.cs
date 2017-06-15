@@ -13,29 +13,25 @@ namespace Movie.Controllers
 {
     public class VideosController : Controller
     {
-        // 数据库连接
         private MovieContext db = new MovieContext();
 
-        // 视频首页
-        public ActionResult Index(string Vtype, string Vname)
+        // GET: Videos
+        public ActionResult Index()
         {
-            var TypeList = new List<string>();
-            var TypeQuery = from d in db.Videos orderby d.Vtype select d.Vtype;
-            TypeList.AddRange(TypeQuery.Distinct());
-            ViewBag.Vtype = new SelectList(TypeList);
-            var videos = from m in db.Videos select m;
-            if (!String.IsNullOrEmpty(Vname))
+            var video = from m in db.Videos select m;
+            List<Total> total = new List<Total>();
+            foreach (var item in video)
             {
-                videos = videos.Where(s => s.Vname.Contains(Vname));
+                Total detail = new Total();
+                detail.video = item;
+                var user = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
+                detail.user = user;
+                total.Add(detail);
             }
-            if (!String.IsNullOrEmpty(Vtype))
-            {
-                videos = videos.Where(s => s.Vtype == Vtype);
-            }
-            return View(videos);
+            return View(total);
         }
 
-        // 视频具体信息
+        // GET: Videos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -50,21 +46,109 @@ namespace Movie.Controllers
             return View(video);
         }
 
+        // GET: Videos/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Videos/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Videos.Add(video);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(video);
+        }
+
+        // GET: Videos/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Video video = db.Videos.Find(id);
+            if (video == null)
+            {
+                return HttpNotFound();
+            }
+            return View(video);
+        }
+
+        // POST: Videos/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
+        {
+            if (ModelState.IsValid)
+            {
+                var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
+                // 将取得最大电影编号加一赋值给将要创建的电影
+                video.VideoId = MaxId + 1;
+                db.Entry(video).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(video);
+        }
+
+        // GET: Videos/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Video video = db.Videos.Find(id);
+            if (video == null)
+            {
+                return HttpNotFound();
+            }
+            return View(video);
+        }
+
+        // POST: Videos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Video video = db.Videos.Find(id);
+            db.Videos.Remove(video);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         public ActionResult Upload()
         {
             return View();
         }
-        
+
         // 创建视频Action
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Upload(HttpPostedFileBase file2,HttpPostedFileBase file1,[Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
+        public ActionResult Upload(HttpPostedFileBase file2, HttpPostedFileBase file1, [Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
-            if(file1==null)
+            if (file1 == null)
             {
                 return Content("没有文件！", "text/plain");
             }
-            if(file2==null)
+            if (file2 == null)
             {
                 return Content("没有图片！", "text/plain");
             }
@@ -77,7 +161,7 @@ namespace Movie.Controllers
             // 电影默认观看数为0
             video.ViewedNum = 0;
             // 电影的封面
-            video.Thumbnail = "123";
+            //video.Thumbnail = "123";
             // 用户ID
             video.UserId = int.Parse(Request.Cookies["uid"].Value);
             // 电影上传时间
@@ -100,60 +184,6 @@ namespace Movie.Controllers
             {
                 return Content("上传异常 ！", "text/plain");
             }
-           
-           
         }
-
-
-
-        // GET: Videos/Delete/5
-
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Video video = db.Videos.Find(id);
-            if (video == null)
-            {
-                return HttpNotFound();
-            }
-            return View(video);
-        }
-
-        // 删除视频信息Action
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Video vi = db.Videos.Find(id);
-            var com = db.Comments.Where(c=>c.VideoId==vi.VideoId);
-            var his = db.Histories.Where(c => c.VideoId == vi.VideoId);
-            var videofile = Request.MapPath(vi.Vurl);
-            var pic = Request.MapPath(vi.Thumbnail);
-            System.IO.File.Delete(videofile);
-            System.IO.File.Delete(pic);
-            if(his!=null)
-                foreach(var a in his)
-            db.Histories.Remove(a);
-            if(com!=null)
-                foreach(var a in com)
-            db.Comments.Remove(a);
-            db.Videos.Remove(vi);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-
     }
 }

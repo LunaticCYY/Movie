@@ -2,13 +2,12 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>收藏详情</h4>
+    <h4>Favorite</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -38,5 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("返回收藏列表", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FavoriteId }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

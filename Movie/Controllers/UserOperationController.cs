@@ -23,7 +23,7 @@ namespace Movie.Controllers
         [CheckLogin]
         public ActionResult Index()
         {
-            var videos = db.Videos.OrderByDescending(c=>c.ViewedNum).Take(10);
+            var videos = db.Videos.OrderByDescending(c => c.ViewedNum).Take(10);
             return View(videos);
         }
 
@@ -33,7 +33,7 @@ namespace Movie.Controllers
             // 从数据库电影表中查找用户点击电影的对象
             var vi = db.Videos.Find(id);
             vid = vi.VideoId;
-            VideoDetail detail = new VideoDetail();
+            Total detail = new Total();
             if (Request.Cookies["uid"] != null)
             {
                 //从cookie中获取当前用户uid
@@ -48,7 +48,7 @@ namespace Movie.Controllers
                     db.Entry(history).State = EntityState.Modified;
                     if (db.SaveChanges() != 1)
                     {
-                        ModelState.AddModelError("", "服务器错误");
+                        return Content("<script>alert('服务器错误');history.go(-1);</script>");
                     }
                 }
                 else
@@ -63,7 +63,7 @@ namespace Movie.Controllers
                     db.Histories.Add(addHistory);
                     if (db.SaveChanges() != 1)
                     {
-                        ModelState.AddModelError("", "服务器错误");
+                        return Content("<script>alert('服务器错误');history.go(-1);</script>");
                     }
                 }
                 //将当前视频的播放量加一
@@ -71,22 +71,19 @@ namespace Movie.Controllers
                 db.Entry(vi).State = EntityState.Modified;
                 if (db.SaveChanges() != 1)
                 {
-                    ModelState.AddModelError("", "服务器错误");
+                    return Content("<script>alert('服务器错误');history.go(-1);</script>");
                 }
             }
-            detail.VideoId = vi.VideoId;
-            detail.Vname = vi.Vname;
-            detail.ViewedNum = vi.ViewedNum;
+            detail.video = vi;
             var CommentQuery = db.Comments.Where(c => c.VideoId == vi.VideoId);
             int CommentCount = CommentQuery.Count();
             detail.CommentNum = CommentCount;
-            detail.Vurl = vi.Vurl;
             return View(detail);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Detail(VideoDetail model)
+        public ActionResult Detail(Total model)
         {
             Comment comment = new Comment();
             var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
@@ -105,7 +102,7 @@ namespace Movie.Controllers
                 {
                     comment.UserId = uid;
                     comment.VideoId = vid;
-                    comment.Content = model.Content;
+                    comment.Content = model.comment.Content;
                     comment.CommentTime = DateTime.Now.ToString();
                     db.Comments.Add(comment);
                     db.SaveChanges();
@@ -123,12 +120,12 @@ namespace Movie.Controllers
         [HttpPost]
         public ActionResult AddFavorite()
         {
-            if(Request.Cookies["uid"]!=null)
+            if (Request.Cookies["uid"] != null)
             {
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
                 var favorite = db.Favorites.Where(c => c.VideoId == vid).Where(c => c.UserId == uid).FirstOrDefault();
-                if(favorite!=null)
+                if (favorite != null)
                 {
                     return Content("<script>alert('您已经收藏了该视频');history.go(-1);</script>");
                 }
@@ -203,6 +200,7 @@ namespace Movie.Controllers
                 return Content("上传异常 ！", "text/plain");
             }
         }
+
         public ActionResult UserMessage()
         {
             if (Request.Cookies["uid"] != null)
@@ -212,7 +210,10 @@ namespace Movie.Controllers
                 var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
                 return View(user);
             }
-            return View();
+            else
+            {
+                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+            }
         }
 
         public ActionResult UploadRecord()
@@ -224,7 +225,10 @@ namespace Movie.Controllers
                 var video = db.Videos.Where(c => c.UserId == uid);
                 return View(video);
             }
-            return View();
+            else
+            {
+                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+            }
         }
 
         public ActionResult ViewRecord()
@@ -234,41 +238,45 @@ namespace Movie.Controllers
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
                 var history = db.Histories.Where(c => c.UserId == uid);
-                List<HistoryDetail> historyDetail = new List<HistoryDetail>();
+                List<Total> total = new List<Total>();
                 foreach (var item in history)
                 {
-                    HistoryDetail detail = new HistoryDetail();
+                    Total detail = new Total();
                     var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
-                    detail.VideoId = item.VideoId;
-                    detail.Vname = video.Vname;
-                    detail.HistoryTime = item.HistoryTime;
-                    historyDetail.Add(detail);
+                    detail.video = video;
+                    detail.history = item;
+                    total.Add(detail);
                 }
-                return View(historyDetail);
+                return View(total);
             }
-            return View();
+            else
+            {
+                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+            }
         }
 
         public ActionResult UserFavorite()
         {
-            if(Request.Cookies["uid"]!=null)
+            if (Request.Cookies["uid"] != null)
             {
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
                 var favorite = db.Favorites.Where(c => c.UserId == uid);
-                List<FavoriteDetail> favoriteDetail = new List<FavoriteDetail>();
+                List<Total> total = new List<Total>();
                 foreach (var item in favorite)
                 {
-                    FavoriteDetail detail = new FavoriteDetail();
+                    Total detail = new Total();
                     var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
-                    detail.VideoId = item.VideoId;
-                    detail.Vname = video.Vname;
-                    detail.FavoriteTime = item.FavoriteTime;
-                    favoriteDetail.Add(detail);
+                    detail.video = video;
+                    detail.favorite = item;
+                    total.Add(detail);
                 }
-                return View(favoriteDetail);
+                return View(total);
             }
-            return View();
+            else
+            {
+                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+            }
         }
 
         public ActionResult UserComment()
@@ -279,49 +287,48 @@ namespace Movie.Controllers
                 int uid = int.Parse(hc.Value);
                 var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
                 var comment = db.Comments.Where(c => c.UserId == uid);
-                List<CommentDetail> commentDetail = new List<CommentDetail>();
+                List<Total> total = new List<Total>();
                 foreach (var item in comment)
                 {
-                    CommentDetail detail = new CommentDetail();
+                    Total detail = new Total();
                     var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
-                    detail.VideoId = item.VideoId;
-                    detail.Vname = video.Vname;
-                    detail.NickName = user.NickName;
-                    detail.Content = item.Content;
-                    detail.CommentTime = item.CommentTime;
-                    commentDetail.Add(detail);
+                    detail.video = video;
+                    detail.user = user;
+                    detail.comment = item;
+                    total.Add(detail);
                 }
-                return View(commentDetail);
+                return View(total);
             }
-            return View();
+            else
+            {
+                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+            }
         }
 
         public ActionResult CommentList()
         {
             var comment = db.Comments.Where(c => c.VideoId == vid);
             var video = db.Videos.Where(c => c.VideoId == vid).FirstOrDefault();
-            List<CommentDetail> commentDetail = new List<CommentDetail>();
-            foreach(var item in comment)
+            List<Total> total = new List<Total>();
+            foreach (var item in comment)
             {
-                CommentDetail detail = new CommentDetail();
-                detail.VideoId = item.VideoId;
-                detail.Vname = video.Vname;
+                Total detail = new Total();
+                detail.video = video;
                 var user = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
-                detail.NickName = user.NickName;
-                detail.Content = item.Content;
-                detail.CommentTime = item.CommentTime;
-                commentDetail.Add(detail);
+                detail.user = user;
+                detail.comment = item;
+                total.Add(detail);
             }
-            return View(commentDetail);
+            return View(total);
         }
 
         public ActionResult Loginout()
         {
-            if(Request.Cookies["uid"]!=null)
+            if (Request.Cookies["uid"] != null)
             {
                 Response.Cookies.Remove("uid");
             }
-            return RedirectToAction("Login","Account");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

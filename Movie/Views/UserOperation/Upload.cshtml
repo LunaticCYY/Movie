@@ -1,10 +1,8 @@
-﻿
+﻿@model Movie.Models.Video
 @{
-    ViewBag.Title = "Upload";
+    ViewBag.Title = "投稿";
     Layout = "~/Views/Shared/_User.cshtml";
 }
-
-@model Movie.Models.Video
 
 
 @using (Html.BeginForm("Upload", "UserOperation", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -48,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Vtype, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vtype, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.Vtype, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Vtype, "", new { @class = "text-danger" })
             </div>
         </div>

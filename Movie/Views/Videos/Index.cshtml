@@ -1,47 +1,42 @@
-﻿@model IEnumerable<Movie.Models.Video>
+﻿@model IEnumerable<Movie.Models.Total>
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("上传", "Upload")
-    @using (Html.BeginForm("Index", "Videos", FormMethod.Get))
-    {
-    <p>
-        类型: @Html.DropDownList("Vtype", "...")
-        电影名: @Html.TextBox("Vname")
-        <input type="submit" class="btn btn-default" value="搜索" />
-    </p>
-    }
+    @Html.ActionLink("上传视频", "Upload")
 </p>
-<table style="table-layout:fixed" class="table">
+<table class="table" style="table-layout:fixed">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Vname)
+            @Html.DisplayNameFor(model => model.video.Vname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vurl)
+            @Html.DisplayNameFor(model => model.video.Vurl)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Thumbnail)
+            @Html.DisplayNameFor(model => model.video.Thumbnail)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ViewedNum)
+            @Html.DisplayNameFor(model => model.video.ViewedNum)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UploadTime)
+            @Html.DisplayNameFor(model => model.video.UploadTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vtype)
+            @Html.DisplayNameFor(model => model.video.Vtype)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.video.UserId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vinfo)
+            @Html.DisplayNameFor(model => model.user.NickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.video.Vinfo)
         </th>
         <th></th>
     </tr>
@@ -49,32 +44,36 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Vname)
+            @Html.DisplayFor(modelItem => item.video.Vname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Vurl)
+            @Html.DisplayFor(modelItem => item.video.Vurl)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Thumbnail)
+            @Html.DisplayFor(modelItem => item.video.Thumbnail)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ViewedNum)
+            @Html.DisplayFor(modelItem => item.video.ViewedNum)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UploadTime)
+            @Html.DisplayFor(modelItem => item.video.UploadTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Vtype)
+            @Html.DisplayFor(modelItem => item.video.Vtype)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
+            @Html.DisplayFor(modelItem => item.video.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user.Email)
         </td>
         <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-            @Html.DisplayFor(modelItem => item.Vinfo)
+            @Html.DisplayFor(modelItem => item.video.Vinfo)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.VideoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.VideoId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.video.VideoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.video.VideoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.video.VideoId })
         </td>
     </tr>
 }

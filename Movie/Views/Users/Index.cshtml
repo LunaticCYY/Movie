@@ -27,12 +27,15 @@
     </tr>
 
 @foreach (var item in Model) {
+    if (item.Privilege != Movie.Models.User.Privileges.管理员)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.NickName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
+            @*@Html.DisplayFor(modelItem => item.Password)*@
+            ****************
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
@@ -41,11 +44,11 @@
             @Html.DisplayFor(modelItem => item.Privilege)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
         </td>
-    </tr>
+    </tr>}
 }
 
 </table>

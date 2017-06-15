@@ -31,10 +31,13 @@ namespace Movie.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required]
         public string UploadTime { get; set; }//视频上传日期
+        public enum Types
+        {
+            动作, 喜剧, 科幻, 爱情, 纪录, 动画, 恐怖, 悬疑, 青春, 文艺, 励志, 战争, 犯罪,剧情, 音乐, 历史
+        }
         [Required]
         [Display(Name = "视频类型")]
-        [StringLength(50)]
-        public string Vtype { get; set; }//视频类型
+        public Types? Vtype { get; set; }//视频类型
         [Display(Name = "上传视频用户编号")]
         public int UserId { get; set; }//上传视频用户编号
         [Display(Name = "视频简介")]

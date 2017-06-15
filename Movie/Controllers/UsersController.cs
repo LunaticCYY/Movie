@@ -7,80 +7,58 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
-using System.Data.Entity.Infrastructure;
-using Movie.App_Start;
 
 namespace Movie.Controllers
 {
-    //[CheckLogin]
     public class UsersController : Controller
     {
-        // 数据库连接
         private MovieContext db = new MovieContext();
 
-        // List.cshtml 显示用户表的所有内容
-        public ActionResult List(string NickName, string Email)
+        // GET: Users
+        public ActionResult Index()
         {
-            var users = from m in db.Users select m;
-            if (!String.IsNullOrEmpty(NickName))
-            {
-                users = users.Where(s => s.NickName.Contains(NickName));
-            }
-            if (!string.IsNullOrEmpty(Email))
-            {
-                users = users.Where(s => s.Email.Contains(Email));
-            }
-            return View(users);
+            return View(db.Users.ToList());
         }
 
-        // Detail.cshtml 获取某个UserId显示某个用户的详细信息
+        // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
-            // 如果id为空
             if (id == null)
             {
-                // 请求错误信息
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            // 通过id查询该用户
             User user = db.Users.Find(id);
-            // 如果没有查询到该用户
             if (user == null)
             {
-                // 返回没有找到信息
                 return HttpNotFound();
             }
-            // 返回该用户信息页面
             return View(user);
         }
 
+        // GET: Users/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // 创建用户Action
+        // POST: Users/Create
+        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
+        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
-            // 判断从create.cshtml页面传过来的user类中是否合法
             if (ModelState.IsValid)
             {
                 // 如果是，则在用户表取得用户表中最大的用户编号
                 var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
                 // 将取得最大用户编号加一赋值给将要创建的用户
                 user.UserId = MaxId + 1;
-                // 默认用户权限为0
-                user.Privilege = 1;
-                // 用户表中插入该用户
                 db.Users.Add(user);
-                // 数据库保存
                 db.SaveChanges();
-                // 跳转用户List表查看所有用户
-                return RedirectToAction("List");
+                return RedirectToAction("Index");
             }
-            // 从create.cshtml页面传过来的user类中不合法，直接返回原来的页面
+
             return View(user);
         }
 
@@ -99,31 +77,20 @@ namespace Movie.Controllers
             return View(user);
         }
 
-        // 编辑用户Action
+        // POST: Users/Edit/5
+        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
+        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-        public ActionResult Edit(User user)
+        public ActionResult Edit([Bind(Include = "UserId,NickName,Password,Email,Privilege")] User user)
         {
-            // 判断user类是否合法
-            
-            User u = db.Users.Find(user.UserId);
-            var users = new User
+            if (ModelState.IsValid)
             {
-                UserId = u.UserId,
-                NickName = u.NickName,
-                Password = u.Password,
-                Email = u.Email,
-                Privilege = user.Privilege
-            };
-            db.Users.Remove(u);
-            db.SaveChanges();
-            db.Users.Add(users);
-            db.SaveChanges();
-            // 跳转List页
-                return RedirectToAction("List");
-
-
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
         }
 
         // GET: Users/Delete/5
@@ -138,34 +105,18 @@ namespace Movie.Controllers
             {
                 return HttpNotFound();
             }
-            return View();
+            return View(user);
         }
 
-        // 删除用户Action
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            // 在用户表中查询该用户
             User user = db.Users.Find(id);
-            var his = db.Histories.Where(c => c.UserId == user.UserId);
-            var com = db.Comments.Where(c => c.UserId == user.UserId);
-            var fav = db.Favorites.Where(c => c.UserId == user.UserId);
-            if (his != null)
-                foreach(var a in his)
-                db.Histories.Remove(a);
-            if (com != null)
-                foreach (var a in com)
-                    db.Comments.Remove(a);
-            if (fav != null)
-                foreach (var a in fav)
-                    db.Favorites.Remove(a);
-            // 删除该用户
             db.Users.Remove(user);
-            // 数据库保存
             db.SaveChanges();
-            // 跳转List页
-            return RedirectToAction("List");
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -15,8 +15,8 @@ namespace Movie.Models
         private static MovieContext db = new MovieContext();
         public override Boolean IsValid(Object value)
         {
-            if(value!=null)
-            return !db.Users.Any(c => c.Email.Contains(value.ToString()));
+            if (value != null)
+                return !db.Users.Any(c => c.Email.Contains(value.ToString()));
             return true;
         }
     }
@@ -40,8 +40,12 @@ namespace Movie.Models
         [RegularExpression(@"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$")]
 
         public string Email { get; set; }//用户邮箱
+        public enum Privileges
+        {
+            禁言会员,普通会员,高级会员,管理员
+        }
         [Required]
         [Display(Name = "用户权限")]
-        public int Privilege { get; set; }//用户权限
+        public Privileges? Privilege { get; set; }//用户权限
     }
 }
