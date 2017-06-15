@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Movie.Models.Video>
+@{
+    Layout = "~/Views/Shared/_User.cshtml";
+}
+<div class="container marketing" align="center" style="margin-top:52px">
+@foreach (var item in Model){
+    <div class="row featurette">
+        <div class="col-md-7 col-md-push-5" style="padding-right: 0px;">
+            <h2></h2>
+            <dl class="dl-horizontal">
+                <dt>
+                    视频名：
+                </dt>
+                <dd style="text-align:left">
+                    @Html.DisplayFor(modelItem => item.Vname)
+                </dd>
+                <dt>
+                    类型：
+                </dt>
+                <dd style="text-align:left">
+                    @Html.DisplayFor(modelItem => item.Vtype)
+                </dd>
+                <dt>
+                    播放人数：
+                </dt>
+                <dd style="text-align:left">
+                    @Html.DisplayFor(modelItem => item.ViewedNum)
+                </dd>
+                <dt>
+                    简介：
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Vinfo)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+            <h2></h2>
+            <a href="@Url.Action("Detail","UserOperation",new { id = item.VideoId })">
+                <img class="featurette-image img-responsive center-block" src="@Url.Content(item.Thumbnail)" style="width: 500px; height: 600px;">
+            </a>
+        </div>
+    </div>
+    <hr class="featurette-divider">
+}
+    </div>
+
+
