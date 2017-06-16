@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Movie.Models.Total>
+﻿@model PagedList.IPagedList<Movie.Models.Total>
+@using PagedList.Mvc
 @{
     Layout = "~/Views/Shared/_User.cshtml";
 }
@@ -6,19 +7,19 @@
     ViewBag.Title = "用户评论查看";
 }
 <h2>评论查看</h2>
-<table class="table">
+<table class="table" style="table-layout:fixed">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.video.VideoId)
+            视频编号
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.Vname)
+            视频名称
         </th>
         <th>
-            @Html.DisplayNameFor(model=>model.comment.Content)
-        </th>
+            评论内容
+            </th>
         <th>
-            @Html.DisplayNameFor(model => model.comment.CommentTime)
+            评论时间
         </th>
         <th></th>
     </tr>
@@ -34,15 +35,23 @@
                     @Html.DisplayFor(modelItem => item.video.Vname)
                 </a>
             </td>
-            <td>
+
+            <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+
                 @Html.DisplayFor(modelItem=>item.comment.Content)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.comment.CommentTime)
             </td>
+            
         </tr>
+
     }
 
 </table>
+每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+
 
 

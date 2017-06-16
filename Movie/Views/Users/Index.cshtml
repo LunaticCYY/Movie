@@ -4,7 +4,7 @@
     ViewBag.Title = "用户管理首页";
 }
 
-<h2>用户管理首页</h2>
+<h2>用户管理</h2>
 
 <p>
     @Html.ActionLink("创建新用户", "Create")
@@ -53,8 +53,8 @@
             @Html.DisplayFor(modelItem => item.Privilege)
         </td>
         <td>
-            @Html.ActionLink("编辑用户信息", "Edit", new { id = item.UserId }) |
-            @Html.ActionLink("用户详细信息", "Details", new { id = item.UserId }) |
+            @Html.ActionLink("修改用户权限", "Edit", new { id = item.UserId }) |
+            @Html.ActionLink("详细信息", "Details", new { id = item.UserId }) |
             @Html.ActionLink("删除用户", "Delete", new { id = item.UserId })
         </td>
     </tr>}

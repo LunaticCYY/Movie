@@ -283,14 +283,26 @@ namespace Movie.Controllers
             }
         }
 
-        public ActionResult UploadRecord()
+        public ActionResult UploadRecord(int ?page)
         {
             if (Request.Cookies["uid"] != null)
             {
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
-                var video = db.Videos.Where(c => c.UserId == uid);
-                return View(video);
+                var video = from m in db.Videos select m;
+                List<Total> total = new List<Total>();
+                foreach (var item in video)
+                {
+                    Total detail = new Total();
+                    detail.video = item;
+                    var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
+                    detail.user = user;
+                    total.Add(detail);
+                }
+                int pagenumber = page ?? 1;
+                int pagesize = 10;
+                IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+                return View(pagelist);
             }
             else
             {
@@ -298,7 +310,7 @@ namespace Movie.Controllers
             }
         }
 
-        public ActionResult ViewRecord()
+        public ActionResult ViewRecord(int? page)
         {
             if (Request.Cookies["uid"] != null)
             {
@@ -314,7 +326,10 @@ namespace Movie.Controllers
                     detail.history = item;
                     total.Add(detail);
                 }
-                return View(total);
+                int pagenumber = page ?? 1;
+                int pagesize = 10;
+                IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+                return View(pagelist);
             }
             else
             {
@@ -322,7 +337,7 @@ namespace Movie.Controllers
             }
         }
 
-        public ActionResult UserFavorite()
+        public ActionResult UserFavorite(int? page)
         {
             if (Request.Cookies["uid"] != null)
             {
@@ -338,7 +353,10 @@ namespace Movie.Controllers
                     detail.favorite = item;
                     total.Add(detail);
                 }
-                return View(total);
+                int pagenumber = page ?? 1;
+                int pagesize = 10;
+                IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+                return View(pagelist);
             }
             else
             {
@@ -346,7 +364,7 @@ namespace Movie.Controllers
             }
         }
 
-        public ActionResult UserComment()
+        public ActionResult UserComment(int? page)
         {
             if (Request.Cookies["uid"] != null)
             {
@@ -364,7 +382,10 @@ namespace Movie.Controllers
                     detail.comment = item;
                     total.Add(detail);
                 }
-                return View(total);
+                int pagenumber = page ?? 1;
+                int pagesize = 10;
+                IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+                return View(pagelist);
             }
             else
             {
@@ -422,5 +443,6 @@ namespace Movie.Controllers
                 return View();
             }
         }
+
     }
 }

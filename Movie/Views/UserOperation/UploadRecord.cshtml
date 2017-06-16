@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Movie.Models.Video>
+﻿@model PagedList.IPagedList<Movie.Models.Total>
+@using PagedList.Mvc
 @{
     Layout = "~/Views/Shared/_User.cshtml";
 }
@@ -9,7 +10,7 @@
 <table class="table" style="table-layout:fixed">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Vname)
+            电影名
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.Vurl)
@@ -18,19 +19,19 @@
             @Html.DisplayNameFor(model => model.Thumbnail)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.ViewedNum)
+            播放次数
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UploadTime)
+            上传时间
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vtype)
+            电影类型
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.UserId)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Vinfo)
+            电影信息
         </th>
         <th></th>
     </tr>
@@ -39,8 +40,8 @@
     {
         <tr>
             <td>
-                <a href="@Url.Action("Detail","UserOperation",new { id = item.VideoId })">
-                    @Html.DisplayFor(modelItem => item.Vname)
+                <a href="@Url.Action("Detail","UserOperation",new { id = item.video.VideoId })">
+                    @Html.DisplayFor(modelItem => item.video.Vname)
                 </a>
             </td>
             @*<td>
@@ -50,19 +51,19 @@
                 @Html.DisplayFor(modelItem => item.Thumbnail)
             </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.ViewedNum)
+                @Html.DisplayFor(modelItem => item.video.ViewedNum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UploadTime)
+                @Html.DisplayFor(modelItem => item.video.UploadTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Vtype)
+                @Html.DisplayFor(modelItem => item.video.Vtype)
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>*@
             <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                @Html.DisplayFor(modelItem => item.Vinfo)
+                @Html.DisplayFor(modelItem => item.video.Vinfo)
             </td>
             @*<td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.VideoId }) |
@@ -74,3 +75,5 @@
 
 </table>
 
+每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
+@Html.PagedListPager(Model, page => Url.Action("UploadRecord", new { page })) 
