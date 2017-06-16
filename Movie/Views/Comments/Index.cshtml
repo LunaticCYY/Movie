@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Movie.Models.Total>
-
+﻿@model PagedList.IPagedList<Movie.Models.Total>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "评论管理首页";
 }
@@ -21,22 +21,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.comment.UserId)
+            用户编号
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user.Email)
+            用户邮箱
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.comment.VideoId)
+            视频编号
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.Vname)
+            视频名称
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.comment.Content)
+            评论内容
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.comment.CommentTime)
+            评论时间
         </th>
         <th></th>
     </tr>
@@ -56,7 +56,7 @@
             @Html.DisplayFor(modelItem => item.video.Vname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.comment.Content)
+            ******
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.comment.CommentTime)
@@ -70,3 +70,5 @@
 }
 
 </table>
+每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))  

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Movie.Models.Total>
-
+﻿@model PagedList.IPagedList<Movie.Models.Total>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "视频管理首页";
 }
 
-<h2>Index</h2>
+<h2>视频管理首页</h2>
 
 <p>
     @Html.ActionLink("上传视频", "Upload")
@@ -20,31 +20,31 @@
 <table class="table" style="table-layout:fixed">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.video.Vname)
+            视频名称
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.Vurl)
+            视频链接
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.Thumbnail)
+            图片链接
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.ViewedNum)
+            播放次数
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.UploadTime)
+            上传时间
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.Vtype)
+            电影类型
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.UserId)
+            用户编号
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user.NickName)
+            用户邮箱
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.Vinfo)
+            电影简介
         </th>
         <th></th>
     </tr>
@@ -86,3 +86,5 @@
 }
 
 </table>
+每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))  

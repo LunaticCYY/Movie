@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Movie.Models.Total>
-
+﻿@model PagedList.IPagedList<Movie.Models.Total>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "历史管理首页";
 }
 
-<h2>Index</h2>
+<h2>历史管理首页</h2>
 
 @*<p>
     @Html.ActionLink("创建历史", "Create")
@@ -21,19 +21,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.user.UserId)
+            用户编号
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user.Email)
+            用户邮箱
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.VideoId)
+            视频编号
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.video.Vname)
+            视频名称
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.history.HistoryTime)
+            播放时间
         </th>
         <th></th>
     </tr>
@@ -63,3 +63,5 @@
 }
 
 </table>
+每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))  

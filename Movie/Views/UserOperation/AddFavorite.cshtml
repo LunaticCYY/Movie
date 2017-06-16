@@ -1,6 +1,10 @@
 ﻿@*@model Movie.Models.Favorite*@
 @{
-    Layout = "~/Views/Shared/_User.cshtml";
+    Layout = null;
 }
-<h2>添加成功</h2>
-@*<p>@Html.ActionLink("返回视频页面", "Detail", "UserOperation", new { id = Model.VideoId })</p>*@
+
+
+@using (Html.BeginForm("AddFavorite", "UserOperation", FormMethod.Post, new { style = "float:left;width:20px;height:20px" }))
+{
+    <button type="submit" class="btn btn-lg btn-link"><span class=" glyphicon glyphicon-star"></span></button>
+}

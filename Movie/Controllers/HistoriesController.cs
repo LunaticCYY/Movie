@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
+using PagedList;
 
 namespace Movie.Controllers
 {
@@ -15,7 +16,7 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Histories
-        public ActionResult Index(string UserId, string VideoId)
+        public ActionResult Index(string UserId, string VideoId, int? page)
         {
             var history = from m in db.Histories select m;
             if (!String.IsNullOrEmpty(UserId))
@@ -39,8 +40,13 @@ namespace Movie.Controllers
                 detail.video = video;
                 total.Add(detail);
             }
-            return View(total);
+            int pagenumber = page ?? 1;
+            int pagesize = 10;
+            IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+            return View(pagelist);
         }
+
+
 
         // GET: Histories/Details/5
         public ActionResult Details(int? id)

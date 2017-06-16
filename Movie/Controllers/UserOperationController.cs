@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Movie.Models;
 using System.IO;
 using Movie.App_Start;
+using PagedList;
 
 namespace Movie.Controllers
 {
@@ -83,7 +84,41 @@ namespace Movie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Detail(Total model)
+        //public ActionResult Detail(Total model)
+        //{
+        //    Comment comment = new Comment();
+        //    var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
+        //    comment.CommentId = MaxId + 1;
+        //    if (Request.Cookies["uid"] != null)
+        //    {
+        //        //从cookie中获取当前用户uid
+        //        HttpCookie hc = Request.Cookies["uid"];
+        //        int uid = int.Parse(hc.Value);
+        //        var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
+        //        if (user.Privilege == 0)
+        //        {
+        //            return Content("<script>alert('很抱歉，您没有权限评论');history.go(-1);</script>");
+        //        }
+        //        else
+        //        {
+        //            comment.UserId = uid;
+        //            comment.VideoId = vid;
+        //            comment.Content = model.comment.Content;
+        //            comment.CommentTime = DateTime.Now.ToString();
+        //            db.Comments.Add(comment);
+        //            db.SaveChanges();
+        //            Response.Write("<script>alert('评论成功');</script>");
+        //            return Detail(vid);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+        //        //return RedirectToAction("Login", "Account");
+        //    }
+        //}
+        
+        public ActionResult AddComment(string aaa)
         {
             Comment comment = new Comment();
             var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
@@ -102,7 +137,8 @@ namespace Movie.Controllers
                 {
                     comment.UserId = uid;
                     comment.VideoId = vid;
-                    comment.Content = model.comment.Content;
+                    if (aaa != null)
+                        comment.Content = aaa;
                     comment.CommentTime = DateTime.Now.ToString();
                     db.Comments.Add(comment);
                     db.SaveChanges();
@@ -115,10 +151,16 @@ namespace Movie.Controllers
                 return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
                 //return RedirectToAction("Login", "Account");
             }
+            return View();
         }
 
-        [HttpPost]
+
         public ActionResult AddFavorite()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddFavorite(int ?id)
         {
             if (Request.Cookies["uid"] != null)
             {
@@ -305,7 +347,7 @@ namespace Movie.Controllers
             }
         }
 
-        public ActionResult CommentList()
+        public ActionResult CommentList(int ?page)
         {
             var comment = db.Comments.Where(c => c.VideoId == vid);
             var video = db.Videos.Where(c => c.VideoId == vid).FirstOrDefault();
@@ -319,7 +361,10 @@ namespace Movie.Controllers
                 detail.comment = item;
                 total.Add(detail);
             }
-            return View(total);
+            int pagenumber = page ?? 1;
+            int pagesize = 10;
+            IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+            return View(pagelist);
         }
 
         public ActionResult Loginout()

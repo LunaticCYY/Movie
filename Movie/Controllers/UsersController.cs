@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
+using PagedList;
 
 namespace Movie.Controllers
 {
@@ -15,7 +16,7 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Users
-        public ActionResult Index(string NickName, string Email)
+        public ActionResult Index(string NickName, string Email,int? page)
         {
             var users = from m in db.Users select m;
             if (!String.IsNullOrEmpty(NickName))
@@ -26,7 +27,12 @@ namespace Movie.Controllers
             {
                 users = users.Where(s => s.Email.Contains(Email));
             }
-            return View(users);
+            users = users.OrderBy(c => c.UserId);
+            int pagenumber = page ?? 1;
+            int pagesize = 10;
+            IPagedList<User> pagelist = users.ToPagedList(pagenumber, pagesize);
+            return View(pagelist);
+       
         }
 
         // GET: Users/Details/5
