@@ -426,3 +426,7 @@ C:\Users\tyy_m\Desktop\Movie\Movie\bin\PagedList.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\bin\PagedList.Mvc.dll
 C:\Users\tyy_m\Desktop\Movie\Movie\bin\PagedList.xml
 C:\Users\tyy_m\Desktop\Movie\Movie\bin\PagedList.Mvc.xml
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\PagedList.dll
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\PagedList.Mvc.dll
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\PagedList.xml
+d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\PagedList.Mvc.xml

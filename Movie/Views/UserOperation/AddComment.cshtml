@@ -1,13 +1,14 @@
-﻿@model Movie.Models.Comment
+﻿@model Movie.Models.Total
 @{
+    //Layout = "~/Views/Shared/_User.cshtml";
     Layout = null;
 }
 
-@using (Html.BeginForm("AddComment", "UserOperation", FormMethod.Get, new { style = "padding-left: 15px; padding-right: 15px;width:100%;" }))
+@using (Html.BeginForm("AddComment", "UserOperation", FormMethod.Post, new { style = "padding-left: 15px; padding-right: 15px;width:100%;",@id="Cform"}))
 {
     @Html.AntiForgeryToken()
     <label for="comment.Content" style="text-align:left">用户评论</label>
-            @Html.TextBox("aaa")
-            @*<textarea name="comment.Content" class="form-control" rows="10" data-provide="markdown"></textarea>*@
-            <button type="submit" class="btn btn-default" style="float: left;">提交评论</button>
+    <textarea name="comment.Content" class="form-control" rows="10" data-provide="markdown"></textarea>
+    <button type="submit" class="btn btn-default" style="float: left;">提交评论</button>
 }
+

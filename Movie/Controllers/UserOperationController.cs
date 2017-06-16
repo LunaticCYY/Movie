@@ -82,8 +82,8 @@ namespace Movie.Controllers
             return View(detail);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         //public ActionResult Detail(Total model)
         //{
         //    Comment comment = new Comment();
@@ -118,7 +118,34 @@ namespace Movie.Controllers
         //    }
         //}
         
-        public ActionResult AddComment(string aaa)
+        public ActionResult AddComment()
+        {
+            return View();
+        }
+
+
+        public IPagedList<Total> ReceiveComment()
+        {
+            var comment1 = db.Comments.Where(c => c.VideoId == vid);
+            var video = db.Videos.Where(c => c.VideoId == vid).FirstOrDefault();
+            List<Total> total = new List<Total>();
+            foreach (var item in comment1)
+            {
+                Total detail = new Total();
+                detail.video = video;
+                var user1 = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
+                detail.user = user1;
+                detail.comment = item;
+                total.Add(detail);
+            }
+            int number = comment1.Count();
+            int pagenumber = number / 10 + 1;
+            int pagesize = 10;
+            IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+            return pagelist;
+        }
+        [HttpPost]
+        public ActionResult AddComment(Total model)
         {
             Comment comment = new Comment();
             var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
@@ -129,29 +156,28 @@ namespace Movie.Controllers
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
                 var user = db.Users.Where(c => c.UserId == uid).FirstOrDefault();
-                if (user.Privilege == 0)
+                if (user.Privilege == Movie.Models.User.Privileges.禁言会员)
                 {
-                    return Content("<script>alert('很抱歉，您没有权限评论');history.go(-1);</script>");
+                    return Content("<h1>很抱歉，您没有权限评论</h1>");
                 }
                 else
                 {
                     comment.UserId = uid;
                     comment.VideoId = vid;
-                    if (aaa != null)
-                        comment.Content = aaa;
+                    comment.Content = model.comment.Content;
                     comment.CommentTime = DateTime.Now.ToString();
                     db.Comments.Add(comment);
                     db.SaveChanges();
-                    Response.Write("<script>alert('评论成功');</script>");
-                    return Detail(vid);
+
+                   
+                    return PartialView("CommentList", ReceiveComment());
                 }
             }
             else
             {
-                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                return Content("<h1>请先登录</h1>");
                 //return RedirectToAction("Login", "Account");
             }
-            return View();
         }
 
 
@@ -187,7 +213,7 @@ namespace Movie.Controllers
             }
             else
             {
-                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                return Content("<script>alert('请先登录');window.location.href='/Account/Login';</script>");
                 //return RedirectToAction("Login","Account");
             }
         }
@@ -220,7 +246,6 @@ namespace Movie.Controllers
             video.ViewedNum = 0;
             // 用户ID
             video.UserId = int.Parse(Request.Cookies["uid"].Value);
-
             // 电影上传时间
             video.UploadTime = DateTime.Now.ToString();
             try
@@ -254,7 +279,7 @@ namespace Movie.Controllers
             }
             else
             {
-                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                return Content("<script>alert('请先登录');window.location.href='/Account/Login';</script>");
             }
         }
 
@@ -269,7 +294,7 @@ namespace Movie.Controllers
             }
             else
             {
-                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                return Content("<script>alert('请先登录');window.location.href='/Account/Login';</script>");
             }
         }
 
@@ -293,7 +318,7 @@ namespace Movie.Controllers
             }
             else
             {
-                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                return Content("<script>alert('请先登录');window.location.href='/Account/Login';</script>");
             }
         }
 
@@ -317,7 +342,7 @@ namespace Movie.Controllers
             }
             else
             {
-                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                return Content("<script>alert('请先登录');window.location.href='/Account/Login';</script>");
             }
         }
 
@@ -343,7 +368,7 @@ namespace Movie.Controllers
             }
             else
             {
-                return Content("<script>alert('请先登录');window.location.href='../Account/Login';</script>");
+                return Content("<script>alert('请先登录');window.location.href='/Account/Login';</script>");
             }
         }
 

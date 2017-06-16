@@ -26,12 +26,30 @@
         <br />
         @{Html.RenderAction("AddComment", "UserOperation");}
     </div>
-
-
-
-    @{Html.RenderAction("CommentList", "UserOperation");}
-
-
-
+    <div id="CommentList">
+        @{Html.RenderAction("CommentList", "UserOperation");}
+    </div>
 </div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            $('#Cform').on('submit', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("AddComment","UserOperation")',
+                    data: $('#Cform').serialize(),
+                    success: function (data) {
+                        $('#CommentList').html(data);
+                    }
+                });
+
+            });
+
+        });
+    </script>
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+}
 
