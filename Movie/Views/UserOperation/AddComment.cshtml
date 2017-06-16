@@ -1,0 +1,13 @@
+﻿@model Movie.Models.Comment
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddComment", "UserOperation", FormMethod.Get, new { style = "padding-left: 15px; padding-right: 15px;width:100%;" }))
+{
+    @Html.AntiForgeryToken()
+    <label for="comment.Content" style="text-align:left">用户评论</label>
+            @Html.TextBox("aaa")
+            @*<textarea name="comment.Content" class="form-control" rows="10" data-provide="markdown"></textarea>*@
+            <button type="submit" class="btn btn-default" style="float: left;">提交评论</button>
+}
