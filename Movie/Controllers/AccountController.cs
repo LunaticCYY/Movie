@@ -34,7 +34,7 @@ namespace Movie.Controllers
             {
                 // 如果存在该用户且密码正确，则将该用户加入cookie
                 Response.Cookies.Add(Cookies.create_cookies(user));
-                if (user.Privilege != 3)
+                if (user.Privilege != Models.User.Privileges.管理员)
                 {
                     // 如果该用户不是管理员，跳转普通用户页面
                     return RedirectToAction("Index", "UserOperation");
@@ -42,16 +42,15 @@ namespace Movie.Controllers
                 else
                 {
                     // 如果该用户是管理员，跳转管理员页面
-                    return RedirectToAction("List", "Users");
+                    return RedirectToAction("Index", "Users");
                 }
             }
             else
             {
                 // 如果该用户不存在或者密码错误
                 ModelState.AddModelError("", "用户名或密码错误");
+                return View();
             }
-            // 返回登录页面重新登录
-            return View();
         }
         public ActionResult Register()
         {
@@ -61,25 +60,33 @@ namespace Movie.Controllers
         // 注册Action
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(User user)
+        public ActionResult Register(Total detail)
         {
-            if (ModelState.IsValid)
+            if(detail.RePassword!=detail.user.Password)
             {
-                // 获取当前用户表内最大编号，如果用户表为空MaxId则为0
-                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
-                // 当前用户的编号自加一
-                user.UserId = MaxId + 1;
-
-                // 当前用户默认权限为0
-                user.Privilege = 1;
-                // 用户表内加入加入该用户
-                db.Users.Add(user);
-                // 数据库保存
-                db.SaveChanges();
-                // 跳转登录页面
-                return RedirectToAction("Login", "Account");
+                ModelState.AddModelError("", "两次密码不一致");
+                return View();
             }
-            return View();
+            else
+            {
+                User NewUser = new Models.User();
+                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
+                NewUser.UserId = MaxId + 1;
+                NewUser.Password = detail.user.Password;
+                NewUser.NickName = detail.user.NickName;
+                NewUser.Email = detail.user.Email;
+                NewUser.Privilege = Models.User.Privileges.普通会员;
+                db.Users.Add(NewUser);
+                if(db.SaveChanges()!=1)
+                {
+                    ModelState.AddModelError("", "服务器错误");
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+            }
         }
     }
 }

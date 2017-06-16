@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Movie.Models.CommentDetail>
+﻿@model IEnumerable<Movie.Models.Total>
 @{
     //Layout = "~/Views/Shared/_User.cshtml";
     Layout = null;
@@ -8,13 +8,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NickName)
+                @Html.DisplayFor(modelItem => item.user.NickName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
+                @Html.DisplayFor(modelItem => item.comment.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CommentTime)
+                @Html.DisplayFor(modelItem => item.comment.CommentTime)
             </td>
         </tr>
     }

@@ -10,25 +10,18 @@ namespace Movie.Models
 {
     public class MovieContext : DbContext
     {
-        // You can add custom code to this file. Changes will not be overwritten.
-        // 
-        // If you want Entity Framework to drop and regenerate your database
-        // automatically whenever you change your model schema, please use data migrations.
-        // For more information refer to the documentation:
-        // http://msdn.microsoft.com/en-us/data/jj591621.aspx
-
         public MovieContext() : base("name=UserDbContext")
         {
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("SCOTT");
-            modelBuilder.Entity<User>().Property(t => t.UserId) .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            modelBuilder.Entity<User>().Property(t => t.UserId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Video>().Property(t => t.VideoId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<History>().Property(t => t.HistoryId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Comment>().Property(t => t.CommentId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Favorite>().Property(t => t.FavoriteId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            
+
         }
 
         public System.Data.Entity.DbSet<Movie.Models.User> Users { get; set; }//Users表
@@ -40,6 +33,5 @@ namespace Movie.Models
         public System.Data.Entity.DbSet<Movie.Models.Comment> Comments { get; set; }//Comments表
 
         public System.Data.Entity.DbSet<Movie.Models.Favorite> Favorites { get; set; }//Favorite表
-
     }
 }

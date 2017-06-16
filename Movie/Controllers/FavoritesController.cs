@@ -28,7 +28,18 @@ namespace Movie.Controllers
                 int vid = int.Parse(VideoId);
                 favorite = favorite.Where(s => s.VideoId == vid);
             }
-            return View(favorite);
+            List<Total> total = new List<Total>();
+            foreach (var item in favorite)
+            {
+                Total detail = new Total();
+                detail.favorite = item;
+                var user = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
+                detail.user = user;
+                var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
+                detail.video = video;
+                total.Add(detail);
+            }
+            return View(total);
         }
 
         // GET: Favorites/Details/5
@@ -53,27 +64,21 @@ namespace Movie.Controllers
         }
 
         // POST: Favorites/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FavoriteId,UserId,VideoId,FavoriteTime")] Favorite favorite)
         {
-            // 判断从create.cshtml页面传过来的favorite类中是否合法
             if (ModelState.IsValid)
             {
                 // 如果是，则在评论表取得收藏表中最大的历史记录编号
                 var MaxId = db.Favorites.Any() ? db.Favorites.Max(p => p.FavoriteId) : 0;
                 // 将取得最大评论编号加一赋值给将要创建的收藏
                 favorite.FavoriteId = MaxId + 1;
-                // Favorites表里增加新评论
                 db.Favorites.Add(favorite);
-                // 数据库保存
                 db.SaveChanges();
-                // 跳转收藏首页
                 return RedirectToAction("Index");
             }
-            // 从create.cshtml页面传过来的history类中不合法，直接返回原来的页面
+
             return View(favorite);
         }
 
@@ -93,8 +98,6 @@ namespace Movie.Controllers
         }
 
         // POST: Favorites/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "FavoriteId,UserId,VideoId,FavoriteTime")] Favorite favorite)

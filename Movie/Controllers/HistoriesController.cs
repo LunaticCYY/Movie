@@ -12,10 +12,9 @@ namespace Movie.Controllers
 {
     public class HistoriesController : Controller
     {
-        // 数据库连接
         private MovieContext db = new MovieContext();
 
-        // Index.cshtml返回所有历史记录
+        // GET: Histories
         public ActionResult Index(string UserId, string VideoId)
         {
             var history = from m in db.Histories select m;
@@ -29,27 +28,32 @@ namespace Movie.Controllers
                 int vid = int.Parse(VideoId);
                 history = history.Where(s => s.VideoId == vid);
             }
-            return View(history);
+            List<Total> total = new List<Total>();
+            foreach(var item in history)
+            {
+                Total detail = new Total();
+                detail.history = item;
+                var user = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
+                detail.user = user;
+                var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
+                detail.video = video;
+                total.Add(detail);
+            }
+            return View(total);
         }
 
-        // Detail.cshtml 获取某个HistoryId显示某个历史记录的详细信息
+        // GET: Histories/Details/5
         public ActionResult Details(int? id)
         {
-            // 如果id为空
             if (id == null)
             {
-                // 请求错误信息
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            // 通过id查询该历史
             History history = db.Histories.Find(id);
-            // 如果没有查询到该历史
             if (history == null)
             {
-                // 返回没有找到信息
                 return HttpNotFound();
             }
-            // 返回该历史信息页面
             return View(history);
         }
 
@@ -59,26 +63,22 @@ namespace Movie.Controllers
             return View();
         }
 
-        // 创建播放历史Action
+        // POST: Histories/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "HistoryId,UserId,VideoId,HistoryTime")] History history)
         {
-            // 判断从create.cshtml页面传过来的history类中是否合法
             if (ModelState.IsValid)
             {
                 // 如果是，则在评论表取得历史记录表中最大的历史记录编号
                 var MaxId = db.Histories.Any() ? db.Histories.Max(p => p.HistoryId) : 0;
                 // 将取得最大评论编号加一赋值给将要创建的评论
                 history.HistoryId = MaxId + 1;
-                // Histories表里增加新评论
                 db.Histories.Add(history);
-                // 数据库保存
                 db.SaveChanges();
-                // 跳转历史记录首页
                 return RedirectToAction("Index");
             }
-            // 从create.cshtml页面传过来的history类中不合法，直接返回原来的页面
+
             return View(history);
         }
 
@@ -97,22 +97,17 @@ namespace Movie.Controllers
             return View(history);
         }
 
-        // 编辑Action
+        // POST: Histories/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "HistoryId,UserId,VideoId,HistoryTime")] History history)
         {
-            // 判断从Edit.cshtml页面传过来的history类中是否合法
             if (ModelState.IsValid)
             {
-                // 更改history数据
                 db.Entry(history).State = EntityState.Modified;
-                // 数据库保存
                 db.SaveChanges();
-                // 跳转评论首页
                 return RedirectToAction("Index");
             }
-            // 从Edit.cshtml页面传过来的history类不合法，直接返回原来的页面
             return View(history);
         }
 
@@ -131,7 +126,7 @@ namespace Movie.Controllers
             return View(history);
         }
 
-        // 删除Action
+        // POST: Histories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -141,7 +136,7 @@ namespace Movie.Controllers
             // 历史表里面删除该历史记录
             db.Histories.Remove(history);
             var comment = db.Comments.Where(c => c.UserId == history.UserId).Where(c => c.VideoId == history.VideoId);
-            foreach(var item in comment)
+            foreach (var item in comment)
             {
                 db.Comments.Remove(item);
             }
@@ -152,6 +147,7 @@ namespace Movie.Controllers
             // 跳转历史表首页
             return RedirectToAction("Index");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

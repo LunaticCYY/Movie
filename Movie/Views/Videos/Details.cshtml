@@ -1,14 +1,13 @@
 ﻿@model Movie.Models.Video
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "视频详细信息";
 }
 
-<h2>Details</h2>
+<h2>视频详细信息</h2>
 
 <div>
-    <h4>Video</h4>
+    <h4>视频管理</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -78,6 +77,5 @@
     </dl>
 </div>
 <p>
-    
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回视频管理首页", "Index")
 </p>

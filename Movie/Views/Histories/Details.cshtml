@@ -1,10 +1,10 @@
 ﻿@model Movie.Models.History
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "历史详情";
 }
 
-<h2>Details</h2>
+<h2>历史详情</h2>
 
 <div>
     <h4>History</h4>
@@ -37,5 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.HistoryId }) |*@
+    @Html.ActionLink("返回历史管理首页", "Index")
 </p>

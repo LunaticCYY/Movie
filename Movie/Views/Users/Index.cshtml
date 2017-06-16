@@ -1,14 +1,23 @@
 ﻿@model IEnumerable<Movie.Models.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "用户管理首页";
 }
 
-<h2>Index</h2>
+<h2>用户管理首页</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("创建新用户", "Create")
 </p>
+@using (Html.BeginForm("List", "Users", FormMethod.Get))
+{
+    <p>
+        昵称: @Html.TextBox("NickName")
+        &nbsp;&nbsp;
+        邮箱: @Html.TextBox("Email")
+        <input type="submit" class="btn btn-default" value="搜索" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -27,12 +36,15 @@
     </tr>
 
 @foreach (var item in Model) {
+    if (item.Privilege != Movie.Models.User.Privileges.管理员)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.NickName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
+            @*@Html.DisplayFor(modelItem => item.Password)*@
+            ****************
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
@@ -41,11 +53,11 @@
             @Html.DisplayFor(modelItem => item.Privilege)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("编辑用户信息", "Edit", new { id = item.UserId }) |
+            @Html.ActionLink("用户详细信息", "Details", new { id = item.UserId }) |
+            @Html.ActionLink("删除用户", "Delete", new { id = item.UserId })
         </td>
-    </tr>
+    </tr>}
 }
 
 </table>

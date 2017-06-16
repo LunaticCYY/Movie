@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Movie.Models.FavoriteDetail>
+﻿@model IEnumerable<Movie.Models.Total>
 @{
     Layout = "~/Views/Shared/_User.cshtml";
 }
@@ -9,13 +9,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.VideoId)
+            @Html.DisplayNameFor(model => model.video.VideoId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vname)
+            @Html.DisplayNameFor(model => model.video.Vname)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FavoriteTime)
+            @Html.DisplayNameFor(model => model.favorite.FavoriteTime)
         </th>
         <th></th>
     </tr>
@@ -24,13 +24,15 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.VideoId)
+                @Html.DisplayFor(modelItem => item.video.VideoId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Vname)
+                <a href="@Url.Action("Detail","UserOperation",new { id = item.video.VideoId })">
+                    @Html.DisplayFor(modelItem => item.video.Vname)
+                </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FavoriteTime)
+                @Html.DisplayFor(modelItem => item.favorite.FavoriteTime)
             </td>
         </tr>
     }

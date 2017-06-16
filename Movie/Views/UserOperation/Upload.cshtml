@@ -1,10 +1,8 @@
-﻿
+﻿@model Movie.Models.Video
 @{
-    ViewBag.Title = "Upload";
+    ViewBag.Title = "投稿";
     Layout = "~/Views/Shared/_User.cshtml";
 }
-
-@model Movie.Models.Video
 
 
 @using (Html.BeginForm("Upload", "UserOperation", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -28,54 +26,46 @@
         </div>
 
         @Html.HiddenFor(model => model.Vurl)
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Vurl, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Vurl, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Vurl, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
 
         @Html.HiddenFor(model => model.Thumbnail)
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Thumbnail, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Thumbnail, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vtype, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vtype, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.Vtype, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Vtype, "", new { @class = "text-danger" })
             </div>
         </div>
 
         @Html.HiddenFor(model => model.UserId)
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+
+        @Html.HiddenFor(model => model.UserId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vinfo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Vinfo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Vinfo, new { @class = "form-control", rows = 10, style = "width:280px" })
                 @Html.ValidationMessageFor(model => model.Vinfo, "", new { @class = "text-danger" })
             </div>
         </div>
-        <span>上传视频的图片</span>
-        <input type="file" name="file2" />
-        <span>上传视频</span>
-        <input type="file" name="file1" />
+
+        <div class="form-group">
+            <label class="control-label col-md-2">上传视频的图片</label>
+            <div class="col-md-10">
+                <input type="file" name="file2" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">上传视频</label>
+            <div class="col-md-10">
+                <input type="file" name="file1" class="btn btn-default" />
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="ButtonUpload" value="Upload" class="btn btn-default" />
+                <input type="submit" id="ButtonUpload" value="上传" class="btn btn-default" />
             </div>
         </div>
     </div>

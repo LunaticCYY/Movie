@@ -170,17 +170,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706150803387_InitialCreate.cs" />
+    <Compile Include="Migrations\201706150803387_InitialCreate.Designer.cs">
+      <DependentUpon>201706150803387_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\CommentDetail.cs" />
     <Compile Include="Models\Favorite.cs" />
-    <Compile Include="Models\FavoriteDetail.cs" />
     <Compile Include="Models\History.cs" />
-    <Compile Include="Models\HistoryDetail.cs" />
     <Compile Include="Models\MovieContext.cs" />
+    <Compile Include="Models\Total.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Video.cs" />
-    <Compile Include="Models\VideoDetail.cs" />
     <Compile Include="MyHelpler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -242,19 +243,6 @@
     <Content Include="Video\1.mp4" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\List.cshtml" />
-    <Content Include="Views\Histories\Create.cshtml" />
-    <Content Include="Views\Histories\Delete.cshtml" />
-    <Content Include="Views\Histories\Details.cshtml" />
-    <Content Include="Views\Histories\Index.cshtml" />
-    <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
-    <Content Include="Views\Comments\Index.cshtml" />
-    <Content Include="Views\UserOperation\Index.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
@@ -271,34 +259,59 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Videos\Upload.cshtml" />
-    <Content Include="Views\Videos\Delete.cshtml" />
-    <Content Include="Views\Videos\Details.cshtml" />
-    <Content Include="Views\Videos\Index.cshtml" />
-    <Content Include="Views\UserOperation\Upload.cshtml" />
-    <Content Include="Views\UserOperation\UploadRecord.cshtml" />
-    <Content Include="Views\UserOperation\UserMessage.cshtml" />
-    <Content Include="Views\UserOperation\ViewRecord.cshtml" />
-    <Content Include="Views\Favorites\Create.cshtml" />
-    <Content Include="Views\Favorites\Delete.cshtml" />
-    <Content Include="Views\Favorites\Details.cshtml" />
-    <Content Include="Views\Favorites\Index.cshtml" />
-    <Content Include="Views\UserOperation\UserFavorite.cshtml" />
-    <Content Include="Views\UserOperation\Detail.cshtml" />
-    <Content Include="Views\UserOperation\AddFavorite.cshtml" />
-    <Content Include="Views\UserOperation\UserComment.cshtml" />
-    <Content Include="Views\UserOperation\CommentList.cshtml" />
-    <Content Include="Views\UserOperation\Loginout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Histories\Create.cshtml" />
+    <Content Include="Views\Histories\Delete.cshtml" />
+    <Content Include="Views\Histories\Details.cshtml" />
+    <Content Include="Views\Histories\Edit.cshtml" />
+    <Content Include="Views\Histories\Index.cshtml" />
+    <Content Include="Views\Favorites\Create.cshtml" />
+    <Content Include="Views\Favorites\Delete.cshtml" />
+    <Content Include="Views\Favorites\Details.cshtml" />
+    <Content Include="Views\Favorites\Edit.cshtml" />
+    <Content Include="Views\Favorites\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Videos\Create.cshtml" />
+    <Content Include="Views\Videos\Delete.cshtml" />
+    <Content Include="Views\Videos\Details.cshtml" />
+    <Content Include="Views\Videos\Edit.cshtml" />
+    <Content Include="Views\Videos\Index.cshtml" />
+    <Content Include="Views\Videos\Upload.cshtml" />
     <Content Include="Views\Shared\_User.cshtml" />
+    <Content Include="Views\UserOperation\Index.cshtml" />
+    <Content Include="Views\UserOperation\AddFavorite.cshtml" />
+    <Content Include="Views\UserOperation\CommentList.cshtml" />
+    <Content Include="Views\UserOperation\Detail.cshtml" />
+    <Content Include="Views\UserOperation\Loginout.cshtml" />
+    <Content Include="Views\UserOperation\Upload.cshtml" />
+    <Content Include="Views\UserOperation\UploadRecord.cshtml" />
+    <Content Include="Views\UserOperation\UserComment.cshtml" />
+    <Content Include="Views\UserOperation\UserFavorite.cshtml" />
+    <Content Include="Views\UserOperation\UserMessage.cshtml" />
+    <Content Include="Views\UserOperation\ViewRecord.cshtml" />
+    <Content Include="Views\UserOperation\SearchResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706150803387_InitialCreate.resx">
+      <DependentUpon>201706150803387_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
