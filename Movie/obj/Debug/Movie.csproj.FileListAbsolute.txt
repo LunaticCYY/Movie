@@ -80,28 +80,6 @@ d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\zh-Hans\System.
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.dll
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.pdb
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\csi.exe.config
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\Microsoft.Win32.Primitives.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Console.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Diagnostics.Process.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.IO.Compression.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.IO.Pipes.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Security.AccessControl.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Security.Claims.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Security.Cryptography.Algorithms.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Security.Cryptography.Encoding.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Security.Cryptography.Primitives.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Security.Principal.Windows.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Text.Encoding.CodePages.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Threading.Thread.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.ValueTuple.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Xml.ReaderWriter.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Xml.XmlDocument.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Xml.XPath.dll
-d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\bin\roslyn\System.Xml.XPath.XDocument.dll
 d:\lunatic\documents\visual studio 2017\Projects\Movie\Movie\obj\Debug\Movie.csprojResolveAssemblyReference.cache
 C:\Users\tyy_m\Downloads\Movie-master\Movie\bin\ApplicationInsights.config
 C:\Users\tyy_m\Downloads\Movie-master\Movie\bin\roslyn\csc.exe
