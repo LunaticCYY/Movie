@@ -289,7 +289,7 @@ namespace Movie.Controllers
             {
                 HttpCookie hc = Request.Cookies["uid"];
                 int uid = int.Parse(hc.Value);
-                var video = from m in db.Videos select m;
+                var video = db.Videos.Where(c=>c.UserId==uid);
                 List<Total> total = new List<Total>();
                 foreach (var item in video)
                 {

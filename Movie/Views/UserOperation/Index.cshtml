@@ -67,7 +67,7 @@
                 <h2>@Html.DisplayFor(Model=>Model.ElementAt(3).Vname)</h2>
                 <p>@*@Html.DisplayFor(Model => Model.ElementAt(3).Vinfo)*@</p>
             </a>
-            <p><a class="btn btn-primary" href="#" role="button">查看详情 &raquo;</a></p>
+            <p><a class="btn btn-primary" href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(3).VideoId })" role="button">查看详情 &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(4).VideoId })">
@@ -75,7 +75,7 @@
                 <h2>@Html.DisplayFor(Model => Model.ElementAt(4).Vname)</h2>
                 @*<p>@Html.DisplayFor(Model => Model.ElementAt(4).Vinfo)</p>*@
             </a>
-            <p><a class="btn btn-primary" href="#" role="button">查看详情 &raquo;</a></p>
+            <p><a class="btn btn-primary" href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(4).VideoId })" role="button">查看详情 &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <a href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(5).VideoId })">
@@ -83,7 +83,7 @@
                 <h2>@Html.DisplayFor(Model => Model.ElementAt(5).Vname)</h2>
                 @*<p>@Html.DisplayFor(Model => Model.ElementAt(5).Vinfo)</p>*@
             </a>
-            <p><a class="btn btn-primary" href="#" role="button">查看详情 &raquo;</a></p>
+            <p><a class="btn btn-primary" href="@Url.Action("Detail","UserOperation",new { id = Model.ElementAt(5).VideoId })" role="button">查看详情 &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 

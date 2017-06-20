@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
 using PagedList;
+using Movie.App_Start;
 
 namespace Movie.Controllers
 {
@@ -16,6 +17,7 @@ namespace Movie.Controllers
         private MovieContext db = new MovieContext();
 
         // GET: Users
+        [CheckLogin]
         public ActionResult Index(string NickName, string Email,int? page)
         {
             var users = from m in db.Users select m;
