@@ -9,15 +9,17 @@ using System.Web.Mvc;
 using Movie.Models;
 using System.IO;
 using PagedList;
+using Movie.App_Start;
 
 namespace Movie.Controllers
 {
+    [CheckLogin]
     public class VideosController : Controller
     {
         private MovieContext db = new MovieContext();
 
         // GET: Videos
-        public ActionResult Index(string UserId,string Vname,int ?page)
+        public ActionResult Index(string UserId, string Vname, int? page)
         {
             var video = from m in db.Videos select m;
             if (!String.IsNullOrEmpty(Vname))
@@ -41,7 +43,14 @@ namespace Movie.Controllers
             int pagenumber = page ?? 1;
             int pagesize = 10;
             IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
-            return View(pagelist);
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View(pagelist);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // GET: Videos/Details/5
@@ -56,13 +65,27 @@ namespace Movie.Controllers
             {
                 return HttpNotFound();
             }
-            return View(video);
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View(video);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // GET: Videos/Create
         public ActionResult Create()
         {
-            return View();
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // POST: Videos/Create
@@ -76,8 +99,14 @@ namespace Movie.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(video);
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View(video);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // GET: Videos/Edit/5
@@ -92,7 +121,14 @@ namespace Movie.Controllers
             {
                 return HttpNotFound();
             }
-            return View(video);
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View(video);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // POST: Videos/Edit/5
@@ -109,7 +145,14 @@ namespace Movie.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(video);
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View(video);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // GET: Videos/Delete/5
@@ -124,7 +167,14 @@ namespace Movie.Controllers
             {
                 return HttpNotFound();
             }
-            return View(video);
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View(video);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // POST: Videos/Delete/5
@@ -132,30 +182,38 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Video vi = db.Videos.Find(id);
-            var com = db.Comments.Where(c => c.VideoId == vi.VideoId);
-            var his = db.Histories.Where(c => c.VideoId == vi.VideoId);
-            var videofile = Request.MapPath(vi.Vurl);
-            var pic = Request.MapPath(vi.Thumbnail);
-            System.IO.File.Delete(videofile);
-            System.IO.File.Delete(pic);
-            if (his != null)
+            if (Cookies.CheckPrivilege() == true)
             {
-                foreach (var a in his)
+                Video vi = db.Videos.Find(id);
+                var com = db.Comments.Where(c => c.VideoId == vi.VideoId);
+                var his = db.Histories.Where(c => c.VideoId == vi.VideoId);
+                var videofile = Request.MapPath(vi.Vurl);
+                var pic = Request.MapPath(vi.Thumbnail);
+                System.IO.File.Delete(videofile);
+                System.IO.File.Delete(pic);
+                if (his != null)
                 {
-                    db.Histories.Remove(a);
-                }   
-            }     
-            if (com != null)
-            {
-                foreach (var a in com)
-                {
-                    db.Comments.Remove(a);
+                    foreach (var a in his)
+                    {
+                        db.Histories.Remove(a);
+                    }
                 }
-            }     
-            db.Videos.Remove(vi);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+                if (com != null)
+                {
+                    foreach (var a in com)
+                    {
+                        db.Comments.Remove(a);
+                    }
+                }
+                db.Videos.Remove(vi);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
@@ -169,7 +227,14 @@ namespace Movie.Controllers
 
         public ActionResult Upload()
         {
-            return View();
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // 创建视频Action
@@ -177,45 +242,52 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Upload(HttpPostedFileBase file2, HttpPostedFileBase file1, [Bind(Include = "VideoId,Vname,Vurl,Thumbnail,ViewedNum,UploadTime,Vtype,UserId,Vinfo")] Video video)
         {
-            if (file1 == null)
+            if (Cookies.CheckPrivilege() == true)
             {
-                return Content("没有文件！", "text/plain");
+                if (file1 == null)
+                {
+                    return Content("没有文件！", "text/plain");
+                }
+                if (file2 == null)
+                {
+                    return Content("没有图片！", "text/plain");
+                }
+                var picname = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file2.FileName));
+                var filename = Path.Combine(Request.MapPath("~/Video"), Path.GetFileName(file1.FileName));
+                // 在用电影表取得电影表中最大的电影编号
+                var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
+                // 将取得最大电影编号加一赋值给将要创建的电影
+                video.VideoId = MaxId + 1;
+                // 电影默认观看数为0
+                video.ViewedNum = 0;
+                // 电影的封面
+                //video.Thumbnail = "123";
+                // 用户ID
+                video.UserId = int.Parse(Request.Cookies["uid"].Value);
+                // 电影上传时间
+                video.UploadTime = DateTime.Now.ToString();
+                try
+                {
+                    file1.SaveAs(filename);
+                    file2.SaveAs(picname);
+                    // 电影存储地址;//得到全部model信息
+                    video.Thumbnail = "~/Image/" + Path.GetFileName(file2.FileName);
+                    video.Vurl = "~/Video/" + Path.GetFileName(file1.FileName);
+                    //return Content("上传成功！", "text/plain");
+                    // 将这个对象插入数据库
+                    db.Videos.Add(video);
+                    // 数据库保存
+                    db.SaveChanges();
+                    return RedirectToAction("index");
+                }
+                catch
+                {
+                    return Content("上传异常 ！", "text/plain");
+                }
             }
-            if (file2 == null)
+            else
             {
-                return Content("没有图片！", "text/plain");
-            }
-            var picname = Path.Combine(Request.MapPath("~/Image"), Path.GetFileName(file2.FileName));
-            var filename = Path.Combine(Request.MapPath("~/Video"), Path.GetFileName(file1.FileName));
-            // 在用电影表取得电影表中最大的电影编号
-            var MaxId = db.Videos.Any() ? db.Videos.Max(p => p.VideoId) : 0;
-            // 将取得最大电影编号加一赋值给将要创建的电影
-            video.VideoId = MaxId + 1;
-            // 电影默认观看数为0
-            video.ViewedNum = 0;
-            // 电影的封面
-            //video.Thumbnail = "123";
-            // 用户ID
-            video.UserId = int.Parse(Request.Cookies["uid"].Value);
-            // 电影上传时间
-            video.UploadTime = DateTime.Now.ToString();
-            try
-            {
-                file1.SaveAs(filename);
-                file2.SaveAs(picname);
-                // 电影存储地址;//得到全部model信息
-                video.Thumbnail = "~/Image/" + Path.GetFileName(file2.FileName);
-                video.Vurl = "~/Video/" + Path.GetFileName(file1.FileName);
-                //return Content("上传成功！", "text/plain");
-                // 将这个对象插入数据库
-                db.Videos.Add(video);
-                // 数据库保存
-                db.SaveChanges();
-                return RedirectToAction("index");
-            }
-            catch
-            {
-                return Content("上传异常 ！", "text/plain");
+                return RedirectToAction("Index", "UserOperation");
             }
         }
     }

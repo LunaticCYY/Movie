@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
 namespace Movie.App_Start
 {
     public class CheckLogin : ActionFilterAttribute
@@ -17,6 +16,5 @@ namespace Movie.App_Start
                 filterContext.Result = new RedirectResult("/Account/Login");
             }
         }
-
     }
 }

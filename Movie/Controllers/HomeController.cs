@@ -7,13 +7,20 @@ using System.Web.Mvc;
 
 namespace Movie.Controllers
 {
+    [CheckLogin]
     public class HomeController : Controller
     {
         // 首页
-        //[CheckLogin]
         public ActionResult Index()
         {
-            return View();
+            if (Cookies.CheckPrivilege()==true)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // 关于
@@ -21,7 +28,14 @@ namespace Movie.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            if (Cookies.CheckPrivilege())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         //联系
@@ -29,7 +43,14 @@ namespace Movie.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            if (Cookies.CheckPrivilege())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
     }
 }

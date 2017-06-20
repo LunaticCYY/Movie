@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using Movie.Models;
 using PagedList;
+using Movie.App_Start;
 
 namespace Movie.Controllers
 {
+    [CheckLogin]
     public class CommentsController : Controller
     {
         private MovieContext db = new MovieContext();
@@ -18,32 +20,40 @@ namespace Movie.Controllers
         // GET: Comments
         public ActionResult Index(string UserId, string VideoId,int ?page)
         {
-            var comment = from m in db.Comments select m;
-            if (!String.IsNullOrEmpty(UserId))
+            if (Cookies.CheckPrivilege() == true)
             {
-                int uid = int.Parse(UserId);
-                comment = comment.Where(s => s.UserId == uid);
+                var comment = from m in db.Comments select m;
+                if (!String.IsNullOrEmpty(UserId))
+                {
+                    int uid = int.Parse(UserId);
+                    comment = comment.Where(s => s.UserId == uid);
+                }
+                if (!String.IsNullOrEmpty(VideoId))
+                {
+                    int vid = int.Parse(VideoId);
+                    comment = comment.Where(s => s.VideoId == vid);
+                }
+                List<Total> total = new List<Total>();
+                foreach (var item in comment)
+                {
+                    Total detail = new Total();
+                    detail.comment = item;
+                    var user = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
+                    detail.user = user;
+                    var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
+                    detail.video = video;
+                    total.Add(detail);
+                }
+                int pagenumber = page ?? 1;
+                int pagesize = 10;
+                IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
+                return View(pagelist);
             }
-            if (!String.IsNullOrEmpty(VideoId))
+            else
             {
-                int vid = int.Parse(VideoId);
-                comment = comment.Where(s => s.VideoId == vid);
+                return RedirectToAction("Index", "UserOperation");
             }
-            List<Total> total = new List<Total>();
-            foreach (var item in comment)
-            {
-                Total detail = new Total();
-                detail.comment = item;
-                var user = db.Users.Where(c => c.UserId == item.UserId).FirstOrDefault();
-                detail.user = user;
-                var video = db.Videos.Where(c => c.VideoId == item.VideoId).FirstOrDefault();
-                detail.video = video;
-                total.Add(detail);
-            }
-            int pagenumber = page ?? 1;
-            int pagesize = 10;
-            IPagedList<Total> pagelist = total.ToPagedList(pagenumber, pagesize);
-            return View(pagelist);
+            
         }
 
         // GET: Comments/Details/5
@@ -58,13 +68,28 @@ namespace Movie.Controllers
             {
                 return HttpNotFound();
             }
-            return View(comment);
+            
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View(comment);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // GET: Comments/Create
         public ActionResult Create()
         {
-            return View();
+            if (Cookies.CheckPrivilege() == true)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
         }
 
         // POST: Comments/Create
@@ -72,33 +97,49 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CommentId,UserId,VideoId,Content,CommentTime")] Comment comment)
         {
-            if (ModelState.IsValid)
+            if (Cookies.CheckPrivilege() == true)
             {
-                // 如果是，则在评论表取得评论表中最大的评论编号
-                var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
-                // 将取得最大评论编号加一赋值给将要创建的评论
-                comment.CommentId = MaxId + 1;
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    // 如果是，则在评论表取得评论表中最大的评论编号
+                    var MaxId = db.Comments.Any() ? db.Comments.Max(p => p.CommentId) : 0;
+                    // 将取得最大评论编号加一赋值给将要创建的评论
+                    comment.CommentId = MaxId + 1;
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View(comment);
+                return View(comment);
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
+            
         }
 
         // GET: Comments/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (Cookies.CheckPrivilege() == true)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Comment comment = db.Comments.Find(id);
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(comment);
             }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "UserOperation");
             }
-            return View(comment);
+            
         }
 
         // POST: Comments/Edit/5
@@ -118,16 +159,24 @@ namespace Movie.Controllers
         // GET: Comments/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (Cookies.CheckPrivilege() == true)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Comment comment = db.Comments.Find(id);
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(comment);
             }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "UserOperation");
             }
-            return View(comment);
+            
         }
 
         // POST: Comments/Delete/5
@@ -135,10 +184,18 @@ namespace Movie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Comment comment = db.Comments.Find(id);
-            db.Comments.Remove(comment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (Cookies.CheckPrivilege() == true)
+            {
+                Comment comment = db.Comments.Find(id);
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Index", "UserOperation");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

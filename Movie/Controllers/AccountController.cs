@@ -42,7 +42,7 @@ namespace Movie.Controllers
                 else
                 {
                     // 如果该用户是管理员，跳转管理员页面
-                    return RedirectToAction("Index", "Users");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
