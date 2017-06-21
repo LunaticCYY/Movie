@@ -43,14 +43,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.comment.CommentTime)
             </td>
-            
+            <td>
+                @*@Html.ActionLink("删除", "DeleteComment", new { id = item.comment.CommentId })*@
+                @Ajax.ActionLink("删除", "DeteleComment", new { id = item.comment.CommentId }, new AjaxOptions { UpdateTargetId = "body" })
+            </td>
         </tr>
 
     }
 
 </table>
 每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+@Html.PagedListPager(Model, page => Url.Action("UserComment", new { page }))
 
 
 

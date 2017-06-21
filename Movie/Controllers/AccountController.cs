@@ -69,22 +69,31 @@ namespace Movie.Controllers
             }
             else
             {
-                User NewUser = new Models.User();
-                var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
-                NewUser.UserId = MaxId + 1;
-                NewUser.Password = detail.user.Password;
-                NewUser.NickName = detail.user.NickName;
-                NewUser.Email = detail.user.Email;
-                NewUser.Privilege = Models.User.Privileges.普通会员;
-                db.Users.Add(NewUser);
-                if(db.SaveChanges()!=1)
+                var user = db.Users.Where(c => c.Email == detail.user.Email).FirstOrDefault();
+                if(user!=null)
                 {
-                    ModelState.AddModelError("", "服务器错误");
+                    ModelState.AddModelError("", "此邮箱已被注册");
                     return View();
                 }
                 else
                 {
-                    return RedirectToAction("Login", "Account");
+                    User NewUser = new Models.User();
+                    var MaxId = db.Users.Any() ? db.Users.Max(p => p.UserId) : 0;
+                    NewUser.UserId = MaxId + 1;
+                    NewUser.Password = detail.user.Password;
+                    NewUser.NickName = detail.user.NickName;
+                    NewUser.Email = detail.user.Email;
+                    NewUser.Privilege = Models.User.Privileges.普通会员;
+                    db.Users.Add(NewUser);
+                    if (db.SaveChanges() != 1)
+                    {
+                        ModelState.AddModelError("", "服务器错误");
+                        return View();
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "Account");
+                    }
                 }
             }
         }

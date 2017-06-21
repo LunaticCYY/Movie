@@ -5,14 +5,14 @@
     //Layout = "~/Views/Shared/_User.cshtml";
     Layout = null;
 }
-<table class="table">
+<table class="table" style="table-layout:fixed">
     @foreach (var item in Model)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.user.NickName)
             </td>
-            <td>
+            <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                 @Html.DisplayFor(modelItem => item.comment.Content)
             </td>
             <td>
@@ -20,9 +20,6 @@
             </td>
         </tr>
     }
-
 </table>
-    每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
-@Html.PagedListPager(Model, page => Url.Action("Index", new{page }))  
-
-
+每页 @Model.PageSize 条记录，共 @Model.PageCount 页，当前第 @Model.PageNumber 页
+@Html.PagedListPager(Model, page => Url.Action("CommentList", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "CommentList" }))
